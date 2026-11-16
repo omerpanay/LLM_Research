@@ -1,0 +1,14 @@
+<section id="ev-bench">
+<p class="kick">2 · EVALUATORS</p>
+<h2>How the main benchmarks decide</h2>
+<table>
+<tr class="th"><th style="width:26%">Benchmark</th><th style="width:30%">Size</th><th>Who decides success</th></tr>
+<tr><td>InjecAgent (ACL Findings 2024)</td><td>1,054 test cases</td><td>Code: did the agent call the attacker’s tool?</td></tr>
+<tr><td>AgentDojo (NeurIPS 2024)</td><td>97 tasks, 629 security tests</td><td>Code that checks the system state</td></tr>
+<tr><td>AgentHarm (ICLR 2025)</td><td>110 harmful tasks (440 with variants)</td><td>Written rules; an LLM only for small parts</td></tr>
+<tr class="hl"><td>AgentLAB (ICML 2026)</td><td>644 test cases</td><td>An LLM judge (GPT-5.1)</td></tr>
+<tr><td>CAR-bench (ACL 2026)</td><td>240 car tasks, 19 rules</td><td>Code for 12 rules, an LLM judge for 7</td></tr>
+</table>
+<p class="strong" style="transform:translate(0, -2px)">AgentDojo avoids LLM judges for a simple reason: an attack strong enough to fool the agent might fool the judge too. And That is really important point for evaulation process.</p>
+<aside>Bu tablo hangi benchmark'ın başarıya nasıl karar verdiğini gösteriyor. Eski benchmark'lar (InjecAgent, AgentDojo) kodla karar veriyor, yeni ve uzun ufuklu olan AgentLAB ise LLM hakemle. AgentDojo makalesinin kendi gerekçesi: "Eğer saldırı çok başarılıysa, değerlendirme modelini de ele geçirme ihtimali var." Yani saldırı kendi ölçümünü bozabilir. Bu cümle tezin için önemli: AgentLAB'in hakemi tam da bu riske açık. CAR-bench ikisini karıştırıyor: 12 kural kodla, 7 kural LLM hakemle.</aside>
+</section>

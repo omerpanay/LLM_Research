@@ -1,0 +1,14 @@
+<section id="families">
+<p class="kick">1 · THE PROBLEM AND THE ATTACKS</p>
+<h2>The most useful benchmark I found for this is AgentLAB (ICML 2026).</h2>
+<p class="lead">It puts these attacks into five groups:</p>
+<table>
+<tr class="th"><th style="width:26%">Attack type</th><th style="width:18%">Who attacks</th><th>What happens</th></tr>
+<tr><td>Intent hijacking</td><td>The user</td><td>Convinces the agent step by step to do something it should refuse</td></tr>
+<tr><td>Tool chaining</td><td>The user</td><td>Breaks a harmful goal into small tool calls that each look safe</td></tr>
+<tr><td>Task injection</td><td>The data</td><td>Adds a second, hidden task next to the real one</td></tr>
+<tr><td>Objective drifting</td><td>The data</td><td>Changes the goal slowly, a little at a time</td></tr>
+<tr><td>Memory poisoning</td><td>The data</td><td>Saves a fake preference that is used in a later session</td></tr>
+</table>
+<aside>İlk ikisinde saldırgan kullanıcının kendisi, son üçünde saldırı ajanın okuduğu veriden geliyor (yorum, e-posta, web sayfası). Araç örneği vermek istersen: tool chaining için "takvimi oku, ev adresini bul, hedef yap, varış saatini bir yabancıya gönder" örneğini kullanabilirsin; her adım tek başına masum görünüyor.</aside>
+</section>

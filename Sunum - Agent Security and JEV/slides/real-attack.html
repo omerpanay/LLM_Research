@@ -1,0 +1,11 @@
+<section id="real-attack">
+<p class="kick">2 · EVALUATORS</p>
+<h2>We should not trust attack success numbers too quickly.</h2>
+<p class="lead">A number like “ASR 74%” depends on two things: how the test was built, and who decided that the attack worked.</p>
+<div class="row">
+<div class="card" style="--i:0"><h3 class="ct">The best example: Agent Security Bench (ASB)</h3><p class="cb">In ASB, the attacker’s tools were always added to the agent’s tool list, and every time the agent used one, it was counted as a successful attack.</p></div>
+<div class="card cool" style="--i:1"><p class="mid">73.58% → 9.25%</p><p class="cb">When another team let the agent choose its own tools, the success rate on GPT-4o fell from 73.58% to 9.25% (Bhagwatkar et al.)</p></div>
+</div>
+<p class="strong">So most of the “attacks” came from how the test was built.</p>
+<aside>ASR = attack success rate, yani 100 saldırıdan kaçının başarılı olduğu. ASB'de saldırganın tool'ları ajanın listesine zorla ekleniyordu ve ajan bunlardan birini kullanınca saldırı başarılı sayılıyordu. Ajan tool'larını kendi seçince başarı yüzde 73,58'den yüzde 9,25'e düştü. Mesaj: sayıyı kimin, nasıl ölçtüğüne bakmadan güvenme.</aside>
+</section>

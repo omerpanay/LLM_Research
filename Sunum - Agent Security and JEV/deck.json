@@ -1,0 +1,84 @@
+{
+  "v": 5,
+  "attachments": {},
+  "cover": "cover",
+  "createdOnFiles": {
+    "at": "2026-11-16T21:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "faces": {
+    "ibm-plex-sans": {
+      "family": "IBM Plex Sans",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@700&display=swap"
+    },
+    "jetbrains-mono": {
+      "family": "JetBrains Mono",
+      "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&family=JetBrains+Mono:wght@700&display=swap"
+    }
+  },
+  "format": {
+    "shared": [
+      "project/deck.css"
+    ],
+    "v": 1
+  },
+  "lists": "css",
+  "order": [
+    "cover",
+    "problem",
+    "many",
+    "families",
+    "results",
+    "real-attack",
+    "ev-types",
+    "ev-bench",
+    "judge",
+    "ev-tested",
+    "questions",
+    "defences",
+    "defence-table",
+    "surprises",
+    "jev-what",
+    "jev-built",
+    "jev-steps",
+    "jev-example",
+    "jev-bench",
+    "jev-used",
+    "jev-sw",
+    "thesis",
+    "plan",
+    "thanks"
+  ],
+  "sections": {
+    "s0": {
+      "description": "Opening",
+      "start": "cover"
+    },
+    "s1": {
+      "description": "The problem and the attacks",
+      "start": "problem"
+    },
+    "s2": {
+      "description": "Evaluators: who decides that an attack worked?",
+      "start": "real-attack"
+    },
+    "s3": {
+      "description": "Defences",
+      "start": "defences"
+    },
+    "s4": {
+      "description": "JEV: what it is and how it works",
+      "start": "jev-what"
+    },
+    "s5": {
+      "description": "JEV as a judge",
+      "start": "jev-bench"
+    },
+    "s6": {
+      "description": "What this means for my thesis",
+      "start": "thesis"
+    }
+  },
+  "title": "Agent Security and JEV"
+}

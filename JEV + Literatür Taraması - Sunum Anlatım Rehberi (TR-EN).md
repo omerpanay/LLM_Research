@@ -8,15 +8,30 @@ Yarın üç şey anlatıyorsun: literatür ne diyor, JEV nedir ve tezde ne işe 
 
 | # | Konu | Söyleyeceğin tek cümle | Arkasındaki en güçlü sayı |
 | --- | --- | --- | --- |
-| 1 | Literatürün ana fikri | Bir ajan talimatla veriyi ayıramaz; bu yüzden okuduğu her şey onu yönlendirebilir | AgentLAB: GPT-4o'da saldırı başarısı 0 turda %0, beş turda yaklaşık %80 |
+| 1 | Literatürün ana fikri | Bir ajan talimatla veriyi ayıramaz; bu yüzden okuduğu her şey onu yönlendirebilir | AgentLAB: GPT-4o'da tek mesajlık enjeksiyon %62,5; turlara yayılan saldırı %79,9 |
 | 2 | Literatürdeki boşluk | "Saldırı altında, uzun ufuklu, araç içi ajan" ölçen yayımlanmış bir benchmark bulamadım | CAR-bench saldırıyı ölçmüyor; AgentLAB'de araç ortamı yok |
 | 3 | JEV nedir | Metin yazmayan, hazır seçeneklere olasılık veren ucuz ve hızlı bir karar modeli | 1.000 karar: JEV 0,044 dolar, GPT-6 12,18 dolar |
 | 4 | JEV'in sınırı | Tek başına güvenilmez: akıl yürütme isteyen kararda zayıf ve metinle kandırılabiliyor | JudgeBench'te 78,6'ya karşı 93,1; sahte politika saldırısında F1 %90,51'den %7,46'ya |
-| 5 | Önerim | AgentLAB'in saldırılarını CAR-bench'in araç ortamında çalıştıralım; başarıyı önce kodla ölçelim, JEV ikinci basamak olsun | CAR-bench: 58 tool, 19 politika, 240 görev |
+| 5 | Önerim | AgentLAB'in saldırılarını CAR-bench'in araç ortamında çalıştıralım; başarıyı önce kodla ölçelim, JEV ikinci basamak olsun | CAR-bench: 58 tool, 19 politika, 240 görev; iki depo da MIT lisanslı |
 
 **Üç dakikalık konuşma.** "Önce literatürü taradım. Ana sorun şu: LLM ajanı talimatı ve veriyi aynı metin akışında okuyor. Saldırgan veriye talimat gömünce ajan onu uyguluyor. Saldırı birçok tura yayılırsa tek tek hiçbir tur şüpheli görünmüyor. Sonra JEV'e baktım. JEV bir LLM değil, bir karar modeli. Ona bir durum ve seçenekli bir soru veriyorum, bana her seçeneğin olasılığını döndürüyor. Çok ucuz ve hızlı, ama zor kararlarda zayıf ve kandırılabiliyor. Bu yüzden onu tek hakem olarak değil, ikinci basamak olarak öneriyorum. Son olarak iki benchmark öneriyorum: saldırılar için AgentLAB, araç ortamı için CAR-bench."
 
 **Bu dosyayı nasıl kullanırsın.** Önce "Sayıları okuma kılavuzu"nu oku; diğer bölümlerdeki her yüzde oradaki tanımlara dayanıyor. Sonra literatür ve JEV bölümlerini oku. Sunumdan hemen önce "Sunumda özellikle anlat" ve "Soru gelirse" bölümlerine bak.
+
+## 16 Kasım güncellemesi: kaynaklar tam metinden okundu
+
+Önceki sürümde makaleler yeniden açılmamıştı ve bazı kaynaklara hiç ulaşılamamıştı. 16 Kasım'da 22 makalenin tam metni, TypeSafe'in lansman yazısı ve dokümanları, ve mimariyle ilgili üç yeni kaynak okundu. Ayrıntılar ve gerekçeler [Kaynak Denetimi ve Güncelleme](Kaynak%20Denetimi%20ve%20G%C3%BCncelleme%20-%2016%20Kas%C4%B1m%202026.md) dosyasında. Bu rehberde değişenler:
+
+| Ne değişti | Eski | Yeni | Nerede |
+| --- | --- | --- | --- |
+| Mimari anlatımı | "Şirket yayımlamadı" deyip bırakıyordu | Üç kanıt katmanı ve dört fikirle anlatım, tahta şeması | JEV, bölüm 2 |
+| AgentLAB sayısının yorumu | "Tek mesajla başaramayan saldırı" | Tek mesaj %62,5; uzun ufuklu %79,9 | Literatür, bölüm 3 |
+| Detektör sayısının anlamı | "En iyi detektör %2 yakalıyor" | Aynı detektör BIPIA'da %95,1, AgentDojo'da %2,1: skor taşınmıyor | Literatür, bölüm 5 |
+| Cascade kazancı | "En fazla 2,7 puan", CMU'ya atfedilmiş (aslında UPenn'in flash hakemli cascade sonucu) | Kolay kararda +1,27 puan ve ücretin %27'si; zor kararda −0,74 puan ve ücretin %67'si | JEV, bölüm 3 |
+| Açık modeller | "Benzerleri var" | Altı açık model JEV ile aynı doğrulukta; öneri açık modele kaydı | JEV, bölüm 4; Tezde faydası |
+| CAR-bench lisansı | Risk olarak yazılıydı | MIT; AgentLAB da MIT | Öneri bölümü |
+| "(C)" işaretli beş savunma sayısı | İkincil rapordan | Hepsi birincil kaynaktan doğrulandı; işaret kaldırıldı | Literatür, bölüm 5 |
+| JEV sürümü | 1.13 | Güncel sürüm 1.14 (14 Ekim); makaleler 1.13'ü sınadı | JEV, bölüm 2 |
 
 ## Sayıları okuma kılavuzu: hangi oran neyin oranı
 
@@ -84,11 +99,11 @@ Aileler [AgentLAB](https://arxiv.org/abs/2602.16901)'in sınıflandırmasından;
 
 | Sayı | Kaynak | Neyin oranı | Ne anlama gelir |
 | --- | --- | --- | --- |
-| 0 turda %0, beş turda yaklaşık %80 | [AgentLAB](https://arxiv.org/abs/2602.16901) (ICML 2026) | GPT-4o ajanında task injection ASR'si; saldırgana verilen tur sayısına göre | Tek mesajla başaramayan saldırı, beş tur verilince beş denemenin dördünde başarıyor. Tur sayısı en önemli değişken |
-| Ortalama %80 ve üzeri; zehir oranı %0,1'in altında | [AgentPoison](https://neurips.cc/virtual/2024/poster/94715) (NeurIPS 2024) | Bellek zehirleme ASR'si; bellekteki zehirli kayıt payı | Bin kayıttan birinden azı zehirliyken bile saldırıların beşte dördü başarılı. Sürüş ajanı da test edilenlerden biri |
+| Tek mesaj %62,5; uzun ufuklu %79,9. Tur bütçesi 0 iken %0, 5 iken yaklaşık %80 | [AgentLAB](https://arxiv.org/abs/2602.16901) (ICML 2026) | GPT-4o ajanında task injection ASR'si. İlk çift: klasik tek mesajlık enjeksiyona karşı turlara yayılan saldırı. İkinci çift: AgentLAB'in kendi saldırısına verilen tur bütçesine göre | Turlara yaymak, zaten yüksek olan başarıyı 17 puan artırıyor ve başarı tur bütçesiyle tekdüze artıyor. Dikkat: "0 tur" hiç saldırı içeriği yerleştirilemeyen durum; tek mesajlık saldırı demek değil. Claude-4.5 bu ailede %0 |
+| Ortalama %80 ve üzeri; zehir oranı %0,1'in altında | [AgentPoison](https://arxiv.org/abs/2407.12784) (NeurIPS 2024) | Bellek zehirleme ASR'si; bellekteki zehirli kayıt payı | Bin kayıttan birinden azı zehirliyken bile saldırıların beşte dördü başarılı. Sürüş ajanı da test edilenlerden biri |
 | %86'nın üzeri | [FuncPoison](https://arxiv.org/html/2509.24408v1) (arXiv 2025) | Çok ajanlı sürüş sistemlerinde fonksiyon kütüphanesini zehirleme ASR'si | Zehirli bir tool açıklaması yeterli; hata ajandan ajana yayılıyor |
 | %81,8 | [CHAI](https://arxiv.org/pdf/2510.00181) (arXiv 2025) | DriveLM'de, fiziksel ortama konan yazıyla ajanı ele geçirme ASR'si | Yol kenarındaki bir tabela da talimat kanalı olabilir |
-| %73 | [Nassi vd.](https://arxiv.org/pdf/2508.12175) (arXiv 2025) | ASR değil. İncelenen tehdit senaryolarının yüzde kaçı risk değerlendirmesinde "yüksek" ya da "kritik" çıktı | Bu bir risk sınıflandırması sonucu; saldırı başarısıyla karıştırma |
+| %73 | [Nassi vd.](https://arxiv.org/pdf/2508.12175) (arXiv 2025) | ASR değil. İncelenen tehdit senaryolarının yüzde kaçı risk değerlendirmesinde "yüksek" ya da "kritik" çıktı | Bu bir risk sınıflandırması sonucu; saldırı başarısıyla karıştırma. Yöntem (TARA), otomotiv siber güvenlik standardı ISO/SAE 21434'ten uyarlanmış |
 | Yaklaşık %74'ten %9'a | [Yeniden analiz](https://arxiv.org/pdf/2510.05244) | ASB benchmark'ının savunmasız GPT-4o için bildirdiği ASR; saldırı tool'larının ajana zorla eklenmesi kaldırılınca | Bildirilen başarının çoğu benchmark'ın kuruluşundan geliyordu. "Bu gerçekten saldırı mı?" sorusunun en güçlü kanıtı |
 
 ### 4. "Bu gerçekten saldırı mı?" Beş soruluk test
@@ -105,16 +120,17 @@ Yukarıdaki son satır yüzünden, bir vakayı saldırı saymadan önce beş sor
 
 ### 5. Savunma tarafındaki sayılar ve anlamları
 
-Savunmalar iki türdür. Olasılıksal olanlar modelin ya da bir sınıflandırıcının doğru karar vermesine güvenir. Deterministik olanlar kuralı modelin dışında, kodla uygular. (C) işaretli sayılar Cowork raporlarından; makaleleri kendim açmadım.
+Savunmalar iki türdür. Olasılıksal olanlar modelin ya da bir sınıflandırıcının doğru karar vermesine güvenir. Deterministik olanlar kuralı modelin dışında, kodla uygular. Bu tablodaki sayıların hepsi 16 Kasım'da makalelerin tam metninden doğrulandı.
 
 | Sayı | Kaynak | Neyin oranı | Ne anlama gelir |
 | --- | --- | --- | --- |
 | 12 savunmanın çoğunda %90'ın üzeri | [The Attacker Moves Second](https://arxiv.org/abs/2510.09023) | Savunmayı bilen (adaptif) saldırganın savunmalı sistemdeki ASR'si | Modelden "dikkatli ol" diye rica eden savunmalar, onları bilen saldırgana karşı neredeyse hiç korumuyor |
-| %1 FPR'de %2 | [Kaynak](https://arxiv.org/abs/2610.03448) (C) | En iyi enjeksiyon detektörünün yakalama oranı (TPR); yanlış alarm %1'de tutulunca | Sürücüyü rahatsız etmeyecek kadar az alarm istersen, detektör 100 saldırıdan 2'sini yakalıyor |
+| %95,1'e karşı %2,1 (ikisi de %1 FPR'de) | [Passing the Test You Trained On](https://arxiv.org/abs/2610.03448) | Aynı detektörün (PIGuard) yakalama oranı (TPR): eğitildiği türden BIPIA girdilerinde ve AgentDojo'nun tool çıktılarında | Detektör, eğitildiği metin biçimine benzeyen girdide çalışıyor. Benchmark skoru ajanın içindeki davranışı öngörmüyor (iki benchmark arasında sıralama uyumu 0,01). Detektörü kendi araç ortamının tool çıktılarında ölçmek gerek |
 | %77'ye karşı %84 | [CaMeL](https://arxiv.org/abs/2503.18813) | ASR değil, fayda: AgentDojo'da tamamlanan görevlerin oranı; CaMeL savunmasıyla ve savunmasız | Mimari izolasyon güçlü koruma veriyor ama görev başarısından 7 puan götürüyor |
-| ASR %93'ten %9'a; fayda %90'dan %83'e | [AuthorityFlow](https://arxiv.org/abs/2611.04673) (C) | Savunmadan önce ve sonra saldırı başarısı ile görev başarısı | Köken kontrolü saldırıların çoğunu kesiyor; bedeli 7 puan fayda |
-| ASR %34,6'dan %0'a | [Gizli durum prob'ları](https://arxiv.org/abs/2608.02657) (C) | AgentDojo'da, modelin iç temsillerine bakan savunmayla saldırı başarısı | Yalnızca açık ağırlıklı modelde yapılabilir; araç üstü model için bir fırsat |
-| %8,3'ten %75,0'e | [Signed but Not Safe](https://arxiv.org/abs/2611.07483) (C) | Çok ajanlı sistemde politika ihlali oranı; enjeksiyon imzadan önce geldiğinde | Ajanlar arası mesajı imzalamak, içeriğin doğru olduğunu garanti etmiyor |
+| ASR %93'ten %9'a; fayda %90'dan %83'e | [AuthorityFlow](https://arxiv.org/abs/2611.04673) | Parametre zehirleme saldırısında (doğru tool, değiştirilmiş argüman) savunmadan önce ve sonra saldırı başarısı ile görev başarısı; yazarların kendi benchmark'ı FactAuthBench'te | Her argümanın hangi bilgi alanından geldiğini izleyen köken kontrolü saldırıların çoğunu kesiyor; bedeli 7,6 puan fayda |
+| ASR %34,6'dan %0'a | [Gizli durum prob'ları](https://arxiv.org/abs/2608.02657) | AgentDojo'nun zor ayarlarında, Qwen3.5-27B'de, modelin iç temsillerine bakan savunmayla saldırı başarısı | Yalnızca açık ağırlıklı modelde yapılabilir; araç üstü model için bir fırsat |
+| %8,3'ten %75,0'e | [Signed but Not Safe](https://arxiv.org/abs/2611.07483) | Çok ajanlı sistemde imzalı gereksinim listesinin ihlal oranı (GPT-5.6-luna); istek bağlamına imzadan önce tek satır enjeksiyon eklenince | Ajanlar arası mesajı imzalamak, içeriğin doğru olduğunu garanti etmiyor |
+| %78,7'ye karşı %59,0; yanlış alarm %7'ye karşı %50 | Aynı makale | Aynı izlerde ihlal yakalama oranı ve yanlış alarm oranı: kodla yazılmış doğrulayıcı ve LLM denetçi | Kod, LLM denetçiden hem daha çok yakalıyor hem çok daha az yanlış alarm veriyor. "Başarıyı önce kodla ölçelim" önerisinin dayanağı |
 | 161 durumun 2 ila 3'ü | [From Intent to Action](https://arxiv.org/pdf/2609.19630) | Yürütülmemesi gereken sesli komut durumlarından kaçı yine de yürütüldü (False Execute) | En iyi modeller bile sıfıra inemiyor; bu yüzden LLM son güvenlik otoritesi olmamalı |
 
 **Savunmadan çıkan üç ders.**
@@ -129,7 +145,7 @@ Bulabildiğim kadarıyla "saldırı altında, uzun ufuklu, araç içi ajan" kesi
 
 ## JEV: sade anlatım
 
-JEV bir karar modelidir: ona bir durum ve seçenekleri belli bir soru verirsin, o da metin yazmadan her seçeneğin olasılığını döndürür. TypeSafe AI 15 Eylül 2026'da yayımladı. Ayrıntılar [JEV raporunda](https://claude.ai/artifact/4iLVNpBEbLheZxDbz6M1Wz).
+JEV bir karar modelidir: ona bir durum ve seçenekleri belli bir soru verirsin, o da metin yazmadan her seçeneğin olasılığını döndürür. TypeSafe AI 15 Eylül 2026'da yayımladı; güncel sürüm 1.14 (14 Ekim 2026), okuduğun makalelerin hepsi 1.13'ü sınadı. Şirket "karar modeli" yerine "System One model" adını kullanıyor: "JEV yargı verir, kararı kod verir." Ayrıntılar [JEV raporunda](https://claude.ai/artifact/4iLVNpBEbLheZxDbz6M1Wz).
 
 ### 1. LLM hakem ile farkı
 
@@ -150,16 +166,42 @@ JEV bir karar modelidir: ona bir durum ve seçenekleri belli bir soru verirsin, 
 
 ### 2. Mimari: ne biliniyor, ne bilinmiyor
 
-Dürüst cevap şu: şirket iç mimariyi ve bir makaleyi yayımlamadı. Bunu sunumda kendin söyle.
+Şirket iç mimariyi ve bir makaleyi yayımlamadı; bunu sunumda kendin söyle. Ama üç ayrı kanıt katmanı aynı resmi çiziyor: ön-eğitimli bir dil modeli gövdesi, durumun bir kez okunması, birbirini görmeyen soru dalları ve metin üretmek yerine olasılıkların doğrudan okunması.
 
-| Bilgi | Kaynak | Ne kadar güvenilir |
+**Üç kanıt katmanı.**
+
+| Katman | Kaynak | Ne söylüyor | Ne kadar güvenilir |
+| --- | --- | --- | --- |
+| 1. Şirketin kendi cümleleri | [Lansman yazısı](https://typesafe.ai/blog/introducing-system-one-models-and-jev), [Models](https://docs.typesafe.ai/models), [AI primer](https://docs.typesafe.ai/introduction/machine-learning-primer) | "Yeni bir model mimarisi, paralel örnekleyici ve RLCD"; "bütün olasılıkları paralel üretir, token token üretmez"; "state'i bir kez okur ve her soruyu ona karşı paralel değerlendirir"; "ne küçük ne de bir LLM"; RLCD ön-eğitimli dil modellerini uyarlamanın üçüncü yolu | Birincil kaynak; ama üreticinin iddiası ve ayrıntı yok |
+| 2. Davranış deneyleri | [Jev's Architecture Unmasked](https://archerhume.com/posts/jevs-architecture-unmasked): yaklaşık 10.000 API çağrısı | Kardeş soruya konan gizli kodu JEV göremiyor (0,00), state'e konanı görüyor (0,90); 1.500 soru birkaç yüz milisaniyede dönüyor; 200 seçenekli soru 2 seçenekli kadar hızlı | Ölçümler tekrarlanabilir; mimari çıkarımı yazarın yorumu. Bağımsız blog, hakemsiz |
+| 3. Açık yeniden üretimler | [Kev](https://huggingface.co/Terom/kev-0.5b), [Perplexity Decider v1.1](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b), [CMU makalesi](https://arxiv.org/abs/2609.26550) Ek A | Aynı tarifle (dil modeli gövdesi ve küçük bir okuma başlığı) kurulan altı açık model JEV'in doğruluğuna ulaşıyor | Doğrulanabilir, kod açık. Ama o modeller için; JEV'in aynı olduğunu kanıtlamaz |
+
+**Mekanizma neden çalışıyor: dört fikir.**
+
+1. **Okumak paralel, yazmak sıralı.** Bir dil modeli girdiyi okurken bütün token'lar zaten bilinir; bir katman hepsini birlikte işler. Yazarken her token bir öncekinin seçilmesini bekler: 100 kelimelik cevap 100 ardışık geçiş. JEV okumadan sonra duruyor. Hızın ve fiyatın asıl kaynağı bu.
+2. **Durum bir kez okunur.** Model işlediği token'ların ara sonuçlarını saklar. 50 soru sorarsan 50'si de aynı saklanmış duruma bakar. Bu yüzden onuncu soruyu eklemek süreyi neredeyse değiştirmez.
+3. **Sorular birbirini göremez.** Dikkat maskesi her soruya "durumu ve kendi dalını gör, diğer soruları görme" der. Bir sorunun cevabı diğerini etkileyemez. Bedeli: bir soru diğerinin cevabına muhtaçsa iki ayrı istek gerekir.
+4. **Cevap üretilmez, okunur.** Dalın sonundaki iç temsil küçük bir fonksiyona girer, her seçenek için bir skor çıkar, softmax bunları toplamı 1 olan olasılıklara çevirir. Çıktı her zaman geçerli bir seçenek olduğu için biçim hatası imkânsız; ama yanlış seçeneği seçebilir. "Halüsinasyon yapamaz" iddiası yalnızca bu dar anlamda doğru.
+
+**Tahtaya çizebileceğin şema.** Solda uzun bir şerit (durum, bir kez okunur). Sağında alt alta üç kısa şerit (üç soru; her biri duruma ok çıkarır, birbirine çıkarmaz). Her kısa şeridin ucunda küçük bir kutu (okuma başlığı) ve yanında olasılık çubuğu. Altına tek cümle: okuma var, yazma yok.
+
+**Açık tarif (Kev model kartından).** Dondurulmuş bir Qwen gövdesi, rank-16 LoRA adaptörü ve küçük bir "pointer" başlığı; eğitilen parametre gövdenin %1,9'u. Girdi tek bir paket: durum, sonra her soru için talimat, seçenekler ve bir karar token'ı. Başlık, karar token'ının temsilini her seçeneğin son token'ının temsiliyle karşılaştırır ve softmax uygular. Kayıp: seçenekler üzerinde çapraz entropi.
+
+**RLCD ne demek.** "Reinforcement learning for calibrated decisions." Amaç kalibrasyon: model "%80 eminim" dediği kararların yaklaşık %80'inde haklı çıksın. Şirketin AI primer'ı bunu ön-eğitimli dil modellerini uyarlamanın üçüncü yolu olarak anlatıyor: RLHF sohbet için, RLVR doğrulanabilir işler için, RLCD kalibre kararlar için. Hangi kaybın kullanıldığı yayımlanmadı. Eğitim verisinin tamamını şirket kendi üretiyor; müşteri verisiyle eğitim ya da ince ayar yok.
+
+**Bilinenler ve bilinmeyenler.**
+
+| Bilgi | Durum | Kaynak |
 | --- | --- | --- |
-| Arayüz: durum ve tipli sorular girer, olasılıklar çıkar | TypeSafe dokümantasyonu | Belgelenmiş |
-| Tek geçiş, paralel örnekleyici, RLCD adlı eğitim yöntemi | TypeSafe lansman yazısı | Üreticinin iddiası; ayrıntı yok |
-| Bir dil modeli gövdesi, tek ileri geçiş ve her seçeneği puanlayan küçük bir başlık | Açık yeniden üretimler (Kev, Perplexity Decider) | Doğrulanabilir, ama o modeller için; JEV için tahmin |
-| Katman sayısı, parametre sayısı, eğitim verisi | Yayımlanmadı | Bilinmiyor |
+| Arayüz: durum ve tipli sorular girer, olasılıklar çıkar | Belgelenmiş | TypeSafe dokümantasyonu |
+| Durum bir kez okunur; sorular bağımsız ve paralel | Belgelenmiş ve deneyle doğrulanmış | Models sayfası; API incelemesi |
+| Sınırlar: istek başına 64k, soru başına 32k token; seçenek en fazla 255; başlıkla 262k | Belgelenmiş | Models sayfası |
+| Gövde ön-eğitimli bir dil modeli | Şirketin dolaylı anlatımı | AI primer |
+| Okuma başlığının tam biçimi | Tahmin; iki aday var | API incelemesi |
+| Hangi gövde, kaç parametre, kaç katman | Bilinmiyor; tokenizer hiçbir açık modelle eşleşmiyor | Yayımlanmadı |
+| RLCD'nin ödül fonksiyonu, eğitim verisinin içeriği | Bilinmiyor | Yayımlanmadı |
 
-**RLCD ne demek.** "Reinforcement learning for calibrated decisions." Amaç kalibrasyon: model "%80 eminim" dediği kararların yaklaşık %80'inde haklı çıksın. Ödül fonksiyonu yayımlanmadı.
+**Sunumda söyleyeceğin cümle.** "Şirket mimariyi yayımlamadı. Ama kendi cümleleri, bağımsız bir API incelemesi ve aynı tarifle JEV'in doğruluğuna ulaşan açık modeller aynı resmi gösteriyor. Gövdenin hangi model olduğu ve boyutu bilinmiyor."
 
 ### 3. Hakem olarak nasıl kullanılıyor: cascade
 
@@ -173,7 +215,11 @@ JEV tek başına değil, iki basamaklı bir düzenin ilk basamağı olarak kulla
 | --- | --- | --- |
 | %93,4'e karşı %92,5 | 1.610 çiftlik testte doğruluk: cascade ve tek başına GPT-6 | İki basamaklı düzen, pahalı hakemin tek başına yaptığından kötü değil |
 | %41,4 | Cascade'in maliyeti, tek başına GPT-6 maliyetinin yüzdesi olarak | Aynı doğruluğa yarıdan az paraya ulaşılıyor; çünkü kolay vakalar JEV'de kalıyor |
-| En fazla 2,7 puan | Cascade'in doğruluğa kattığı en büyük kazanç (CMU makalesi) | Cascade asıl olarak para kazandırıyor, doğruluğu çok artırmıyor |
+| +1,27 puan; ücretin %26,7'si | RewardBench kısmında (1.340 çift) cascade ile GPT-6 farkı ve maliyet oranı | JEV'in iyi olduğu kolay kararda vakaların dörtte üçü JEV'de kalıyor |
+| −0,74 puan; ücretin %66,8'i | JudgeBench kısmında (270 çift) aynı ölçüm | Türetme isteyen kararda vakaların %65'i pahalı hakeme gidiyor; tasarruf üçte bire düşüyor |
+| Tam eşit; ücretin %75,5'i | Daha önce görülmemiş iki iş yükünde canlı test (570 çift) | JEV zayıfken yöntem doğruluğu koruyor ama tasarruf dörtte bire iniyor. Cascade para kazandırır, doğruluğu artırmaz |
+
+**Eşik tarifi (CMU, v6).** Kararı iki seçenek sırasının ortalamasından al. Eşiği kendi iş yükünden yaklaşık 100 etiketli örnekle seç. Nokta tahminine değil, doğruluk kaybının alt güven sınırına bak: nokta kuralı denemelerin %40 ile %50'sinde iki puandan fazla kaybettiriyor, alt sınır kuralı bunu yaklaşık %5'e indiriyor. Senin kararın ("bu iz saldırı mı?") türetme isteyen sınıfa yakın; JudgeBench satırındaki tasarrufu bekle.
 
 ### 4. Benchmark sayıları ve anlamları
 
@@ -187,11 +233,23 @@ JEV tek başına değil, iki basamaklı bir düzenin ilk basamağı olarak kulla
 
 **Okuması.** Cevap metinde duruyorsa JEV, pahalı hakemlere üç puan mesafede. Cevabı bulmak için düşünmek gerekiyorsa açık büyüyor.
 
+**Açık ağırlıklı modeller aynı seviyede (CMU, Ek A).** Makale 22 açık modeli JEV ile aynı 5.172 kararda sınadı; tablodaki sayılar doğruluk, gecikme tek bir H100 GPU'da.
+
+| Model | Havuz doğruluğu | JudgeBench | Hata AUROC | Gecikme |
+| --- | --- | --- | --- | --- |
+| Perplexity Decider v1.1 27B (Apache-2.0) | %89,0 | %82,6 | 0,841 | 84 ms |
+| Eikos-27B | %89,0 | %78,6 | 0,843 | 61 ms |
+| JEV 1.13 (API) | %88,3 | %78,6 | 0,822 | 152 ms |
+| Kev 27B | %86,5 | %76,3 | 0,816 | 77 ms |
+| Eğitimsiz Qwen3.8-27B (reflex) | %83,5 | %69,7 | 0,729 | 245 ms |
+
+Okuması: altı açık model JEV ile örnekleme hatası içinde, hiçbiri anlamlı biçimde daha iyi değil. Karar için özel eğitim, taban modelden daha önemli (eğitimsiz %83,5; eğitimli %85,2 ile %89,0). Makalenin cümlesi: cascade'in bileşenleri artık JEV'e özgü değil. Sınırı: yazarlar açık modellerle cascade'i ve sıra kararlılığını yeniden sınamadı.
+
 **Diğer ölçümler.**
 
 | Sayı | Kaynak | Neyin oranı | Ne anlama gelir |
 | --- | --- | --- | --- |
-| 37 veri setinin 27'si | [Deußer vd.](https://www.opentrain.ai/tools/hf-eval-papers/paper/28d20dd7-5ecd-43f5-9b83-329fd6faeef2/) | JEV'in açık model Qwen3.8-27B'den daha doğru olduğu veri seti sayısı | Genel sınıflandırma işlerinde açık modellerden iyi ya da eşit |
+| 37 veri setinin 27'si | [Deußer vd.](https://arxiv.org/abs/2609.37647) | JEV'in açık model Qwen3.8-27B'den daha doğru olduğu veri seti sayısı | Genel sınıflandırma işlerinde açık modellerden iyi ya da eşit |
 | Mikro-F1 0,50'den 0,75'e | Aynı makale | UNFAIR-ToS'ta evet/hayır sorularında F1; sabit 0,5 eşiğiyle ve eğitim verisinde ayarlanmış eşikle | Eşiği kendi verinde seçmek sonucu çok değiştiriyor |
 | %35'e karşı %54,5 | Aynı makale | Görülmemiş ALFWorld görevlerini tamamlama oranı: JEV ve Qwen | JEV ajanın kendisi olarak zayıf; plan yapamıyor |
 | 92 ila 913 kat | [LangChain](https://www.langchain.com/blog/jev-agent-evals-langsmith) | Oran değil, kat: aynı vakayı tekrar puanlayınca skor oynaklığının LLM hakeme göre ne kadar düşük olduğu | Çok tutarlı. Ama beş örnekli dar bir test; tutarlı olmak doğru olmak değil |
@@ -205,8 +263,12 @@ JEV tek başına değil, iki basamaklı bir düzenin ilk basamağı olarak kulla
 | LLM hakemlerle aynı yerde yanılıyor | %96 | JEV'in en emin olduğu hataların yüzde kaçını LLM hakemler de tekrarlıyor | İki hakemin anlaşması doğruluk kanıtı değil; insan etiketi şart |
 | Metinle kandırılabiliyor | F1 %90,51'den %7,46'ya ([Datadog](https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/)) | Enjeksiyon tespitinde F1; girdiye sahte bir politika metni eklenince | "Kuralları yok say" diyen metin değil, kuralın tanımını yeniden yazan metin JEV'i çökertiyor |
 | Tool kapısı aşılabiliyor | 0,893'ten 0,290'a | Oran değil, olasılık: JEV'in riskli bir eyleme verdiği "riskli" olasılığı (`is_risky`) | Aynı eylem, saldırıdan sonra eşiğin altında kalıp geçebiliyor |
+| Seçenek sırasına duyarlı | 0,84 ile 0,89'dan 0,93 ile 0,96'ya | Oran değil, olasılık: aynı sorunun seçenekleri ters sırada verilince (bağımsız API incelemesi) | Üretici de ilk seçeneğe eğilim olduğunu yazıyor. 0,9 eşiğinde karar değişebilir; iki sırayla sor, ortalamasını al |
+| Uzun ve ilgisiz içerikli girdide doğruluk düşüyor | Sayı yok | Üreticinin kendi sınır listesi ("context rot") | Uzun ufuklu izin tamamını verme; ilgili turları kodla seç ve farkı pilotta ölç |
 
-**Kanıtın gücü.** Model iki aylık. Kaynakların çoğu hakem değerlendirmesinden geçmemiş ön baskı. Bazı sayılar ilgili ürün satan şirketlerden (Datadog, LangChain). Bunu sunumda sen söylersen güven kazanırsın.
+**Üretici de kabul ediyor.** TypeSafe'in [Model jaggedness](https://docs.typesafe.ai/model-jaggedness) sayfası dokuz sınır sayıyor: harfi harfine okuma, matematik ve sayma, tarih karşılaştırma, dolaylılık, ilgisiz ayrıntıyla dolu büyük durum, düşmanca içerik, çelişen talimat, seçenek sırası ve metin üretimi. Düşmanca içerik maddesi senin tezin için en önemlisi: şirket, durumdaki enjekte edilmiş talimatın ya da kendi sınıflandırmasını savunan metnin "cevabı oynatabildiğini" kendisi yazıyor. Datadog'un sayısının ayrıntısı: yakalama oranı %82,90'dan %3,88'e, yakalanan saldırı 3.849'dan 180'e düştü.
+
+**Kanıtın gücü.** Model iki aylık ve sayılar 1.13 sürümü için; güncel sürüm 1.14. Şirket açık benchmark sonucu yayımlamamayı bilinçli olarak seçti, yani bütün sayılar üçüncü taraflardan. Kaynakların çoğu hakem değerlendirmesinden geçmemiş ön baskı. Bazı sayılar ilgili ürün satan şirketlerden (Datadog, LangChain). Bunu sunumda sen söylersen güven kazanırsın.
 
 ## Tezde faydası: işimize yarar mı?
 
@@ -231,9 +293,9 @@ Tezin Evaluate ayağı "bu gerçekten saldırı mı?" diye soruyor. Bu soruyu bi
 | Tutarlılık | Aynı vakaya hep aynı skoru verir; deneyler tekrarlanabilir olur | Tutarlı olmak doğru olmak değil |
 | Olasılık çıktısı | Eşik seçebilir, "%1 yanlış alarmda yakalama" gibi metrikleri doğrudan hesaplarsın | Güven her görevde bilgi taşımıyor; eşiği kendi verinde seçmek gerek |
 | Güvenlik | Bekçi (guard) adayı olarak denenebilir | Sahte politika metniyle kandırılıyor: F1 %90,51'den %7,46'ya |
-| Erişim | Açık ağırlıklı benzerleri var (Kev, Perplexity Decider) | JEV kapalı bir API; veri şirket dışına çıkar ve sürüm değişince sonuç değişebilir |
-| Kanıt | Bağımsız ölçümler var (CMU, UPenn, 37 veri setlik çalışma) | Model iki aylık; kaynaklar ön baskı |
-| Özgünlük | Bulabildiğim kadarıyla kimse karar modelini uzun ufuklu ajan izlerinde ya da araç ortamında hakem olarak test etmedi | Küçük bir alt bölüm; ayrı bir tez değil. Kapsamı büyütme riski var |
+| Erişim | Açık ağırlıklı benzerleri var ve altısı JEV ile aynı doğrulukta (Perplexity Decider v1.1 %89,0; JEV %88,3); tek GPU'da 42 ile 245 ms | JEV kapalı bir API; veri şirket dışına çıkar ve sürüm bir ayda 1.13'ten 1.14'e geçti |
+| Kanıt | Bağımsız ölçümler var (CMU, UPenn, 37 veri setlik çalışma) | Model iki aylık; kaynaklar ön baskı; şirket açık benchmark yayımlamıyor |
+| Özgünlük | CMU makalesi "ajan içinde kullanım test edilmedi" diyor; bulabildiğim kadarıyla kimse karar modelini uzun ufuklu ajan izlerinde ya da araç ortamında hakem olarak test etmedi | Küçük bir alt bölüm; ayrı bir tez değil. Kapsamı büyütme riski var |
 
 ### Tezde üç rol
 
@@ -246,7 +308,7 @@ Tezin Evaluate ayağı "bu gerçekten saldırı mı?" diye soruyor. Bu soruyu bi
 ### Önerilen ölçüm düzeni: dört basamak
 
 1. **Kod (oracle).** Saldırı başarısını ortam durumundan okur: e-posta gerçekten gitti mi, navigasyon hedefi değişti mi. Ana metrik bu.
-2. **Karar modeli (JEV ya da açık benzeri).** Kodla okunamayan yorumsal kararlar için ucuz ilk hakem.
+2. **Karar modeli (önce açık ağırlıklı bir model, kendi donanımımızda; JEV karşılaştırma için).** Kodla okunamayan yorumsal kararlar için ucuz ilk hakem.
 3. **LLM hakem.** Karar modelinin emin olmadığı vakalar için.
 4. **İnsan denetimi.** Elle etiketlenmiş küçük bir set; diğer üç basamağın doğruluğunu ölçer.
 
@@ -255,7 +317,7 @@ Bu düzenin çıktısı iki ASR'dir: hakemin söylediği ham ASR ve geçerlilik 
 ### Üç koşul
 
 1. Kodla ölçüm (oracle) ana metrik olarak kalsın; JEV onun yerine geçmesin.
-2. JEV'i insan etiketleriyle doğrula ve eşiği kendi verinde seç; makaledeki 0,9'u kopyalama.
+2. Karar modelini insan etiketleriyle doğrula ve eşiği kendi verinde seç; makaledeki 0,9'u kopyalama. Tarif: iki seçenek sırasının ortalaması, yaklaşık 100 etiket, alt güven sınırı kuralı.
 3. JEV'i bir saldırı hedefi olarak da test et.
 
 **İlk adım.** Aralık'ta 100 izlik bir pilot: aynı izleri kod, LLM hakem ve karar modeli değerlendirsin; üçünün insan etiketiyle uyumunu bir tabloda göster. En fazla iki hafta.
@@ -267,10 +329,10 @@ Dokuz nokta var; ilk dördü literatür, sonraki üçü JEV, son ikisi öneri. H
 | # | Nokta | Nasıl anlatırsın | Neden önemli |
 | --- | --- | --- | --- |
 | 1 | Talimat ve veri aynı kanalda | Mektup benzetmesini kullan: asistan mektuptaki emri patronun emri sanıyor | Bütün saldırı aileleri bu tek zayıflıktan türüyor |
-| 2 | Tur sayısı en önemli değişken | "GPT-4o'da task injection 0 turda %0, beş turda yaklaşık %80" | Tek mesajlık testler riski olduğundan küçük gösterir; biz tur bütçesi eğrisi raporlayacağız |
+| 2 | Tur sayısı en önemli değişken | "GPT-4o'da tek mesajlık enjeksiyon %62,5 başarıyor; turlara yayılan saldırı %79,9. Tur bütçesi arttıkça başarı tekdüze artıyor" | Tek mesajlık testler riski olduğundan küçük gösterir; biz tur bütçesi eğrisi raporlayacağız |
 | 3 | Bildirilen ASR'ler şişik olabilir | "ASB'de %74 denen başarı, kurulum düzeltilince %9'a düştü" | Beş soruluk geçerlilik testinin gerekçesi; Evaluate ayağının özgün katkısı |
 | 4 | Rica eden savunma kırılır, kural uygulayan dayanır | "12 savunmanın çoğu adaptif saldırıyla %90'ın üzerinde aşıldı; kodla uygulanan kurallar dayanıyor ama 7 puan fayda götürüyor" | Her savunmayı onu bilen saldırganla yeniden sınama kararımızın dayanağı |
-| 5 | JEV bir LLM değil | Çoktan seçmeli sınav benzetmesi ve tahtadaki `send_email` örneği | Mentor mimariyi sordu; "iç mimari yayımlanmadı" demeyi unutma |
+| 5 | JEV bir LLM değil | Çoktan seçmeli sınav benzetmesi ve tahtadaki `send_email` örneği | Mentor mimariyi sordu. "Şirket yayımlamadı, ama üç kanıt katmanı aynı resmi gösteriyor" de ve şemayı çiz: okuma var, yazma yok |
 | 6 | JEV kolay kararda iyi, zor kararda zayıf | "RewardBench'te 1,8 puan geride, JudgeBench'te 14,5 puan geride" | Tek başına hakem olamayacağını ve cascade'in neden gerektiğini açıklar |
 | 7 | JEV de saldırıya açık | "Sahte bir politika metni F1'i %90,51'den %7,46'ya düşürdü" | JEV'i yalnızca araç olarak değil, saldırı hedefi olarak da inceleyeceğiz |
 | 8 | İki ASR raporlayacağız | "Ham ASR hakemin dediği; doğrulanmış ASR geçerlilik testinden geçen ve hakem hatası düzeltilmiş olan" | Ölçümü sorgulanamaz hale getiren şey bu |
@@ -279,10 +341,10 @@ Dokuz nokta var; ilk dördü literatür, sonraki üçü JEV, son ikisi öneri. H
 **Sunumun sonunda isteyeceğin üç karar.**
 
 1. JEV yalnızca değerlendirme aşamasında mı olsun, yoksa savunma adayı olarak da mı?
-2. Benchmark verisiyle TypeSafe API'sini çağırmama izin var mı, yoksa açık ağırlıklı bir karar modelini kendi donanımımızda mı çalıştırayım?
+2. Önerim açık ağırlıklı bir karar modelini kendi donanımımızda çalıştırmak. Karşılaştırma için benchmark verisiyle TypeSafe API'sini de çağırmama izin var mı?
 3. Aralık'ta 100 izlik bir pilot uygun mu, yoksa önce AgentLAB yeniden üretimini mi bitireyim?
 
-**Sunumda dürüstçe söyleyeceklerin.** JEV'in resmî bir makalesi yok. Kaynakların çoğu ön baskı. Bazı sayılar ürün satan şirketlerden. (C) işaretli savunma sayılarını ikincil rapordan aldın, makaleleri henüz kendin açmadın. Araç senaryoları senin önerin, ölçülmüş sonuç değil.
+**Sunumda dürüstçe söyleyeceklerin.** JEV'in resmî bir makalesi yok ve şirket açık benchmark sonucu yayımlamıyor. Mimari anlatımının bir kısmı bağımsız bir API incelemesine ve açık yeniden üretimlere dayanıyor; şirket bunu doğrulamadı. JEV sayıları 1.13 sürümü için. Kaynakların çoğu ön baskı. Bazı sayılar ürün satan şirketlerden. Sayıları makalelerin tam metninden doğruladın ama hiçbirini kendin yeniden üretmedin. Araç senaryoları senin önerin, ölçülmüş sonuç değil.
 
 ## Soru gelirse: muhtemel sorular ve cevaplar
 
@@ -293,29 +355,32 @@ Cevapların hepsi aynı kalıpta: önce tek cümlelik cevap, sonra bir sayı ya 
 | Soru | Kısa cevap | Dayanak |
 | --- | --- | --- |
 | Ajanlar neden chatbot'tan daha riskli? | Kandırılan chatbot kötü metin yazar, kandırılan ajan kötü eylem yapar | Ajan tool çağırır, bellek tutar, çok adımlı çalışır |
-| Long-horizon saldırı ne demek? | Hedefi birçok tura bölünmüş saldırı; tek tek turlar masum görünür | AgentLAB: 0 turda %0, beş turda yaklaşık %80 |
+| Long-horizon saldırı ne demek? | Hedefi birçok tura bölünmüş saldırı; tek tek turlar masum görünür | AgentLAB: GPT-4o'da tek mesaj %62,5, uzun ufuklu %79,9 |
 | ASR'yi nasıl ölçeceksin? | Önce kodla, ortam durumundan. Hakem yalnızca kodun okuyamadığı kararlar için | CAR-bench'te 31 durum değişkeni var |
 | Bir vakanın gerçek saldırı olduğunu nereden bileceksin? | Beş soruluk test: yetki, nedensellik, ihlal, sonuç, gerçekçilik | ASB'de %74'ün %9'a düşmesi bu testin neden gerektiğini gösteriyor |
 | Hangi savunma en iyisi? | Tek bir savunma yetmiyor. Kuralı kodla uygulayanlar dayanıyor ama fayda götürüyor | AuthorityFlow: ASR %93'ten %9'a, fayda %90'dan %83'e |
-| Detektör neden yetmiyor? | Düşük yanlış alarmda çok az saldırı yakalıyor ve talimat içermeyen saldırıyı hiç görmüyor | %1 FPR'de %2 yakalama |
+| Detektör neden yetmiyor? | Benchmark'ta iyi görünen detektör ajanın tool çıktılarında çalışmayabiliyor ve talimat içermeyen saldırıyı hiç görmüyor | BIPIA birincisi %1 FPR'de BIPIA'da %95,1, AgentDojo'da %2,1 yakalıyor |
 | Adaptif saldırı neden şart? | Savunmayı bilen saldırgan onu hedef alır; sabit saldırı setiyle ölçmek yanıltır | 12 savunmanın çoğu %90'ın üzerinde aşıldı |
 | Literatürde eksik olan ne? | Saldırı altında, uzun ufuklu, araç içi ajan ölçen bir benchmark | AgentLAB'de araç yok, CAR-bench'te saldırı yok |
-| Bu sayıları kendin doğruladın mı? | Henüz değil; makalelerin bildirdiği sayılar. İlk iş AgentLAB'i yeniden üretmek | Faz 1'in kapısı: araç ortamında ilk uçtan uca saldırı koşusu |
+| Bu sayıları kendin doğruladın mı? | Makalelerin tam metninden doğruladım, ama kendim yeniden üretmedim. İlk iş AgentLAB'i yeniden üretmek | Faz 1'in kapısı: araç ortamında ilk uçtan uca saldırı koşusu |
 
 **JEV hakkında.**
 
 | Soru | Kısa cevap | Dayanak |
 | --- | --- | --- |
 | JEV tek cümleyle nedir? | Bir girdiyi okuyup benim tanımladığım seçeneklere olasılık veren, metin üretmeyen bir karar modeli | TypeSafe AI, 15 Eylül 2026 |
-| Mimarisi ne? | Şirket yayımlamadı. Arayüz biliniyor; açık yeniden üretimler tek geçiş ve seçenekleri puanlayan küçük bir başlık kullanıyor | Kev ve Perplexity Decider; ikisi de JEV'in kendisi değil |
-| Hangi makaleyi okudun? | Resmî makale yok. CMU'nun JEV-as-a-Judge makalesini ve bağımsız benchmark çalışmalarını okudum; hepsi ön baskı | arXiv 2609.26550 |
+| Mimarisi ne? | Şirket yayımlamadı. Kanıtların gösterdiği: ön-eğitimli bir dil modeli gövdesi, durumun bir kez okunması, birbirini görmeyen soru dalları ve metin üretmek yerine olasılıkların doğrudan okunması | Şirketin kendi cümleleri, bağımsız API incelemesi ve aynı tarifle JEV'in doğruluğuna ulaşan açık modeller |
+| Nasıl bu kadar hızlı ve ucuz? | Okuyor ama yazmıyor. Girdiyi okumak paralel bir iştir; metin yazmak token token sıralıdır. JEV yazma döngüsünü tamamen atlıyor ve durumu bütün sorular için bir kez okuyor | 1.500 soru birkaç yüz milisaniyede; 200 seçenekli soru 2 seçenekli kadar hızlı |
+| "Halüsinasyon yapamaz" doğru mu? | Yalnızca biçim anlamında. Çıktı her zaman verdiğim seçeneklerden biri; ama yanlış seçeneği yüksek güvenle seçebilir | JudgeBench'te %78,6; sahte politika saldırısında yakalama %3,88 |
+| Bu bir karar modeli mi? | Toplulukta tutan ad bu. Şirket "System One model" diyor ve "JEV yargı verir, kararı kod verir" diye ayırıyor; bizim düzenimiz de bu | TypeSafe blogu, 3 Kasım 2026 |
+| Hangi makaleyi okudun? | Resmî makale yok. Şirketin lansman yazısını ve dokümanlarını, CMU'nun JEV-as-a-Judge makalesini (v6, ekleriyle) ve bağımsız benchmark çalışmalarını okudum; makalelerin hepsi ön baskı | arXiv 2609.26550 |
 | Hakem olarak ne kadar iyi? | Karar metinden okunabiliyorsa en iyi LLM hakemlere üç puan mesafede; matematik, kod ve mantıkta 14,5 puan geride | RewardBench 92,5 / 94,3; JudgeBench 78,6 / 93,1 |
 | Neden yalnızca JEV kullanmıyoruz? | Türetme isteyen kararda zayıf ve güveni orada güvenilir değil | AUROC 0,745 ve 0,498 |
 | Cascade hataları düzeltir mi? | Kısmen. JEV ile LLM hakemler aynı vakalarda yanılıyor; cascade asıl olarak maliyet kazandırıyor | En emin hataların %96'sını LLM hakemler de tekrarlıyor |
 | Saldırıya dayanıklı mı? | Hayır. Etiketlerin tanımını yeniden yazan sahte bir politika onu çökertiyor | F1 %90,51'den %7,46'ya (Datadog) |
-| Ekip JEV kullanmıyor; neden uğraşalım? | Küçük bir pilot yeter: 100 iz, iki hafta. Açık ağırlıklı bir benzeriyle de yapılabilir | Maliyet 1.000 kararda 0,044 dolar |
+| Ekip JEV kullanmıyor; neden uğraşalım? | Küçük bir pilot yeter: 100 iz, iki hafta. Açık ağırlıklı bir modelle, kendi donanımımızda yapılabilir | Altı açık model JEV ile aynı doğrulukta ve tek GPU'da çalışıyor (CMU, Ek A) |
 | Tezde yeni olan ne? | Karar modelini uzun ufuklu ajan izlerinde hakem ve bekçi olarak, araç ortamında test etmek; ham ve doğrulanmış ASR'yi birlikte raporlamak | CMU makalesi ajan kullanımını test etmedi |
-| Verimiz şirket dışına çıkar mı? | JEV kapalı bir API. Onay gelene kadar yalnızca benchmark ve sentetik veri gönderirim | Alternatif: açık model, kendi donanımımız |
+| Verimiz şirket dışına çıkar mı? | Önerim açık ağırlıklı bir modeli kendi donanımımızda çalıştırmak; o zaman çıkmaz. JEV API'sine yalnızca benchmark ve sentetik veri, o da onay gelirse | Perplexity Decider v1.1 (Apache-2.0) havuz doğruluğunda JEV'in 0,8 puan üstünde |
 
 **Bilmediğin bir soru gelirse.** "Bunu ölçmedim; makalede şu yazıyor, kendi pilotumda kontrol edeceğim" de. Uydurma bir sayı söylemekten her zaman iyidir.
 
@@ -338,7 +403,7 @@ Cevapların hepsi aynı kalıpta: önce tek cümlelik cevap, sonra bir sayı ya 
 | Ortamlar | Genel amaçlı: AgentDojo, SHADE-Arena, WebShop, Agent-SafetyBench'ten derlenmiş | Araç: araç fonksiyonları, navigasyon, şarj, takvim ve e-posta, hava durumu |
 | Başarıyı kim ölçer | LLM hakem (GPT-5.1, sıcaklık 0) | 12 politika kodla, 7 politika LLM hakemle; durum kodla |
 | Kullanıcı | Saldırgan LLM (güvenlik kısıtları kaldırılmış Qwen3-14B) | Gemini-2.5-Flash ile simüle edilen normal kullanıcı |
-| Kod | Açık ([proje sayfası](https://tanqiujiang.github.io/AgentLAB_main)) | Açık ([GitHub](https://github.com/CAR-bench/car-bench-ijcai)) |
+| Kod ve lisans | Açık, MIT ([GitHub](https://github.com/TanqiuJiang/AgentLAB)) | Açık, MIT ([GitHub](https://github.com/CAR-bench/car-bench-ijcai)) |
 | Tezdeki rolü | Saldırı çerçevesi ve beş aile | Araç ortamı, temiz görevler ve kodla ölçüm |
 
 ### AgentLAB: artılar ve eksiler
@@ -346,7 +411,7 @@ Cevapların hepsi aynı kalıpta: önce tek cümlelik cevap, sonra bir sayı ya 
 | Artı | Eksi |
 | --- | --- |
 | Tez başlığındaki "long-horizon" kısmını doğrudan karşılıyor | Araç ortamı yok; araç senaryolarını biz yazacağız |
-| Hakemli bir yayın (ICML 2026); kodu açık | Saldırgan modeli güvenlik kısıtları kaldırılmış; şirket içinde onay gerekir |
+| Hakemli bir yayın (ICML 2026); kodu açık ve MIT lisanslı | Saldırgan modeli güvenlik kısıtları kaldırılmış; şirket içinde onay gerekir |
 | Hazır bir pipeline iskeleti veriyor: planner, attacker, verifier, judge | Başarıyı LLM hakem ölçüyor; görebildiğim metinde insan etiketleriyle doğrulama raporlanmıyor |
 | Yazarlar yeni ortam ve savunma eklenmek üzere tasarladıklarını söylüyor | Yalnızca tool çağıran ajanları farklı LLM'lerle ölçüyor; mimari kıyası yok |
 | Tur sayısının etkisini gösterdi; tur bütçesi eğrimizin dayanağı | Planner ve hakem için API modeli (GPT-5.1) gerekiyor; maliyet ve erişim sorusu |
@@ -359,7 +424,7 @@ Cevapların hepsi aynı kalıpta: önce tek cümlelik cevap, sonra bir sayı ya 
 | 31 durum değişkeni var; saldırı başarısı kodla okunabilir | Makale uzun ufuklu planlamayı kapsam dışı sayıyor |
 | 27 tool durumu değiştiriyor (cam, far, navigasyon, e-posta); saldırganın doğal hedefleri | Kod tabanını öğrenmek zaman alır |
 | 19 politika hazır; saldırı altında politika ihlali ayrı bir metrik olur | 7 politikayı LLM hakem kontrol ediyor ve hakem hatası raporlanmıyor |
-| 240 temiz görev, nedensellik testi için hazır referans | Lisans ve simüle kullanıcının API maliyeti; şirket içinde kullanmadan önce kontrol gerekir |
+| 240 temiz görev, nedensellik testi için hazır referans. Lisans MIT; IJCAI-ECAI 2026'da bir yarışması var | Simüle kullanıcının API maliyeti; şirket içi açık kaynak onayı yine gerekir |
 
 ### İşimize yarar mı? Yorum
 
@@ -382,16 +447,16 @@ Cevapların hepsi aynı kalıpta: önce tek cümlelik cevap, sonra bir sayı ya 
 
 | Risk | Ne yaparız |
 | --- | --- |
-| CAR-bench lisansı şirket kullanımına uymuyor | 12 ila 15 tool'lu kendi mini araç ortamımızı LangGraph ile yazarız |
+| CAR-bench şirket içi açık kaynak onayından geçmiyor (lisansı MIT, risk düşük) | 12 ila 15 tool'lu kendi mini araç ortamımızı LangGraph ile yazarız |
 | Ocak sonunda araç ortamında saldırı hâlâ çalışmıyor | AgentLAB'in genel ortamlarında mimari kıyasına geçeriz |
 | Saldırgan model (kısıtları kaldırılmış Qwen) onaylanmıyor | Onaylı bir modeli saldırgan olarak kullanır, ASR'nin daha düşük çıkabileceğini not ederiz |
 | API bütçesi yetmiyor | Vaka ve tekrar sayısını azaltırız; önce tek koşunun maliyetini ölçeriz |
 
-**Mentordan isteyeceğin onaylar.** İki kod tabanının lisans kontrolü. Saldırgan model için izin. API modelleri ve bütçe. "AgentLab" derken ICML 2026 benchmark'ını kastettiğinin teyidi.
+**Mentordan isteyeceğin onaylar.** İki kod tabanı da MIT lisanslı; şirket içi açık kaynak onayı. Saldırgan model için izin. API modelleri ve bütçe. "AgentLab" derken ICML 2026 benchmark'ını kastettiğinin teyidi.
 
 ## Kaynaklar
 
-Sayılar aşağıdaki üç belgeden alındı; bu dosya için makaleleri yeniden açmadım.
+16 Kasım'da kaynakların tam metinleri açıldı ve bu dosyadaki sayılar onlara göre doğrulandı. Hangi kaynağın ne kadar okunduğu ve neyin düzeltildiği [Kaynak Denetimi ve Güncelleme](Kaynak%20Denetimi%20ve%20G%C3%BCncelleme%20-%2016%20Kas%C4%B1m%202026.md) dosyasında.
 
 **Kendi belgelerin.**
 
@@ -407,14 +472,15 @@ Sayılar aşağıdaki üç belgeden alındı; bu dosya için makaleleri yeniden 
 
 **Saldırı ve savunma.**
 
-- [AgentPoison](https://neurips.cc/virtual/2024/poster/94715), [FuncPoison](https://arxiv.org/html/2509.24408v1), [CHAI](https://arxiv.org/pdf/2510.00181), [Nassi vd.](https://arxiv.org/pdf/2508.12175)
+- [AgentPoison](https://arxiv.org/abs/2407.12784), [FuncPoison](https://arxiv.org/html/2509.24408v1), [CHAI](https://arxiv.org/pdf/2510.00181), [Nassi vd.](https://arxiv.org/pdf/2508.12175)
 - [ASB yeniden analizi](https://arxiv.org/pdf/2510.05244), [The Attacker Moves Second](https://arxiv.org/abs/2510.09023)
-- [CaMeL](https://arxiv.org/abs/2503.18813), [AuthorityFlow](https://arxiv.org/abs/2611.04673), [From Intent to Action](https://arxiv.org/pdf/2609.19630)
+- [CaMeL](https://arxiv.org/abs/2503.18813), [AuthorityFlow](https://arxiv.org/abs/2611.04673), [From Intent to Action](https://arxiv.org/pdf/2609.19630), [Passing the Test You Trained On](https://arxiv.org/abs/2610.03448), [Gizli durum prob'ları](https://arxiv.org/abs/2608.02657), [Signed but Not Safe](https://arxiv.org/abs/2611.07483)
 
 **JEV ve hakem güvenilirliği.**
 
 - [JEV-as-a-Judge](https://arxiv.org/abs/2609.26550), CMU
-- [Evaluating and Benchmarking the System One Model Jev](https://www.opentrain.ai/tools/hf-eval-papers/paper/28d20dd7-5ecd-43f5-9b83-329fd6faeef2/) (yalnızca özet sayfası okundu)
+- [Evaluating and Benchmarking the System One Model Jev](https://arxiv.org/abs/2609.37647), Deußer vd.
+- Mimari: [TypeSafe lansman yazısı](https://typesafe.ai/blog/introducing-system-one-models-and-jev), [Model jaggedness](https://docs.typesafe.ai/model-jaggedness), [Models](https://docs.typesafe.ai/models), [AI primer](https://docs.typesafe.ai/introduction/machine-learning-primer), [Don't Call It a Decision Model](https://typesafe.ai/blog/dont-call-it-a-decision-model), [Jev's Architecture Unmasked](https://archerhume.com/posts/jevs-architecture-unmasked), [Kev](https://huggingface.co/Terom/kev-0.5b), [Perplexity Decider v1.1](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b)
 - [Datadog: sahte politika saldırısı](https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/), [LangChain: ajan değerlendirme](https://www.langchain.com/blog/jev-agent-evals-langsmith)
 - [A Coin Flip for Safety](https://arxiv.org/abs/2603.06594), [Know Thy Judge](https://arxiv.org/abs/2503.04474), [Policy Invariance](https://arxiv.org/abs/2605.06161)
 
@@ -428,13 +494,28 @@ Tomorrow you explain three things: what the literature says, what JEV is and how
 
 | # | Topic | The one sentence you say | The strongest number behind it |
 | --- | --- | --- | --- |
-| 1 | Main idea of the literature | An agent cannot separate instructions from data, so anything it reads can steer it | AgentLAB: attack success on GPT-4o is 0% at zero turns and about 80% at five turns |
+| 1 | Main idea of the literature | An agent cannot separate instructions from data, so anything it reads can steer it | AgentLAB: on GPT-4o a one-message injection succeeds 62.5% of the time; the multi-turn attack 79.9% |
 | 2 | Gap in the literature | I found no published benchmark that measures in-vehicle agents under long-horizon attack | CAR-bench does not measure attacks; AgentLAB has no vehicle environment |
 | 3 | What JEV is | A cheap, fast decision model that writes no text and returns probabilities over fixed options | 1,000 decisions: JEV $0.044, GPT-6 $12.18 |
 | 4 | JEV's limit | It cannot be trusted alone: weak on decisions that need reasoning, and text can fool it | JudgeBench 78.6 vs 93.1; a counterfeit policy cut F1 from 90.51% to 7.46% |
-| 5 | My proposal | Run AgentLAB's attacks in CAR-bench's vehicle environment; measure success by code first, with JEV as the second level | CAR-bench: 58 tools, 19 policies, 240 tasks |
+| 5 | My proposal | Run AgentLAB's attacks in CAR-bench's vehicle environment; measure success by code first, with JEV as the second level | CAR-bench: 58 tools, 19 policies, 240 tasks; both repositories are MIT-licensed |
 
 **A three-minute script.** "First I reviewed the literature. The core problem is that an LLM agent reads instructions and data in the same text stream. When an attacker hides an instruction in the data, the agent follows it. If the attack is spread over many turns, no single turn looks suspicious. Then I looked at JEV. JEV is not an LLM; it is a decision model. I give it a state and a question with fixed options, and it returns a probability for each option. It is very cheap and fast, but it is weak on hard decisions and it can be fooled. So I propose it as a second level, not as the only judge. Finally I propose two benchmarks: AgentLAB for the attacks and CAR-bench for the vehicle environment."
+
+## Update of 16 November: sources read in full text
+
+In the earlier version the papers had not been reopened and some sources had never been reached. On 16 November the full text of 22 papers, TypeSafe's launch post and documentation, and three new sources on the architecture were read. What changed in this guide:
+
+| What changed | Before | Now | Where |
+| --- | --- | --- | --- |
+| Architecture | Stopped at "the company has not published it" | Three layers of evidence, four ideas, a board sketch | JEV, section 2 |
+| Reading of the AgentLAB number | "An attack that fails with one message" | One message 62.5%; long-horizon 79.9% | Literature, section 3 |
+| Meaning of the detector number | "The best detector catches 2%" | The same detector catches 95.1% on BIPIA and 2.1% on AgentDojo: scores do not transfer | Literature, section 5 |
+| Cascade gain | "At most 2.7 points", attributed to CMU (it is UPenn's result with flash-tier fallbacks) | Easy verdicts: +1.27 points at 27% of the fee; hard verdicts: −0.74 points at 67% of the fee | JEV, section 3 |
+| Open models | "There are relatives" | Six open models match JEV's accuracy; the proposal now leads with an open model | JEV, section 4; Benefit for the thesis |
+| CAR-bench licence | Listed as a risk | MIT; AgentLAB is MIT too | Proposal section |
+| The five defense numbers marked (C) | From a secondary report | All verified in the primary sources; mark removed | Literature, section 5 |
+| JEV version | 1.13 | Current version is 1.14 (14 October); the papers tested 1.13 | JEV, section 2 |
 
 ## How to read the numbers: which rate is a rate of what
 
@@ -502,11 +583,11 @@ The families come from [AgentLAB](https://arxiv.org/abs/2602.16901)'s taxonomy; 
 
 | Number | Source | A rate of what | What it means |
 | --- | --- | --- | --- |
-| 0% at zero turns, about 80% at five turns | [AgentLAB](https://arxiv.org/abs/2602.16901) (ICML 2026) | Task-injection ASR on a GPT-4o agent, by the number of turns given to the attacker | An attack that fails with one message succeeds four times out of five with five turns. The turn count is the most important variable |
-| 80% or more on average; poison rate below 0.1% | [AgentPoison](https://neurips.cc/virtual/2024/poster/94715) (NeurIPS 2024) | Memory-poisoning ASR; the share of poisoned records in memory | Four out of five attacks succeed with fewer than one poisoned record in a thousand. A driving agent was one of those tested |
+| One message 62.5%; long-horizon 79.9%. 0% at a turn budget of 0, about 80% at 5 | [AgentLAB](https://arxiv.org/abs/2602.16901) (ICML 2026) | Task-injection ASR on a GPT-4o agent. First pair: the classic one-message injection versus the attack spread over turns. Second pair: by the turn budget given to AgentLAB's own attack | Spreading the attack over turns adds 17 points to a success rate that was already high, and success rises steadily with the turn budget. Note: "0 turns" means no attack content could be placed at all; it is not a one-message attack. Claude-4.5 is at 0% in this family |
+| 80% or more on average; poison rate below 0.1% | [AgentPoison](https://arxiv.org/abs/2407.12784) (NeurIPS 2024) | Memory-poisoning ASR; the share of poisoned records in memory | Four out of five attacks succeed with fewer than one poisoned record in a thousand. A driving agent was one of those tested |
 | Above 86% | [FuncPoison](https://arxiv.org/html/2509.24408v1) (arXiv 2025) | ASR of poisoning the function library in multi-agent driving systems | One poisoned tool description is enough; the error spreads from agent to agent |
 | 81.8% | [CHAI](https://arxiv.org/pdf/2510.00181) (arXiv 2025) | ASR on DriveLM of hijacking an agent with text placed in the physical scene | A roadside sign can also be an instruction channel |
-| 73% | [Nassi et al.](https://arxiv.org/pdf/2508.12175) (arXiv 2025) | Not an ASR. The share of the threat scenarios they studied that were rated "high" or "critical" in a risk assessment | This is a risk-classification result; do not mix it up with attack success |
+| 73% | [Nassi et al.](https://arxiv.org/pdf/2508.12175) (arXiv 2025) | Not an ASR. The share of the threat scenarios they studied that were rated "high" or "critical" in a risk assessment | This is a risk-classification result; do not mix it up with attack success. The method (TARA) is adapted from the automotive cybersecurity standard ISO/SAE 21434 |
 | From about 74% to about 9% | [Re-analysis](https://arxiv.org/pdf/2510.05244) | The ASR the ASB benchmark reported for undefended GPT-4o, after removing the forced injection of attack tools into the agent | Most of the reported success came from how the benchmark was set up. The strongest evidence for asking "is this really an attack?" |
 
 ### 4. "Is this really an attack?" The five-question test
@@ -523,16 +604,17 @@ Because of that last row, we ask five questions before we count a case as an att
 
 ### 5. Defense-side numbers and what they mean
 
-There are two kinds of defense. Probabilistic ones rely on the model or a classifier making the right call. Deterministic ones enforce the rule outside the model, in code. Numbers marked (C) come from the Cowork reports; I have not opened those papers myself.
+There are two kinds of defense. Probabilistic ones rely on the model or a classifier making the right call. Deterministic ones enforce the rule outside the model, in code. Every number in this table was verified against the full text of the papers on 16 November.
 
 | Number | Source | A rate of what | What it means |
 | --- | --- | --- | --- |
 | Above 90% on most of 12 defenses | [The Attacker Moves Second](https://arxiv.org/abs/2510.09023) | ASR against the defended system when the attacker knows the defense (adaptive attack) | Defenses that ask the model to "be careful" give almost no protection against an attacker who knows them |
-| 2% at 1% FPR | [Source](https://arxiv.org/abs/2610.03448) (C) | The best injection detector's catch rate (TPR) when false alarms are held at 1% | If you want few enough alarms not to bother the driver, the detector catches 2 of 100 attacks |
+| 95.1% versus 2.1% (both at 1% FPR) | [Passing the Test You Trained On](https://arxiv.org/abs/2610.03448) | The catch rate (TPR) of one detector (PIGuard): on BIPIA inputs of the kind it was trained on, and on AgentDojo's tool outputs | A detector works on inputs whose form resembles its training data. A benchmark score does not predict behavior inside an agent (rank agreement between the two benchmarks is 0.01). You have to measure the detector on your own vehicle environment's tool outputs |
 | 77% versus 84% | [CaMeL](https://arxiv.org/abs/2503.18813) | Not an ASR; utility: the share of AgentDojo tasks completed with the CaMeL defense and without any defense | Architectural isolation gives strong protection but costs 7 points of task success |
-| ASR from 93% to 9%; utility from 90% to 83% | [AuthorityFlow](https://arxiv.org/abs/2611.04673) (C) | Attack success and task success before and after the defense | Provenance control cuts most attacks; the price is 7 points of utility |
-| ASR from 34.6% to 0% | [Hidden-state probes](https://arxiv.org/abs/2608.02657) (C) | Attack success on AgentDojo with a defense that looks at the model's internal representations | Only possible with an open-weight model; an opportunity for an on-vehicle model |
-| From 8.3% to 75.0% | [Signed but Not Safe](https://arxiv.org/abs/2611.07483) (C) | Policy-violation rate in a multi-agent system when the injection arrives before the signature | Signing a message between agents does not guarantee that its content is correct |
+| ASR from 93% to 9%; utility from 90% to 83% | [AuthorityFlow](https://arxiv.org/abs/2611.04673) | Attack success and task success before and after the defense, under parameter poisoning (right tool, altered argument), on the authors' own benchmark FactAuthBench | Provenance control that traces which information field each argument came from cuts most attacks; the price is 7.6 points of utility |
+| ASR from 34.6% to 0% | [Hidden-state probes](https://arxiv.org/abs/2608.02657) | Attack success on difficult AgentDojo settings, on Qwen3.5-27B, with a defense that looks at the model's internal representations | Only possible with an open-weight model; an opportunity for an on-vehicle model |
+| From 8.3% to 75.0% | [Signed but Not Safe](https://arxiv.org/abs/2611.07483) | Violation rate of a signed requirement manifest in a multi-agent system (GPT-5.6-luna), when one injected line is added to the request context before signing | Signing a message between agents does not guarantee that its content is correct |
+| 78.7% versus 59.0%; false alarms 7% versus 50% | Same paper | On identical traces, the share of violations caught and the false-alarm rate: a verifier written in code, and an LLM checker | Code catches more than the LLM checker and raises far fewer false alarms. This backs the proposal to measure success by code first |
 | 2 to 3 of 161 cases | [From Intent to Action](https://arxiv.org/pdf/2609.19630) | How many voice-command cases that should not be executed were executed anyway (False Execute) | Even the best models do not reach zero; so the LLM should not be the last safety authority |
 
 **Three lessons from the defense side.**
@@ -547,7 +629,7 @@ As far as I could find, no published benchmark measures the intersection "under 
 
 ## JEV: plain version
 
-JEV is a decision model: you give it a state and a question with fixed options, and it returns a probability for each option without writing text. TypeSafe AI released it on 15 September 2026.
+JEV is a decision model: you give it a state and a question with fixed options, and it returns a probability for each option without writing text. TypeSafe AI released it on 15 September 2026; the current version is 1.14 (14 October 2026), and every paper you read tested 1.13. The company uses the name "System One model" instead of "decision model": "Jev makes judgments, code makes decisions."
 
 ### 1. How it differs from an LLM judge
 
@@ -568,16 +650,42 @@ JEV is a decision model: you give it a state and a question with fixed options, 
 
 ### 2. Architecture: what is known and what is not
 
-The honest answer: the company has not published the internal architecture or a paper. Say this yourself in the talk.
+The company has not published the internal architecture or a paper; say this yourself in the talk. But three separate layers of evidence draw the same picture: a pretrained language-model backbone, a state that is read once, question branches that cannot see each other, and probabilities that are read out directly instead of generated as text.
 
-| Fact | Source | How reliable |
+**Three layers of evidence.**
+
+| Layer | Source | What it says | How reliable |
+| --- | --- | --- | --- |
+| 1. The company's own statements | [Launch post](https://typesafe.ai/blog/introducing-system-one-models-and-jev), [Models](https://docs.typesafe.ai/models), [AI primer](https://docs.typesafe.ai/introduction/machine-learning-primer) | "A new model architecture, parallel sampler ... and training method we call RLCD"; "outputs all probabilities in parallel instead of autoregressively generating by token"; "ingests the state once and evaluates every question against it in parallel"; "neither small nor an LLM"; RLCD is a third way of post-training pretrained language models | Primary source, but a vendor claim with no details |
+| 2. Behavioral experiments | [Jev's Architecture Unmasked](https://archerhume.com/posts/jevs-architecture-unmasked): about 10,000 API calls | JEV cannot see a secret code placed in a sibling question (0.00) but sees it in the state (0.90); 1,500 questions return in a few hundred milliseconds; a 200-option question is as fast as a 2-option one | The measurements are repeatable; the architecture is the author's inference. An independent blog, not peer-reviewed |
+| 3. Open reproductions | [Kev](https://huggingface.co/Terom/kev-0.5b), [Perplexity Decider v1.1](https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b), [CMU paper](https://arxiv.org/abs/2609.26550) Appendix A | Six open models built with the same recipe (a language-model backbone and a small readout head) reach JEV's accuracy | Verifiable, with open code. But it holds for those models; it does not prove JEV is the same |
+
+**Why the mechanism works: four ideas.**
+
+1. **Reading is parallel; writing is sequential.** When a language model reads its input, every token is already known, so a layer processes them together. When it writes, each token waits for the previous one to be chosen: a 100-word answer is 100 passes in a row. JEV stops after reading. This is the main source of its speed and price.
+2. **The state is read once.** The model stores the intermediate results of the tokens it has processed. If you ask 50 questions, all 50 look at the same stored state. That is why adding a tenth question barely changes the response time.
+3. **Questions cannot see each other.** The attention mask tells each question "see the state and your own branch, not the other questions". One answer cannot influence another. The cost: if one question needs another's answer, you need two requests.
+4. **The answer is read out, not generated.** The internal representation at the end of a branch goes into a small function that gives one score per option, and a softmax turns the scores into probabilities that sum to 1. The output is always one of the allowed options, so a format error is impossible; but it can pick the wrong option. The claim "it cannot hallucinate" is true only in this narrow sense.
+
+**A sketch you can draw on the board.** A long bar on the left (the state, read once). To its right, three short bars one below the other (three questions; each has an arrow to the state and none to the others). At the end of each short bar, a small box (the readout head) and a probability bar. One sentence under it: it reads, it does not write.
+
+**The open recipe (from the Kev model card).** A frozen Qwen backbone, a rank-16 LoRA adapter and a small "pointer" head; the trained parameters are 1.9% of the backbone. The input is one packed sequence: the state, then for each question its instructions, its options and a decision token. The head compares the decision token's representation with the representation of each option's last token and applies a softmax. The loss is cross-entropy over the options.
+
+**What RLCD means.** "Reinforcement learning for calibrated decisions." The goal is calibration: when the model says "80% sure", it should be right about 80% of the time. The company's AI primer presents it as a third way of adapting pretrained language models: RLHF for chat, RLVR for verifiable tasks, RLCD for calibrated decisions. The loss is not published. The company makes all its training data itself; there is no training or fine-tuning on customer data.
+
+**Known and unknown.**
+
+| Fact | Status | Source |
 | --- | --- | --- |
-| Interface: a state and typed questions go in, probabilities come out | TypeSafe documentation | Documented |
-| One pass, a parallel sampler, a training method called RLCD | TypeSafe launch post | The vendor's claim; no details |
-| A language-model backbone, one forward pass and a small head that scores each option | Open reproductions (Kev, Perplexity Decider) | Verifiable, but for those models; a guess for JEV |
-| Number of layers, number of parameters, training data | Not published | Unknown |
+| Interface: a state and typed questions go in, probabilities come out | Documented | TypeSafe documentation |
+| The state is read once; questions are independent and parallel | Documented and confirmed by experiment | Models page; API study |
+| Limits: 64k tokens per request, 32k per question; at most 255 options; 262k with a header | Documented | Models page |
+| The backbone is a pretrained language model | Implied by the company | AI primer |
+| Exact form of the readout head | A guess; two candidates | API study |
+| Which backbone, how many parameters, how many layers | Unknown; the tokenizer matches no public model | Not published |
+| RLCD's reward function, content of the training data | Unknown | Not published |
 
-**What RLCD means.** "Reinforcement learning for calibrated decisions." The goal is calibration: when the model says "80% sure", it should be right about 80% of the time. The reward function is not published.
+**The sentence to say in the talk.** "The company has not published the architecture. But its own statements, an independent API study, and open models that reach JEV's accuracy with the same recipe all show the same picture. Which backbone it uses and how large it is are unknown."
 
 ### 3. How it is used as a judge: the cascade
 
@@ -591,7 +699,11 @@ JEV is used not alone, but as the first stage of a two-stage setup ([CMU paper](
 | --- | --- | --- |
 | 93.4% versus 92.5% | Accuracy on a 1,610-pair test: the cascade and GPT-6 alone | The two-stage setup is no worse than the expensive judge alone |
 | 41.4% | The cascade's cost as a share of the cost of GPT-6 alone | The same accuracy for less than half the money, because easy cases stay with JEV |
-| At most 2.7 points | The largest accuracy gain the cascade adds (CMU paper) | The cascade mainly saves money; it does not raise accuracy much |
+| +1.27 points; 26.7% of the fee | Cascade minus GPT-6 accuracy, and the cost ratio, on the RewardBench part (1,340 pairs) | On easy verdicts where JEV is good, three quarters of the cases stay with JEV |
+| −0.74 points; 66.8% of the fee | The same on the JudgeBench part (270 pairs) | On verdicts that must be derived, 65% of the cases go to the expensive judge; the saving falls to a third |
+| Exact parity; 75.5% of the fee | A live test on two workloads never seen before (570 pairs) | When JEV is weak the method keeps the accuracy, but the saving falls to a quarter. The cascade saves money; it does not raise accuracy |
+
+**Threshold recipe (CMU, v6).** Take the verdict from the average of both option orders. Choose the threshold on about 100 labelled items from your own workload. Look at the lower confidence bound of the accuracy loss, not at its point estimate: the point rule loses more than two points in 40 to 50% of draws, and the lower-bound rule cuts that to about 5%. Your verdict ("is this trace an attack?") is close to the class that must be derived, so expect the saving of the JudgeBench row.
 
 ### 4. Benchmark numbers and what they mean
 
@@ -605,11 +717,23 @@ All three rows are accuracy: the share of cases where the judge's verdict matche
 
 **How to read it.** If the answer is in the text, JEV is within three points of the expensive judges. If you have to think to find the answer, the gap grows.
 
+**Open-weight models are at the same level (CMU, Appendix A).** The paper ran 22 open models on the same 5,172 judgments as JEV; the numbers are accuracy, and latency is on one H100 GPU.
+
+| Model | Pooled accuracy | JudgeBench | Error AUROC | Latency |
+| --- | --- | --- | --- | --- |
+| Perplexity Decider v1.1 27B (Apache-2.0) | 89.0% | 82.6% | 0.841 | 84 ms |
+| Eikos-27B | 89.0% | 78.6% | 0.843 | 61 ms |
+| JEV 1.13 (API) | 88.3% | 78.6% | 0.822 | 152 ms |
+| Kev 27B | 86.5% | 76.3% | 0.816 | 77 ms |
+| Untuned Qwen3.8-27B (reflex) | 83.5% | 69.7% | 0.729 | 245 ms |
+
+How to read it: six open models are within sampling error of JEV, and none is significantly better. Decision tuning matters more than the base model (untuned 83.5%; tuned 85.2 to 89.0%). The paper's own sentence: the ingredients of the cascade are no longer specific to JEV. The limit: the authors did not rerun the cascade or the order-stability tests with the open models.
+
 **Other measurements.**
 
 | Number | Source | A rate of what | What it means |
 | --- | --- | --- | --- |
-| 27 of 37 datasets | [Deußer et al.](https://www.opentrain.ai/tools/hf-eval-papers/paper/28d20dd7-5ecd-43f5-9b83-329fd6faeef2/) | The number of datasets where JEV is more accurate than the open model Qwen3.8-27B | On general classification it is as good as or better than open models |
+| 27 of 37 datasets | [Deußer et al.](https://arxiv.org/abs/2609.37647) | The number of datasets where JEV is more accurate than the open model Qwen3.8-27B | On general classification it is as good as or better than open models |
 | Micro-F1 from 0.50 to 0.75 | Same paper | F1 on yes/no questions in UNFAIR-ToS, with a fixed 0.5 threshold and with a threshold tuned on training data | Choosing the threshold on your own data changes the result a lot |
 | 35% versus 54.5% | Same paper | Completion rate on unseen ALFWorld tasks: JEV and Qwen | JEV is weak as the agent itself; it cannot plan |
 | 92 to 913 times | [LangChain](https://www.langchain.com/blog/jev-agent-evals-langsmith) | Not a rate but a factor: how much lower the score variance is than an LLM judge's when the same case is scored again | Very consistent. But a narrow five-example test, and being consistent is not being correct |
@@ -623,8 +747,12 @@ All three rows are accuracy: the share of cases where the judge's verdict matche
 | It errs in the same places as LLM judges | 96% | The share of JEV's most confident errors that LLM judges repeat | Two judges agreeing is not proof of correctness; human labels are required |
 | Text can steer it | F1 from 90.51% to 7.46% ([Datadog](https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/)) | F1 for injection detection, after a counterfeit policy text is added to the input | Not text that says "ignore the rules", but text that rewrites the definition of the rules, breaks JEV |
 | The tool gate can be bypassed | From 0.893 to 0.290 | Not a rate but a probability: the "risky" probability (`is_risky`) JEV gives to a risky action | After the attack the same action falls below the threshold and passes |
+| Sensitive to option order | From 0.84–0.89 to 0.93–0.96 | Not a rate but a probability: the same question with its options in reverse order (independent API study) | The vendor also writes that JEV leans toward the first option. At a 0.9 threshold the action can change; ask in both orders and average |
+| Accuracy falls on long inputs full of irrelevant content | No number | The vendor's own list of limits ("context rot") | Do not pass the whole long-horizon trace; select the relevant turns in code and measure the difference in the pilot |
 
-**Strength of the evidence.** The model is two months old. Most sources are preprints that are not peer-reviewed. Some numbers come from companies that sell related products (Datadog, LangChain). If you say this yourself in the talk, you gain trust.
+**The vendor admits it too.** TypeSafe's [Model jaggedness](https://docs.typesafe.ai/model-jaggedness) page lists nine limits: literal reading, math and counting, date comparison, indirection, a large state full of irrelevant detail, adversarial content, contradictory instructions, option order, and text generation. The adversarial-content item matters most for your thesis: the company itself writes that an injected instruction in the state, or text that argues for its own classification, "can move the answer". The detail behind Datadog's number: recall fell from 82.90% to 3.88%, and caught attacks from 3,849 to 180.
+
+**Strength of the evidence.** The model is two months old and the numbers are for version 1.13; the current version is 1.14. The company deliberately chose not to publish public benchmark results, so every number comes from third parties. Most sources are preprints that are not peer-reviewed. Some numbers come from companies that sell related products (Datadog, LangChain). If you say this yourself in the talk, you gain trust.
 
 ## Benefit for the thesis: is it useful for us?
 
@@ -649,9 +777,9 @@ The Evaluate part of the thesis asks "is this really an attack?". A measuring in
 | Consistency | It gives the same score to the same case, so experiments are repeatable | Being consistent is not being correct |
 | Probability output | You can choose a threshold and compute metrics such as "catch rate at 1% false alarms" directly | The confidence does not carry information on every task; choose the threshold on your own data |
 | Security | It can be tried as a guard candidate | A counterfeit policy text fools it: F1 from 90.51% to 7.46% |
-| Access | There are open-weight relatives (Kev, Perplexity Decider) | JEV is a closed API; data leaves the company, and results can change when the version changes |
-| Evidence | There are independent measurements (CMU, UPenn, the 37-dataset study) | The model is two months old; the sources are preprints |
-| Novelty | As far as I found, nobody has tested a decision model as a judge on long-horizon agent traces or in a vehicle environment | A small sub-chapter, not a separate thesis. There is a risk of scope creep |
+| Access | There are open-weight relatives, and six match JEV's accuracy (Perplexity Decider v1.1 89.0%; JEV 88.3%); 42 to 245 ms on one GPU | JEV is a closed API; data leaves the company, and the version moved from 1.13 to 1.14 within a month |
+| Evidence | There are independent measurements (CMU, UPenn, the 37-dataset study) | The model is two months old; the sources are preprints; the company publishes no public benchmarks |
+| Novelty | The CMU paper says use inside an agent was not tested; as far as I found, nobody has tested a decision model as a judge on long-horizon agent traces or in a vehicle environment | A small sub-chapter, not a separate thesis. There is a risk of scope creep |
 
 ### Three roles in the thesis
 
@@ -664,7 +792,7 @@ The Evaluate part of the thesis asks "is this really an attack?". A measuring in
 ### Proposed measurement setup: four levels
 
 1. **Code (oracle).** Reads attack success from the environment state: was the email really sent, did the navigation target change. This is the main metric.
-2. **Decision model (JEV or an open relative).** A cheap first judge for interpretive verdicts that code cannot read.
+2. **Decision model (first an open-weight model on our own hardware; JEV for comparison).** A cheap first judge for interpretive verdicts that code cannot read.
 3. **LLM judge.** For the cases where the decision model is not confident.
 4. **Human audit.** A small hand-labelled set that measures how accurate the other three levels are.
 
@@ -673,7 +801,7 @@ The output of this setup is two ASRs: the raw ASR the judge reports, and the ver
 ### Three conditions
 
 1. Measurement by code (the oracle) stays the main metric; JEV does not replace it.
-2. Validate JEV against human labels and choose the threshold on your own data; do not copy the paper's 0.9.
+2. Validate the decision model against human labels and choose the threshold on your own data; do not copy the paper's 0.9. The recipe: the average of both option orders, about 100 labels, the lower-bound rule.
 3. Also test JEV as an attack target.
 
 **First step.** A 100-trace pilot in December: the same traces are scored by code, an LLM judge and a decision model; one table shows how well each agrees with human labels. Two weeks at most.
@@ -685,10 +813,10 @@ There are nine points: the first four are the literature, the next three are JEV
 | # | Point | How you explain it | Why it matters |
 | --- | --- | --- | --- |
 | 1 | Instructions and data share one channel | Use the letter analogy: the assistant takes the order in the letter for the boss's order | All attack families grow from this one weakness |
-| 2 | The number of turns is the most important variable | "Task injection on GPT-4o is 0% at zero turns and about 80% at five turns" | Single-message tests understate the risk; we will report a turn-budget curve |
+| 2 | The number of turns is the most important variable | "On GPT-4o a one-message injection succeeds 62.5% of the time; the same goal spread over turns succeeds 79.9%. Success rises steadily with the turn budget" | Single-message tests understate the risk; we will report a turn-budget curve |
 | 3 | Reported ASRs can be inflated | "A success reported as 74% in ASB fell to 9% once the setup was fixed" | The reason for the five-question validity test; the original contribution of the Evaluate part |
 | 4 | Defenses that ask are broken; defenses that enforce hold | "Most of 12 defenses were bypassed above 90% by adaptive attacks; rules enforced in code hold but cost 7 points of utility" | The basis for re-testing every defense with an attacker who knows it |
-| 5 | JEV is not an LLM | The multiple-choice exam analogy and the `send_email` example on the board | Your mentor asked for the architecture; remember to say "the internals are not published" |
+| 5 | JEV is not an LLM | The multiple-choice exam analogy and the `send_email` example on the board | Your mentor asked for the architecture. Say "the company has not published it, but three layers of evidence show the same picture" and draw the sketch: it reads, it does not write |
 | 6 | JEV is good on easy verdicts and weak on hard ones | "1.8 points behind on RewardBench, 14.5 points behind on JudgeBench" | Explains why it cannot be the only judge and why the cascade is needed |
 | 7 | JEV can be attacked too | "A counterfeit policy text cut F1 from 90.51% to 7.46%" | We will study JEV not only as a tool but also as an attack target |
 | 8 | We will report two ASRs | "Raw ASR is what the judge says; verified ASR passes the validity test and is corrected for judge error" | This is what makes the measurement hard to question |
@@ -697,10 +825,10 @@ There are nine points: the first four are the literature, the next three are JEV
 **Three decisions to ask for at the end.**
 
 1. Should JEV be part of the evaluation stage only, or also a defense candidate?
-2. Am I allowed to call the TypeSafe API with benchmark data, or should I run an open-weight decision model on our own hardware?
+2. My proposal is to run an open-weight decision model on our own hardware. Am I also allowed to call the TypeSafe API with benchmark data, for comparison?
 3. Is a 100-trace pilot in December acceptable, or should I finish the AgentLAB reproduction first?
 
-**What to say openly in the talk.** JEV has no official paper. Most sources are preprints. Some numbers come from companies that sell products. The defense numbers marked (C) come from a secondary report; you have not opened those papers yourself yet. The car scenarios are your proposal, not measured results.
+**What to say openly in the talk.** JEV has no official paper, and the company publishes no public benchmark results. Part of the architecture account rests on an independent API study and on open reproductions; the company has not confirmed it. The JEV numbers are for version 1.13. Most sources are preprints. Some numbers come from companies that sell products. You verified the numbers against the full text of the papers, but you have not reproduced any of them yourself. The car scenarios are your proposal, not measured results.
 
 ## If you get a question: likely questions and answers
 
@@ -709,29 +837,32 @@ There are nine points: the first four are the literature, the next three are JEV
 | Question | Short answer | Basis |
 | --- | --- | --- |
 | Why are agents riskier than chatbots? | "A fooled chatbot writes bad text; a fooled agent takes a bad action." | An agent calls tools, keeps memory and works in many steps |
-| What is a long-horizon attack? | "An attack whose goal is split over many turns, so each single turn looks harmless." | AgentLAB: 0% at zero turns, about 80% at five turns |
+| What is a long-horizon attack? | "An attack whose goal is split over many turns, so each single turn looks harmless." | AgentLAB: on GPT-4o, one message 62.5%, long-horizon 79.9% |
 | How will you measure ASR? | "First by code, from the environment state. A judge is used only for verdicts that code cannot read." | CAR-bench has 31 state variables |
 | How do you know a case is a real attack? | "With a five-question test: authority, causality, violation, outcome, realism." | The drop from 74% to 9% in ASB shows why this test is needed |
 | Which defense is best? | "No single defense is enough. Those that enforce rules in code hold, but they cost utility." | AuthorityFlow: ASR from 93% to 9%, utility from 90% to 83% |
-| Why is a detector not enough? | "At a low false-alarm rate it catches very few attacks, and it cannot see attacks that contain no instruction." | 2% catch rate at 1% FPR |
+| Why is a detector not enough? | "A detector that looks good on a benchmark may not work on an agent's tool outputs, and it cannot see attacks that contain no instruction." | At 1% FPR the BIPIA leader catches 95.1% on BIPIA and 2.1% on AgentDojo |
 | Why do you need adaptive attacks? | "An attacker who knows the defense targets it; measuring with a fixed attack set is misleading." | Most of 12 defenses were bypassed above 90% |
 | What is missing in the literature? | "A benchmark for in-vehicle agents under long-horizon attack." | AgentLAB has no car; CAR-bench has no attacks |
-| Did you verify these numbers yourself? | "Not yet; they are the numbers the papers report. My first task is to reproduce AgentLAB." | Gate of phase 1: the first end-to-end attack run in the vehicle environment |
+| Did you verify these numbers yourself? | "I verified them against the full text of the papers, but I have not reproduced them. My first task is to reproduce AgentLAB." | Gate of phase 1: the first end-to-end attack run in the vehicle environment |
 
 **About JEV.**
 
 | Question | Short answer | Basis |
 | --- | --- | --- |
 | What is JEV in one sentence? | "A decision model that reads an input and returns probabilities over options I define, with no generated text." | TypeSafe AI, 15 September 2026 |
-| What is the architecture? | "The company has not published it. The interface is known; open reproductions use one pass and a small head that scores the options." | Kev and Perplexity Decider; neither is JEV itself |
-| Which paper did you read? | "There is no official paper. I read CMU's JEV-as-a-Judge and the independent benchmark studies; all are preprints." | arXiv 2609.26550 |
+| What is the architecture? | "The company has not published it. The evidence points to a pretrained language-model backbone, a state that is read once, question branches that cannot see each other, and probabilities read out directly instead of generated text." | The company's own statements, an independent API study, and open models that reach JEV's accuracy with the same recipe |
+| How can it be so fast and cheap? | "It reads but does not write. Reading the input is parallel work; writing text is sequential, token by token. JEV skips the writing loop entirely and reads the state once for all questions." | 1,500 questions in a few hundred milliseconds; a 200-option question is as fast as a 2-option one |
+| Is "it cannot hallucinate" true? | "Only for the format. The output is always one of the options I gave; but it can pick the wrong option with high confidence." | 78.6% on JudgeBench; recall of 3.88% under the counterfeit-policy attack |
+| Is it a decision model? | "That is the name that caught on. The company says 'System One model' and separates the roles: Jev makes judgments, code makes decisions. Our setup does the same." | TypeSafe blog, 3 November 2026 |
+| Which paper did you read? | "There is no official paper. I read the company's launch post and documentation, CMU's JEV-as-a-Judge (v6, with its appendices) and the independent benchmark studies; the papers are all preprints." | arXiv 2609.26550 |
 | How good is it as a judge? | "Within three points of the best LLM judges when the verdict can be read from the text; 14.5 points behind on math, code and logic." | RewardBench 92.5 / 94.3; JudgeBench 78.6 / 93.1 |
 | Why not use only JEV? | "It is weak when the verdict must be derived, and its confidence is not reliable there." | AUROC 0.745 and 0.498 |
 | Does the cascade fix the errors? | "Only partly. JEV and LLM judges are wrong on the same cases; the cascade mainly saves cost." | LLM judges repeat 96% of its most confident errors |
 | Is it robust to attacks? | "No. A counterfeit policy that rewrites the definition of the labels breaks it." | F1 from 90.51% to 7.46% (Datadog) |
-| The team does not use JEV; why bother? | "A small pilot is enough: 100 traces, two weeks. It can also be done with an open-weight relative." | Cost is $0.044 per 1,000 decisions |
+| The team does not use JEV; why bother? | "A small pilot is enough: 100 traces, two weeks. It can be done with an open-weight model on our own hardware." | Six open models match JEV's accuracy and run on one GPU (CMU, Appendix A) |
 | What is new in the thesis? | "Testing a decision model as a judge and guard on long-horizon agent traces in a vehicle environment, and reporting raw and verified ASR together." | The CMU paper did not test agentic use |
-| Does our data leave the company? | "JEV is a closed API. Until it is approved I send only benchmark and synthetic data." | Alternative: an open model on our own hardware |
+| Does our data leave the company? | "My proposal is to run an open-weight model on our own hardware; then it does not. I would send only benchmark and synthetic data to the JEV API, and only if that is approved." | Perplexity Decider v1.1 (Apache-2.0) is 0.8 points above JEV in pooled accuracy |
 
 **If you get a question you cannot answer.** Say "I have not measured that; the paper says this, and I will check it in my own pilot." That is always better than an invented number.
 
@@ -754,7 +885,7 @@ My proposal is to add both: AgentLAB as the attack framework and CAR-bench as th
 | Environments | General-purpose: compiled from AgentDojo, SHADE-Arena, WebShop, Agent-SafetyBench | Vehicle: car functions, navigation, charging, calendar and email, weather |
 | Who measures success | An LLM judge (GPT-5.1, temperature 0) | 12 policies by code, 7 by an LLM judge; state by code |
 | User | An attacker LLM (Qwen3-14B with safety constraints removed) | A normal user simulated with Gemini-2.5-Flash |
-| Code | Open ([project page](https://tanqiujiang.github.io/AgentLAB_main)) | Open ([GitHub](https://github.com/CAR-bench/car-bench-ijcai)) |
+| Code and licence | Open, MIT ([GitHub](https://github.com/TanqiuJiang/AgentLAB)) | Open, MIT ([GitHub](https://github.com/CAR-bench/car-bench-ijcai)) |
 | Role in the thesis | Attack framework and the five families | Vehicle environment, clean tasks and measurement by code |
 
 ### AgentLAB: pros and cons
@@ -762,7 +893,7 @@ My proposal is to add both: AgentLAB as the attack framework and CAR-bench as th
 | Pro | Con |
 | --- | --- |
 | Directly covers the "long-horizon" part of the thesis title | No vehicle environment; we write the car scenarios |
-| Peer-reviewed (ICML 2026); the code is open | Its attacker model has its safety constraints removed; that needs approval inside the company |
+| Peer-reviewed (ICML 2026); the code is open and MIT-licensed | Its attacker model has its safety constraints removed; that needs approval inside the company |
 | Gives a ready pipeline skeleton: planner, attacker, verifier, judge | An LLM judge measures success; in the text I could see, no validation against human labels is reported |
 | The authors say it is designed for new environments and defenses to be added | It only measures tool-calling agents with different LLMs; no architecture comparison |
 | It showed the effect of the turn count; the basis of our turn-budget curve | The planner and the judge need an API model (GPT-5.1); a question of cost and access |
@@ -775,7 +906,7 @@ My proposal is to add both: AgentLAB as the attack framework and CAR-bench as th
 | It has 31 state variables, so attack success can be read by code | The paper puts long-horizon planning out of scope |
 | 27 tools change state (windows, lights, navigation, email); natural targets for an attacker | Learning the code base takes time |
 | 19 ready policies; policy violation under attack becomes a separate metric | An LLM judge checks 7 policies, and the judge's error is not reported |
-| 240 clean tasks, a ready reference for the causality test | Licence and the API cost of the simulated user; check before using it inside the company |
+| 240 clean tasks, a ready reference for the causality test. The licence is MIT; there is a competition at IJCAI-ECAI 2026 | The API cost of the simulated user; internal open-source approval is still needed |
 
 ### Is it useful for us? Assessment
 
@@ -798,9 +929,9 @@ My proposal is to add both: AgentLAB as the attack framework and CAR-bench as th
 
 | Risk | What we do |
 | --- | --- |
-| CAR-bench's licence does not fit company use | We write our own small vehicle environment with 12 to 15 tools in LangGraph |
+| CAR-bench does not pass internal open-source approval (its licence is MIT, so the risk is low) | We write our own small vehicle environment with 12 to 15 tools in LangGraph |
 | At the end of January attacks still do not run in the vehicle environment | We switch to an architecture comparison in AgentLAB's general environments |
 | The attacker model (Qwen with constraints removed) is not approved | We use an approved model as the attacker and note that ASR may come out lower |
 | The API budget is not enough | We reduce the number of cases and repeats; first we measure the cost of a single run |
 
-**Approvals to ask your mentor for.** A licence check for both code bases. Permission for the attacker model. API models and budget. Confirmation that "AgentLab" means the ICML 2026 benchmark.
+**Approvals to ask your mentor for.** Both code bases are MIT-licensed; internal open-source approval. Permission for the attacker model. API models and budget. Confirmation that "AgentLab" means the ICML 2026 benchmark.

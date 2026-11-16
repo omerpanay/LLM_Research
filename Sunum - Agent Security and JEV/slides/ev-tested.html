@@ -1,0 +1,11 @@
+<section id="ev-tested">
+<p class="kick">2 · EVALUATORS</p>
+<h2>Can we check the judges themselves?</h2>
+<p class="lead">Yes. Some tests give the judge conversations where humans already know the right answer, and see how often the judge agrees.</p>
+<div class="row">
+<div class="card hot" style="--i:0"><p class="mid o">74.45%</p><h3 class="ct">R-Judge (2024)</h3><p class="cb">Humans marked 569 agent conversations as safe or risky. The best judge, GPT-4o, scored only 74.45 out of 100. Most other models did about as well as guessing.</p></div>
+<div class="card cool" style="--i:1"><p class="mid">96.3%</p><h3 class="ct">AgentAuditor (NeurIPS 2025)</h3><p class="cb">They gave the judge a memory of earlier labelled examples to learn from. On the same test it scored up to 96.3, about as good as a human expert.</p></div>
+</div>
+<p class="strong">So a judge can get much better, but only if we test it against human labels. I couldn’t find anyone doing this for long attacks in a car.</p>
+<aside>Hakemleri de test edebiliriz. Yöntem: insanların doğru cevabını önceden etiketlediği konuşmaları hakeme veriyorsun ve ne kadar uyuştuğuna bakıyorsun. R-Judge: 569 etiketli ajan konuşması, 27 senaryo, 10 risk tipi. En iyi model GPT-4o'nun skoru 74,45; diğer modellerin çoğu tahmin etmekten pek iyi değil. AgentAuditor (NeurIPS 2025): hakeme geçmiş etiketli örneklerden bir hafıza veriyor; aynı testte skor 96,3'e kadar çıkıyor, yani insan uzmana yakın. Buradaki skor F1: hakemin riskli durumları hem doğru yakalamasını hem de yanlış alarm vermemesini birlikte ölçen 0-100 arası bir puan. Mesaj: hakem iyileştirilebilir ama ancak insan etiketiyle ölçersek. Uzun ufuklu araç saldırılarında bunu yapan bir çalışma bulamadım; bu tezin boşluğu ve judge slaytındaki "human labelled data ekleyelim" fikrinin dayanağı.</aside>
+</section>
