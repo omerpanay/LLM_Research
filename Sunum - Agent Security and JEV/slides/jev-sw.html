@@ -1,0 +1,15 @@
+<section id="jev-sw">
+<p class="kick">5 · JEV AS A JUDGE</p>
+<h2>Strengths and weaknesses</h2>
+<div class="row">
+<div class="card cool" style="--i:0"><h3 class="ct">Strengths</h3><p class="cl">It is very cheap and very fast. It usually knows when it might be wrong. On simple decisions it is about as good as LLM judges: a UPenn study found that LLM judges cost 16 to 357 times more, but were clearly better in only 6 of 27 comparisons.</p></div>
+<div class="card hot" style="--i:1"><h3 class="ct">Weaknesses</h3>
+<ul class="cl">
+<li>It is weak when the task needs reasoning (78.6% vs 93.1% on JudgeBench).</li>
+<li>It makes mistakes in the same places as LLM judges. LLM judges repeated 96% of its most confident mistakes, so when two judges agree, they can still both be wrong.</li>
+<li>Text can trick it. Datadog hid a fake rule in the input that changed the meaning of “attack”, and JEV’s attack detection score fell from 90.51% to 7.46%.</li>
+</ul></div>
+</div>
+<p class="strong">One useful fact: six open models that we can run on our own computer now reach about the same accuracy as JEV in the CMU tests. So we don’t need JEV itself to test this idea.</p>
+<aside>Güçlü yan: çok ucuz, çok hızlı, ve çoğu zaman ne zaman yanılabileceğini biliyor. Zayıf yanlar: düşünme gerektiren işte zayıf; LLM hakemlerle aynı yerlerde yanılıyor (iki hakemin anlaşması doğru olduklarını kanıtlamıyor); metinle kandırılabiliyor. Datadog örneği: girdiye "saldırı" kelimesinin anlamını değiştiren sahte bir kural konunca JEV'in saldırı yakalama skoru yüzde 90,51'den yüzde 7,46'ya düştü. TypeSafe'in kendi sitesi de zararlı içeriğin cevabı değiştirebildiğini kabul ediyor. Son cümle önemli: açık modeller JEV ile aynı doğrulukta, yani veriyi şirket dışına çıkarmadan deneyebiliriz.</aside>
+</section>

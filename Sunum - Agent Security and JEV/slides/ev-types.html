@@ -1,0 +1,14 @@
+<section id="ev-types">
+<p class="kick">2 · EVALUATORS</p>
+<h2>Who decides that an attack worked?</h2>
+<p class="lead">That’s the evaluator’s job. I found five kinds:</p>
+<table style="transform:translate(0, 7px)">
+<tr class="th"><th style="width:19%">Evaluator</th><th style="width:33%">How it decides</th><th style="width:30%">Good / bad</th><th>Used by</th></tr>
+<tr><td>Code</td><td>Checks the system after the run: was the email really sent?</td><td>Can’t be fooled, free and only sees what leaves a trace</td><td>AgentDojo, InjecAgent</td></tr>
+<tr><td>Rules + small LLM checks</td><td>Written rules for most things, an LLM only for small questions</td><td>Keeps the LLM’s job small / rules take time to write</td><td>AgentHarm</td></tr>
+<tr class="hl"><td>LLM judge</td><td>Reads the whole conversation and decides</td><td>Works for any goal and slow, can be wrong or fooled</td><td>AgentLAB</td></tr>
+<tr><td>Decision model(System One Model)</td><td>Reads once, gives a probability for each answer</td><td>Very cheap and fast / text can trick it</td><td>Not tested on agents yet (JEV) as I found</td></tr>
+<tr><td>Human</td><td>An expert reads and labels it</td><td>The reference / slow and expensive</td><td>Used to check the others</td></tr>
+</table>
+<aside>Değerlendirici (evaluator) = saldırının başarılı olup olmadığına karar veren şey. Üç parçası var: testin koştuğu ortam (benchmark), "başarılı" diyen hakem ve ondan çıkan sayılar (ASR gibi). En büyük tartışma hakem kısmında: kod mu karar versin, LLM mi? Kod (state oracle): koşu bittikten sonra sistemin durumuna bakar; kandırılamaz ama sadece iz bırakan hedefleri görebilir. Kurallar + küçük LLM soruları: AgentHarm böyle yapıyor, LLM'e sadece "bu e-posta ikna edici mi" gibi dar sorular soruluyor. LLM hakem: her şeyi okuyup karar veriyor; her hedefe uyar ama pahalı, yavaş ve aynı enjeksiyonla kandırılabilir. Karar modeli: JEV gibi; çok ucuz ama ajan izlerinde henüz test edilmedi. İnsan: referans, diğerlerini kontrol etmek için.</aside>
+</section>

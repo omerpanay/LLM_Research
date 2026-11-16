@@ -1,0 +1,13 @@
+<section id="jev-steps">
+<p class="kick">4 · JEV</p>
+<h2>So what happens inside JEV?</h2>
+<div class="row3">
+<div class="card cool" style="--i:0"><h3 class="ct">1 · Ask</h3><p class="cb">send the information and questions, each with fixed answers.</p></div>
+<div class="card cool" style="--i:1"><h3 class="ct">2 · It packs</h3><p class="cb">The information goes in once, then every question with its options.</p></div>
+<div class="card cool" style="--i:2"><h3 class="ct">3 · It reads once</h3><p class="cb">The model reads everything in one go and keeps the information in memory.</p></div>
+<div class="card cool" style="--i:3"><h3 class="ct">4 · Questions stay apart</h3><p class="cb">Each question sees the information, but never the other questions.</p></div>
+<div class="card cool" style="--i:4"><h3 class="ct">5 · It scores</h3><p class="cb">A small layer scores each option, and the scores become probabilities. Nothing is written.</p></div>
+<div class="card hot" style="--i:5"><h3 class="ct">6 · Code decides</h3><p class="cb">code takes the top option and decides what to do.</p></div>
+</div>
+<aside>Bu slayt bir isteğin JEV'in içinde geçtiği aşamaları gösteriyor. Şirket mimariyi yayımlamadı; aşamalar üç kaynaktan birleştirildi. 1. İstek: state ve sorular gelir. Noul iki seçeneğe (evet/hayır), Score sıralı seviyelere çevrilir; yani her soru aslında bir seçenek listesi. 2. Paketleme: her şey tek bir uzun girdi olur; state bir kez, sonra her soru kendi seçenekleriyle. Seçeneklerin başı ve sonu özel işaretlerle (token) belirlenir. Bağımsız test, metne gömülen sahte seçeneklerin gerçek seçeneklerin yerini alamadığını gösterdi. 3. Tek okuma: model bütün girdiyi tek geçişte okur. State bir kez hesaplanıp saklanır (KV cache). Bu yüzden yaklaşık 100 soruya kadar süre neredeyse değişmiyor ve 1.500 soru bile bir saniyeden kısa sürüyor. 4. Ayrı dallar: bir maske her soruya state'i ve kendi seçeneklerini görme izni verir, diğer soruları görme izni vermez. Test: bir soruya konan gizli kodu diğer soru göremedi (olasılık 0,00), aynı kod state'e konunca gördü (0,90). Bir sorunun seçenekleri ise birlikte okunuyor; ilgisiz bir seçenek eklemek diğerlerinin oranını değiştirdi. 5. Puanlama: sorunun sonundaki karar işaretinde küçük bir katman her seçeneğe puan verir. Kev'de bu katman karar işaretinin iç temsilini her seçeneğin son işaretiyle karşılaştırıyor. Softmax puanları toplamı 1 olan olasılıklara çevirir. Hiç metin yazılmaz; hızın kaynağı bu. 6. Cevap: basit kod nihai cevabı kurar. Choice için en yüksek olasılıklı seçenek; confidence = (en yüksek olasılık − 1/n) / (1 − 1/n); Score için olasılıklarla ağırlıklı ortalama seviye.</aside>
+</section>

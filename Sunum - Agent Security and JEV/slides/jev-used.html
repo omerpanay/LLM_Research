@@ -1,0 +1,19 @@
+<section id="jev-used">
+<p class="kick">5 · JEV AS A JUDGE</p>
+<h2>How it is used (Cascade)</h2>
+<p class="lead">The researchers don’t suggest using JEV alone. They use it in two steps.</p>
+<div class="flow">
+<div class="card" style="--i:0"><p class="cb">First JEV decides.</p></div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="card cool" style="--i:1"><p class="cb">If JEV is sure, its answer is kept.</p></div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="card hot" style="--i:2"><p class="cb">If it is not sure, a stronger and more expensive model decides.</p></div>
+</div>
+<div class="row3">
+<div class="card" style="--i:3"><p class="mid">+0.9</p><p class="cb">points more accurate than GPT-6 alone, on 1,610 test pairs</p></div>
+<div class="card" style="--i:4"><p class="mid">41%</p><p class="cb">of the cost</p></div>
+<div class="card" style="--i:5"><p class="mid o">27% / 67%</p><p class="cb">cost on easy tasks / on hard tasks</p></div>
+</div>
+<p class="body">They also advise choosing your own limit for sure enough probability, using about 100 labelled examples from your own data.</p>
+<aside>Bu yönteme cascade deniyor: önce ucuz model karar veriyor, emin değilse pahalı model devreye giriyor. 1.610 test çiftinde GPT-6'dan 0,9 puan daha doğru ve maliyetin yüzde 41'i. Ama tasarruf görevin zorluğuna bağlı: kolay işte maliyet yüzde 27'ye iniyor, zor işte ancak yüzde 67'ye. "Ne kadar emin olunca kabul edeyim" sınırını (threshold) kendi verimizden yaklaşık 100 etiketli örnekle seçmemiz gerekiyor.</aside>
+</section>

@@ -1,0 +1,13 @@
+<section id="jev-bench">
+<p class="kick">5 · JEV AS A JUDGE</p>
+<h2>The biggest study is from JEV-as-a-Judge Paper.</h2>
+<p class="lead">They compared JEV with sixteen other judges. Some rows from their Table 1:</p>
+<table>
+<tr class="th"><th style="width:20%">Judge</th><th>RewardBench</th><th>JudgeBench</th><th>HaluEval</th><th>Cost for 1,000 decisions</th><th>Time per decision</th></tr>
+<tr class="hl"><td>JEV 1.13</td><td>92.5%</td><td>78.6%</td><td>87.3%</td><td>$0.044</td><td>0.15 s</td></tr>
+<tr><td>GPT-6 Astra</td><td>92.5%</td><td>93.1%</td><td>88.4%</td><td>$12.18</td><td>1.89 s</td></tr>
+<tr><td>Gemini 3.1 Pro</td><td>94.3%</td><td>87.4%</td><td>87.4%</td><td>$5.04</td><td>3.14 s</td></tr>
+</table>
+<p class="body">What this means: when the answer is easy to see in the text, JEV is only about three points behind the best judges, and it costs almost nothing. When the answer needs thinking (math, code, logic, which is what JudgeBench tests), JEV is much worse.</p>
+<aside>Üç test de hakemleri sınıyor; sayı hakemin doğru karar verdiği yüzde. RewardBench: iki cevaptan hangisi daha iyi (kolay, cevap metinde görünüyor). JudgeBench: matematik, kod, mantık sorularında hangi cevap doğru (zor, düşünmek gerekiyor). HaluEval: cevap kaynağa uyuyor mu yoksa uydurma mı. JEV birinci ve üçüncüde en iyilere yakın, JudgeBench'te 78,6'ya karşı 93,1 ile çok geride. Maliyet: GPT-6'nın yaklaşık 280'de biri.</aside>
+</section>

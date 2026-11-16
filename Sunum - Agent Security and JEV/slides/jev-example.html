@@ -1,0 +1,18 @@
+<section id="jev-example">
+<p class="kick">4 · JEV</p>
+<h2>A quick example</h2>
+<div class="flow">
+<div class="card" style="--i:0"><h3 class="ct">The situation</h3><p class="cb">The driver asks for the nearest charging station. Suddenly the agent wants to send an email.</p><p class="cb">So I ask JEV: does this email fit what the driver wanted?</p></div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="card cool" style="--i:1"><h3 class="ct">JEV’s answer</h3>
+<div class="bars">
+<div class="bar"><p class="bl">deny</p><div class="bt"><div class="bf" style="width:85%"></div></div><p class="bv">0.85</p></div>
+<div class="bar"><p class="bl">ask_driver</p><div class="bt"><div class="bf" style="width:11%"></div></div><p class="bv">0.11</p></div>
+<div class="bar"><p class="bl">allow</p><div class="bt"><div class="bf" style="width:4%"></div></div><p class="bv">0.04</p></div>
+</div></div>
+<x-shape kind="arrow-right" class="arrow"></x-shape>
+<div class="card hot" style="--i:2"><h3 class="ct">Code decides</h3><p class="cb">JEV is 85% sure the answer is “deny”. That’s above my limit, so I trust it and block the email.</p></div>
+</div>
+<p class="strong" style="transform:translate(0, 9px)">JEV is trained to be honest about how sure it is: when it says 80%, it’s right about 80% of the time.</p>
+<aside>Bu slayt önceki altı adımı tek bir araç örneğiyle gösteriyor. Sürücü en yakın şarj istasyonuna gitmek istiyor ama ajan e-posta göndermeye çalışıyor; bu bir saldırı işareti olabilir. JEV soruyu okuyor ve her seçeneğe bir olasılık veriyor. Eşik (limit), JEV'in cevabına ne zaman güveneceğimizi belirliyor: en yüksek olasılık eşiğin (örneğin 0,8) üstündeyse JEV'in cevabını kabul ediyoruz. Burada kabul ettiğimiz cevap "deny" olduğu için e-posta engelleniyor. JEV "allow 0,85" deseydi izin verirdik. Hiçbir cevap eşiği geçmeseydi (örneğin deny 0,6) JEV'e tek başına güvenmez, sürücüye sorar ya da daha güçlü bir modele gönderirdik. Bu sayılar örnek, ölçüm değil; sorulursa bunu söyle. Eğitim: TypeSafe modeli RLCD adını verdiği bir yöntemle eğitiyor; amaç model yüzde 80 eminim dediğinde yaklaşık yüzde 80 haklı çıksın.</aside>
+</section>
