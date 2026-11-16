@@ -43,7 +43,7 @@ Yani sunumun dayandığı ~45 kaynaktan yalnızca birkaç web sayfası baştan s
 | AgentPoison 2407.12784; FuncPoison 2509.24408; CHAI 2510.00181; Nassi vd. 2508.12175 | Tam metin | Arama özeti |
 | Datadog: sahte politika saldırısı | İlgili bölümler | Okunmuştu |
 
-**Hâlâ okunmayanlar.** Bunlar sunumda sayı olarak geçmiyor, ama literatür taraması PDF'inde adları var: Meta SecAlign, WASP, Shadow Memory, AutoDojo, Hofer vd., AgentDojo ve AgentHarm'ın ekleri, ASB'nin özgün makalesi, ve arama özetinden alınan 15 makale (Greshake, InjecAgent, MINJA, MCPTox, Prompt Infection, Crescendo, STAC, Spotlighting, MELON, Task Shield, LlamaFirewall, Progent, Design Patterns, Adaptive Attacks). VentureBeat bugün "çok fazla istek" hatası verdi. "this-that-model makalesi"nin ne olduğunu bulamadım; önceki raporda başlık ya da bağlantı yok.
+**Hâlâ okunmayanlar.** Bunlar sunumda sayı olarak geçmiyor, ama literatür taraması PDF'inde adları var: Meta SecAlign, WASP, Shadow Memory, AutoDojo, Hofer vd., AgentDojo ve AgentHarm'ın ekleri, ASB'nin özgün makalesi, ve arama özetinden alınan 14 makale (Greshake, InjecAgent, MINJA, MCPTox, Prompt Infection, Crescendo, STAC, Spotlighting, MELON, Task Shield, LlamaFirewall, Progent, Design Patterns, Adaptive Attacks). VentureBeat bugün "çok fazla istek" hatası verdi. "this-that-model makalesi"nin ne olduğunu bulamadım; önceki raporda başlık ya da bağlantı yok.
 
 ## 3. Düzeltilen dört yanlış
 
