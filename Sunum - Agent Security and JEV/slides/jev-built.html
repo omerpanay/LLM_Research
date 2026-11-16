@@ -1,11 +1,12 @@
 <section id="jev-built">
 <p class="kick">4 · JEV</p>
 <h2>How it is built</h2>
-<table style="transform:translate(0, 72px)">
-<tr class="th"><th style="width:28%"></th><th>What it tells us</th></tr>
-<tr><td>Definiton</td><td>JEV gives all the probabilities at once instead of writing word by word. It reads the information only once and then answers all the questions at the same time.&nbsp;</td></tr>
-<tr><td>An outside test with about 10,000 requests</td><td>A question cannot see the other questions, but it can see the shared information. A question with 200 options is as fast as one with 2 options. Even 1,500 questions get an answer in less than a second</td></tr>
-<tr><td>Open copies of the idea (Kev, Perplexity Decider)</td><td>They use a normal open language model and add a small extra layer that gives one score per option. They reach almost the same accuracy as JEV</td></tr>
+<p class="lead">TypeSafe hasn’t published how JEV works inside, so I put the picture together from three sources.</p>
+<table>
+<tr class="th"><th style="width:30%">Source</th><th>What it tells us</th></tr>
+<tr><td>The company’s own website</td><td>JEV doesn’t write an answer word by word. It reads the information once, then answers all the questions together, with a probability for each option.</td></tr>
+<tr><td>An outside test with about 10,000 requests</td><td>Each question sees the shared information, but not the other questions. 200 options take as long as 2, and even 1,500 questions are answered in under a second.</td></tr>
+<tr><td>Open copies of the idea (Kev, Perplexity Decider)</td><td>They take a normal open model and add one small layer that scores each option. They get almost the same accuracy as JEV.</td></tr>
 </table>
 <aside>Önemli: şirket mimariyi, ağırlıkları ve bir makaleyi yayımlamadı. Bunu sen söyle, güven kazanırsın. Ama üç ayrı kaynak aynı yönü gösteriyor: şirketin kendi sitesi, yaklaşık 10.000 istekle yapılmış bağımsız bir test ve aynı fikri açık kodla yeniden yapan modeller.</aside>
 </section>
