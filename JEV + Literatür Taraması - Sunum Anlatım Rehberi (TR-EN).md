@@ -27,7 +27,7 @@ Yarın üç şey anlatıyorsun: literatür ne diyor, JEV nedir ve tezde ne işe 
 | Mimari anlatımı | "Şirket yayımlamadı" deyip bırakıyordu | Üç kanıt katmanı ve dört fikirle anlatım, tahta şeması | JEV, bölüm 2 |
 | AgentLAB sayısının yorumu | "Tek mesajla başaramayan saldırı" | Tek mesaj %62,5; uzun ufuklu %79,9 | Literatür, bölüm 3 |
 | Detektör sayısının anlamı | "En iyi detektör %2 yakalıyor" | Aynı detektör BIPIA'da %95,1, AgentDojo'da %2,1: skor taşınmıyor | Literatür, bölüm 5 |
-| Cascade kazancı | "En fazla 2,7 puan" (güncel sürümde yok) | Kolay kararda +1,27 puan ve ücretin %27'si; zor kararda −0,74 puan ve ücretin %67'si | JEV, bölüm 3 |
+| Cascade kazancı | "En fazla 2,7 puan", CMU'ya atfedilmiş (aslında UPenn'in flash hakemli cascade sonucu) | Kolay kararda +1,27 puan ve ücretin %27'si; zor kararda −0,74 puan ve ücretin %67'si | JEV, bölüm 3 |
 | Açık modeller | "Benzerleri var" | Altı açık model JEV ile aynı doğrulukta; öneri açık modele kaydı | JEV, bölüm 4; Tezde faydası |
 | CAR-bench lisansı | Risk olarak yazılıydı | MIT; AgentLAB da MIT | Öneri bölümü |
 | "(C)" işaretli beş savunma sayısı | İkincil rapordan | Hepsi birincil kaynaktan doğrulandı; işaret kaldırıldı | Literatür, bölüm 5 |
@@ -511,7 +511,7 @@ In the earlier version the papers had not been reopened and some sources had nev
 | Architecture | Stopped at "the company has not published it" | Three layers of evidence, four ideas, a board sketch | JEV, section 2 |
 | Reading of the AgentLAB number | "An attack that fails with one message" | One message 62.5%; long-horizon 79.9% | Literature, section 3 |
 | Meaning of the detector number | "The best detector catches 2%" | The same detector catches 95.1% on BIPIA and 2.1% on AgentDojo: scores do not transfer | Literature, section 5 |
-| Cascade gain | "At most 2.7 points" (not in the current version) | Easy verdicts: +1.27 points at 27% of the fee; hard verdicts: −0.74 points at 67% of the fee | JEV, section 3 |
+| Cascade gain | "At most 2.7 points", attributed to CMU (it is UPenn's result with flash-tier fallbacks) | Easy verdicts: +1.27 points at 27% of the fee; hard verdicts: −0.74 points at 67% of the fee | JEV, section 3 |
 | Open models | "There are relatives" | Six open models match JEV's accuracy; the proposal now leads with an open model | JEV, section 4; Benefit for the thesis |
 | CAR-bench licence | Listed as a risk | MIT; AgentLAB is MIT too | Proposal section |
 | The five defense numbers marked (C) | From a secondary report | All verified in the primary sources; mark removed | Literature, section 5 |

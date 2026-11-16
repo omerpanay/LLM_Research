@@ -73,7 +73,7 @@ Yani sunumun dayandığı ~45 kaynaktan yalnızca birkaç web sayfası baştan s
 
 **Rehberde yazan.** "En fazla 2,7 puan: cascade'in doğruluğa kattığı en büyük kazanç."
 
-**Makalenin güncel sürümünün (v6, 29 Ekim) söylediği.** Bu sayı v6'da cascade kazancı olarak geçmiyor; 2,7, başka bir tabloda JEV ile GPT-6 arasındaki bir farkın değeri. Dondurulmuş cascade'in gerçek sayıları şöyle:
+**Makalenin güncel sürümünün (v6, 29 Ekim) söylediği.** Bu sayı CMU makalesine ait değil. Doğru kaynak UPenn makalesi (Rao ve Callison-Burch, arXiv 2609.29769): flash seviyesindeki LLM hakemlerle kurulan cascade'ler en güçlü tek hakemin "en fazla 2,7 puan" üstüne çıkıyor. Yani sayı doğru, kaynak yanlış atfedilmişti (bu not 16 Kasım akşamı düzeltildi; ilk sürümde "başka bir tablodaki fark" diye yanlış açıklamıştım). Dondurulmuş cascade'in gerçek sayıları şöyle:
 
 | Veri | Cascade ile GPT-6 farkı | GPT-6 ücretine oranı | Ne kadarını GPT-6'ya gönderdi |
 | --- | --- | --- | --- |
