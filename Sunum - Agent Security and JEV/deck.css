@@ -85,6 +85,10 @@ tr.hl { background: var(--orangeL); }
 .bt { height: 24px; background: var(--card); border-radius: 12px; overflow: hidden; }
 .bf { height: 24px; background: var(--blue); border-radius: 12px; }
 
+.ih { display: flex; flex-direction: row; align-items: center; gap: 16px; }
+.pics { display: flex; flex-direction: row; align-items: center; gap: 40px; }
+.pic { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+
 .quote { font-size: 40px; font-weight: 600; line-height: 1.3; color: var(--blue); }
 
 section.dark { background: var(--ink); justify-content: center; }

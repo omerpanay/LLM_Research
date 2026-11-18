@@ -27,6 +27,7 @@
   "order": [
     "cover",
     "problem",
+    "threat",
     "many",
     "families",
     "results",
@@ -47,7 +48,9 @@
     "jev-used",
     "jev-sw",
     "thesis",
+    "rq",
     "plan",
+    "jev-trace",
     "thanks"
   ],
   "sections": {
