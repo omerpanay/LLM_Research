@@ -1,14 +1,14 @@
 <section id="camel">
 <p class="kick">3 · DEFENCES</p>
-<h2>Inside the strongest design: CaMeL</h2>
+<h2>How CaMeL works</h2>
 <div style="display:flex; flex-direction:row; gap:36px; align-items:flex-start">
 <img src="/_blob/9127ee4d3ed2d53e16c429ccf6336572" alt="CaMeL system diagram: a privileged LLM writes code from the user query, a quarantined LLM processes untrusted data, and the CaMeL interpreter tracks where each value came from and checks security policies before tools run" style="width:1080px; height:511px; object-fit:contain; background:#FFFFFF; border:2px solid #DDD8CC; border-radius:16px">
 <div style="display:flex; flex-direction:column; gap:20px; width:548px">
-<div class="card cool" style="--i:0"><p class="cb"><b>1. The planner</b> reads only my request and writes the plan as code. It never sees the email.</p></div>
-<div class="card" style="--i:1"><p class="cb"><b>2. The reader</b> reads the untrusted email, but it can’t call any tools.</p></div>
-<div class="card hot" style="--i:2"><p class="cb"><b>3. The rules</b> check every value before a tool runs: “send email only to a trusted person”.</p></div>
+<div class="card cool" style="--i:0"><p class="cb"><b>1. The planner</b> sees only my request and writes the plan. It never sees the email.</p></div>
+<div class="card" style="--i:1"><p class="cb"><b>2. The reader</b> reads the email, but it can’t use any tools.</p></div>
+<div class="card hot" style="--i:2"><p class="cb"><b>3. The rules</b> check everything before a tool runs, for example: “only send email to people I trust”.</p></div>
 </div>
 </div>
-<p class="src">Figure 5 from Debenedetti et al., “Defeating Prompt Injections by Design” (CaMeL), arXiv 2503.18813. Result: 77% of AgentDojo tasks solved with provable security, vs 84% with no defence.</p>
+<p class="src">Figure 5 from Debenedetti et al., “Defeating Prompt Injections by Design” (CaMeL), arXiv 2503.18813. Result: 77% of tasks done safely, vs 84% with no defence.</p>
 <aside>CaMeL, Google DeepMind ve ETH'nin önerdiği sistem tasarımı savunması. Şekil makalenin kendi Figure 5'i. Fikir: güvenilmeyen veri programın akışını hiç değiştiremesin. 1. Privileged LLM (planlayıcı) sadece kullanıcının isteğini görür ve planı Python kodu olarak yazar; e-postayı hiç görmez, yani e-postadaki gizli emir planı değiştiremez. 2. Quarantined LLM (okuyucu) e-posta gibi güvenilmeyen veriyi okur ve içinden bilgi çıkarır, örneğin Bob'un adresini; ama hiçbir tool çağıramaz. 3. CaMeL yorumlayıcısı her değerin nereden geldiğini (capability) takip eder ve her tool çağrısından önce bir kuralı kontrol eder, örneğin "e-postayı sadece güvenilir alıcıya gönder". Sonuç: AgentDojo görevlerinin yüzde 77'si kanıtlanabilir güvenlikle çözülüyor, savunmasız sistemde bu oran yüzde 84. Zayıf yan: önceden planlanamayan görevlerde çalışmıyor ve kuralları yazmak emek istiyor. Araç asistanı dar bir uygulama olduğu için bu tasarım orada genel bir asistana göre daha kolay uygulanabilir.</aside>
 </section>

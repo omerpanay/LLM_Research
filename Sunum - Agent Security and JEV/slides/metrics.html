@@ -2,14 +2,14 @@
 <p class="kick">2 · EVALUATORS</p>
 <h2>Which numbers should we report?</h2>
 <table>
-<tr class="th"><th style="width:28%">Number</th><th>What it tells us</th><th style="width:20%">Source</th></tr>
-<tr><td>Benign utility</td><td>How many normal tasks the agent finishes when there is no attack</td><td>AgentDojo</td></tr>
-<tr><td>Utility under attack</td><td>How many tasks it still finishes correctly while being attacked</td><td>AgentDojo</td></tr>
-<tr><td>Targeted ASR</td><td>How often the attacker’s goal is really reached</td><td>AgentDojo, AgentLAB</td></tr>
-<tr><td>Partial vs end-to-end</td><td>Did the agent only start to follow the attack, or did it finish it?</td><td>WASP</td></tr>
-<tr><td>ASR by number of turns</td><td>How success grows when the attacker gets more turns</td><td>AgentLAB</td></tr>
-<tr class="hl"><td>Checked ASR</td><td>ASR after my five checks</td><td>My proposal</td></tr>
+<tr class="th"><th style="width:28%">Number</th><th>What it means</th><th style="width:20%">Source</th></tr>
+<tr><td>Benign utility</td><td>Normal tasks finished when there is no attack</td><td>AgentDojo</td></tr>
+<tr><td>Utility under attack</td><td>Tasks still finished correctly during an attack</td><td>AgentDojo</td></tr>
+<tr><td>Targeted ASR</td><td>How often the attacker got what they wanted</td><td>AgentDojo, AgentLAB</td></tr>
+<tr><td>Partial vs full success</td><td>Did the agent only start the attack, or finish it?</td><td>WASP</td></tr>
+<tr><td>ASR by number of turns</td><td>How success grows when the attacker gets more tries</td><td>AgentLAB</td></tr>
+<tr class="hl"><td>Checked ASR</td><td>ASR after my five checks</td><td>My idea</td></tr>
 </table>
-<div class="card cool" style="--i:0"><p class="cb"><b>Why one number is not enough:</b> in WASP, attacks partly worked in up to 86% of cases, but agents finished the attacker’s goal only 0–17% of the time. The authors call this “security by incompetence”.</p></div>
+<div class="card cool" style="--i:0"><p class="cb"><b>One number can fool you.</b> In WASP, agents started to follow the attack in up to 86% of cases, but finished it only 0–17% of the time. The authors call this “security by incompetence”: the agent is safe only because it is not good enough yet.</p></div>
 <aside>Tek bir ASR sayısı yetmiyor; makaleler bu sayıları birlikte veriyor. Benign utility: saldırı yokken ajan normal görevlerin kaçını bitiriyor (savunmanın bedelini gösterir). Utility under attack: saldırı altındayken görevi yan etki olmadan kaçında bitiriyor. Targeted ASR: saldırganın hedefi kaç vakada gerçekten gerçekleşti. Bu üçü AgentDojo'nun tanımları. WASP iki ayrı ASR veriyor: ajan saldırıya yöneldi mi (partial) ve saldırganın hedefini sonuna kadar yaptı mı (end-to-end). Sonuç çarpıcı: saldırılar vakaların yüzde 86'sına kadar kısmen başarılı ama ajanlar saldırganın hedefini sadece yüzde 0 ile 17 arasında tamamlıyor. Yazarlar buna "security by incompetence" diyor: ajan güvenli değil, sadece beceriksiz; daha yetenekli bir model çıkınca bu güvenlik kaybolur. AgentLAB ise ASR'yi saldırgana verilen tur sayısına göre bir eğri olarak gösteriyor. En alttaki Checked ASR benim önerim: bir sonraki slayttaki beş kontrolden sonra kalan ASR.</aside>
 </section>

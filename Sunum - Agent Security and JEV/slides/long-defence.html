@@ -1,15 +1,15 @@
 <section id="long-defence">
 <p class="kick">3 · DEFENCES</p>
-<h2>How common defences do against long attacks</h2>
-<p class="lead">AgentLAB, Table 4: attack success on GPT-4o with each defence.</p>
+<h2>Do the usual defences stop long attacks?</h2>
+<p class="lead">AgentLAB, Table 4: how often the attack worked on GPT-4o.</p>
 <table>
-<tr class="th"><th style="width:26%">Attack type</th><th style="width:18%">No defence</th><th style="width:28%">Prompt defence</th><th>Detector</th></tr>
+<tr class="th"><th style="width:26%">Attack type</th><th style="width:18%">No defence</th><th style="width:28%">Prompt defence</th><th>Checker model</th></tr>
 <tr><td>Intent hijacking</td><td>74.0%</td><td>Self-Reminder: 39.3%</td><td>Llama Guard: 71.0%</td></tr>
 <tr class="hl"><td>Tool chaining</td><td>94.1%</td><td>Self-Reminder: 82.4%</td><td>Llama Guard: 64.7%</td></tr>
 <tr><td>Objective drifting</td><td>79.2%</td><td>Repeated Prompt: 51.7%</td><td>DeBERTa: 13.3%</td></tr>
 <tr><td>Task injection</td><td>79.9%</td><td>Repeated Prompt: 66.7%</td><td>DeBERTa: 12.7%</td></tr>
 <tr><td>Memory poisoning</td><td>63.3%</td><td>Repeated Prompt: 56.8%</td><td>DeBERTa: 31.6%</td></tr>
 </table>
-<p class="strong">No defence works for all five. Tool chaining stays above 64%, because every single step really is harmless.</p>
+<p class="strong">No defence works for all five. Tool chaining still works more than 64% of the time, because each step really is harmless.</p>
 <aside>AgentLAB'in Tablo 4'ü, GPT-4o satırı. Kullanıcı tarafı saldırılara (intent hijacking, tool chaining) Self-Reminder ve Llama Guard, veri tarafı saldırılara Repeated Prompt ve DeBERTa detektörü denenmiş. Üç şey öne çıkıyor. 1. Hiçbir savunma beş türün hepsinde işe yaramıyor. 2. Tool chaining en dirençli tür: en iyi sonuç bile yüzde 64,7, çünkü her adım gerçekten tek başına masum. 3. Llama Guard intent hijacking'de neredeyse hiç işe yaramıyor (74,0'dan 71,0'a). Detektör veri tarafındaki enjeksiyonu iyi yakalıyor ama hafızadan gelen zehri daha az yakalıyor (31,6). Uyarı: bunlar sabit saldırılarla ölçülmüş; detektörü bilen bir saldırgan karşısında yüzde 12,7'nin tutacağını varsayamayız. AgentLAB'in kendi sonucu: tek mesajlık saldırılar için tasarlanmış savunmalar uzun saldırılara kolayca uyarlanamıyor.</aside>
 </section>
