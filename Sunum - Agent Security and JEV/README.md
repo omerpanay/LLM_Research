@@ -1,6 +1,6 @@
 # Agent Security and JEV — Sunum
 
-Literature review: attack mechanisms, evaluators, defences + JEV (27 slayt, İngilizce, konuşmacı notları Türkçe).
+Literature review: attack mechanisms, evaluators, defences + JEV (33 slayt, İngilizce, konuşmacı notları Türkçe).
 
 ## YENİ dosyalar (en iyi kalite, Claude'a giriş gerekmez)
 

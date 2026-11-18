@@ -1,0 +1,16 @@
+<section id="cost">
+<p class="kick">3 · DEFENCES</p>
+<h2>Fewer attacks can also mean less work done</h2>
+<p class="lead">MELON’s Table 1: GPT-4o on AgentDojo, average of four attacks.</p>
+<table>
+<tr class="th"><th style="width:28%">Defence</th><th>Tasks done, no attack</th><th>Tasks done, under attack</th><th>Attack worked</th></tr>
+<tr><td>No defence</td><td>80.41%</td><td>69.08%</td><td>16.06%</td></tr>
+<tr><td>Repeat the prompt</td><td>83.51%</td><td>77.86%</td><td>9.18%</td></tr>
+<tr><td>Tool filter</td><td>65.98%</td><td>65.54%</td><td>2.34%</td></tr>
+<tr><td>DeBERTa checker</td><td>38.14%</td><td>21.34%</td><td>2.58%</td></tr>
+<tr class="hl"><td>LLM checker</td><td>81.44%</td><td>0.00%</td><td>0.00%</td></tr>
+<tr><td>MELON</td><td>68.04%</td><td>58.78%</td><td>0.24%</td></tr>
+</table>
+<p class="strong">The LLM checker stops every attack, but it also stops every task. So I will always show both numbers.</p>
+<aside>Tablo MELON makalesinin (ICML 2025) Tablo 1'inden, GPT-4o satırları, AgentDojo üzerinde dört saldırının ortalaması. Sütunlar: saldırı yokken bitirilen normal görevler (benign utility), saldırı altında doğru bitirilen görevler (utility under attack) ve saldırının başarılı olma oranı (ASR). En önemli satır LLM checker (LLM detector): saldırı başarısı yüzde 0, mükemmel görünüyor; ama saldırı altında görevlerin de yüzde 0'ını bitiriyor, çünkü şüphelendiği her şeyde ajanı durduruyor. DeBERTa detektörü de çok yanlış alarm veriyor: saldırı yokken bile normal görevlerin sadece yüzde 38'ini bitiriyor. Tool filter ve MELON dengeyi daha iyi kuruyor. Mesaj: sadece ASR raporlamak bozuk bir ajanı güvenli gösterebilir; bu yüzden tezde ASR'yi hep görev başarısıyla birlikte vereceğim. Not: bunlar sabit saldırılarla ölçülmüş sonuçlar; MELON'un adaptif saldırı altındaki sonucu "Four places to put a defence" tablosunda (yüzde 76 ve 95).</aside>
+</section>

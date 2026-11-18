@@ -1,0 +1,13 @@
+<section id="channels">
+<p class="kick">1 · THE PROBLEM AND THE ATTACKS</p>
+<h2>Where can the attack come in?</h2>
+<p class="lead">The problem is always the same. Only the way in changes.</p>
+<table>
+<tr class="th"><th style="width:19%">Way in</th><th style="width:28%">In the car</th><th>What the papers found</th></tr>
+<tr><td>The user’s own request</td><td>The driver or a passenger asks by voice</td><td>AgentHarm: GPT-4o did 48.4% of harmful tasks just because it was asked. With a simple trick, 72.7%.</td></tr>
+<tr class="hl"><td>Text the agent reads</td><td>Map results, reviews, messages, calendar</td><td>AgentDojo: one simple hidden text worked 47.7% of the time on GPT-4o.</td></tr>
+<tr><td>An app’s description</td><td>An outside app connected to the car</td><td>MCPTox: 1,348 tests on real apps. o1-mini was tricked 72.8% of the time. Models almost never said no (under 3%).</td></tr>
+<tr><td>Memory</td><td>The driver’s profile and saved settings</td><td>AgentPoison: over 80% success after changing less than 0.1% of the memory.</td></tr>
+</table>
+<aside>Bu slayt saldırının araca hangi yoldan girebileceğini gösteriyor. Sorun hep aynı (ajan emirle veriyi ayıramıyor), değişen sadece giriş yolu. 1. Kullanıcının kendi isteği: sürücü ya da yolcu sesle zararlı bir şey istiyor. AgentHarm'da (ICLR 2025) GPT-4o, saldırı olmadan, sadece istenince zararlı görevlerin yüzde 48,4'ünü yaptı; basit bir jailbreak şablonuyla yüzde 72,7. 2. Ajanın okuduğu metin: harita sonucu, restoran yorumu, gelen mesaj, takvim. AgentDojo'da (NeurIPS 2024) tek bir sabit "önemli mesaj" metni GPT-4o'da yüzde 47,7 başarılı. 3. Uygulama açıklaması: araca bağlanan dış bir uygulamanın (MCP tool) açıklamasına emir yazılıyor; uygulama hiç çalışmadan bile ajanın okuduğu metne giriyor. MCPTox (AAAI 2026): 45 gerçek MCP sunucusu, 353 tool, 1.348 test; o1-mini yüzde 72,8 kandırıldı, en çok reddeden model bile yüzde 3'ün altında reddetti. 4. Hafıza: sürücü profili ve kayıtlı ayarlar; zehirli kayıt bugün yazılıp günler sonra başka bir yolculukta tetiklenebilir (AgentPoison, NeurIPS 2024). Araçtaki fark: e-posta ajanında zarar veri sızıntısı, araçta fiziksel bir eylem olabilir.</aside>
+</section>
