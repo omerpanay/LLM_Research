@@ -1,14 +1,14 @@
 <section id="gaps">
 <p class="kick">6 · MY THESIS</p>
-<h2>Six gaps I found in the literature</h2>
-<p class="lead">The pieces exist, but nobody has put them together.</p>
+<h2>Six gaps, checked again</h2>
+<p class="lead">Some are smaller than I first thought. This is what is still open.</p>
 <div class="row3">
-<div class="card hot" style="--i:0"><p class="num o">1</p><p class="cb">No attack test in a car yet</p></div>
-<div class="card" style="--i:1"><p class="num">2</p><p class="cb">Nobody checks the LLM judge against people for long attacks</p></div>
-<div class="card" style="--i:2"><p class="num">3</p><p class="cb">No long-attack test with an attacker who knows the defence</p></div>
-<div class="card" style="--i:3"><p class="num">4</p><p class="cb">Design defences like CaMeL are not tried on long attacks</p></div>
-<div class="card" style="--i:4"><p class="num">5</p><p class="cb">Models like JEV are not tried on agent conversations</p></div>
-<div class="card hot" style="--i:5"><p class="num o">6</p><p class="cb">All harm counts the same: opening a window = sharing your location</p></div>
+<div class="card hot" style="--i:0"><p class="num o">1</p><p class="cl">No long, many-step attack test for a car assistant. The closest one has 202 single voice commands.</p></div>
+<div class="card" style="--i:1"><p class="num">2</p><p class="cl">AgentLAB’s judge is not checked against people. Such checks exist, but only for short attacks.</p></div>
+<div class="card" style="--i:2"><p class="num">3</p><p class="cl">A smart attacker over 15 rounds was tested, but not inside one long agent task.</p></div>
+<div class="card" style="--i:3"><p class="num">4</p><p class="cl">CaMeL was moved to computer use and to teams of agents, but not tried on long attacks.</p></div>
+<div class="card" style="--i:4"><p class="num">5</p><p class="cl">JEV was tested on 5,219 agent traces, but not on long attacks or in a car.</p></div>
+<div class="card hot" style="--i:5"><p class="num o">6</p><p class="cl">A harm scale for tool calls exists (L0–L6), but none for physical car actions.</p></div>
 </div>
-<aside>Literatürde bulduğum altı boşluk. 1. Araç ortamında saldırı benchmark'ı yok: CAR-bench'te araç var saldırı yok, AgentLAB'de saldırı var araç yok. 2. AgentLAB'in LLM hakemi insan etiketleriyle kontrol edilmemiş; hakem güvenilirliği çalışmaları chatbot jailbreak'lerinde yapılmış. 3. Uzun saldırılarda savunmayı bilen (adaptif) saldırganla test yok: The Attacker Moves Second adaptif ama tek mesajlık, AgentLAB uzun ama adaptif değil. 4. CaMeL gibi sistem tasarımı savunmaları uzun saldırılarda denenmemiş; AgentLAB'in dört savunması prompt ve detektör katmanından. 5. JEV gibi karar modelleri ajan konuşmalarında hakem ya da bekçi olarak denenmemiş. 6. Zararın ağırlığı ölçülmüyor: ASR cam açan bir saldırıyla konum paylaşan bir saldırıyı aynı sayıyor; araç için ağırlıklı bir metrik lazım. Dürüst not: "bulamadım" "yok" demek değil; alan çok hızlı ilerliyor, tez planına girmeden önce her boşluğu tekrar aramak gerekiyor.</aside>
+<aside>Bu boşlukları 18 Kasım'da tekrar aradım; bazıları ilk yazdığımdan daha küçük çıktı, bu yüzden dürüst haliyle yazdım. 1. Araç: "From Intent to Action" (arXiv 2609.19630) araç içi sesli komutlar için 202 senaryoluk bir güvenlik benchmark'ı yaptı, ama her biri tek komut; çok adımlı, uzun saldırı yok. Sürüş ajanlarına saldırılar var (AgentPoison, FuncPoison, CHAI) ama bunlar araç içi asistan değil. 2. Hakem: AgentLAB'in GPT-5.1 hakemi insan etiketiyle kontrol edilmemiş. Hakemi insanla karşılaştıran çalışmalar var ama kısa saldırılarda. 3. Adaptif saldırgan: "Adaptive Adversaries" (arXiv 2607.18063, workshop makalesi) 15 tur boyunca taktik değiştiren bir LLM saldırgan kullanıyor; ilk turda başarı yüzde 0 ile 1, 15 turda yüzde 7,9 ile 16,8. Ama savunan model her turu sıfırdan, hafızasız görüyor; yani tek bir uzun ajan görevi içinde biriken bir saldırı değil. 4. CaMeL: bilgisayar kullanan ajanlara (NOVA, arXiv 2601.09923) ve çoklu ajan sistemlerine (multi-CaMeL, arXiv 2610.05640) taşındı. İkincisi önemli bir şey buldu: CaMeL'in garantileri ajanlar birbirini çağırınca korunmuyor. Ama AgentLAB tarzı uzun saldırılarda denenmedi. 5. JEV: "JEV as a Judge for Agent Trace Security" (arXiv 2609.34862) JEV'i 5.219 ajan izinde dört LLM hakemle karşılaştırdı; JEV ortalama F1 77,8, en iyi LLM hakem (GLM-5.2) 74,1. Yani JEV ajan izlerinde test edildi; eksik olan uzun saldırılar ve araç. 6. Zarar ölçeği: "Beyond Attack-Success Rate" (arXiv 2607.07474) tool çağrılarını L0'dan L6'ya kadar yedi seviyede puanlıyor (geri alınabilir mi, başkasına ulaştı mı, yetki büyüttü mü). Araçtaki fiziksel eylemler için böyle bir ölçek yok.</aside>
 </section>
