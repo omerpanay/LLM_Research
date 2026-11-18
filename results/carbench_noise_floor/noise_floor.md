@@ -1,0 +1,27 @@
+| split | model | runs | errored | k | pass1 | pass_k | flip_n | usca_n | usca_A2_n | usca_A3_n | usca_spont_n | usca_spont_A3_n | param_dev_n |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| base | tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121101630.json | 500 | 0 | 5 | 0.59 | 0.35 | 44/100 | 50/500 | 0/500 | 38/500 | 9/500 | 9/500 | 142/500 |
+| base | tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120014540.json | 500 | 0 | 5 | 0.388 | 0.35 | 10/100 | 6/500 | 0/500 | 6/500 | 0/500 | 0/500 | 76/500 |
+| base | tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120113115.json | 500 | 0 | 5 | 0.32 | 0.25 | 17/100 | 50/500 | 0/500 | 38/500 | 29/500 | 21/500 | 129/500 |
+| base_test | claude-sonnet-4-6 | 149 | 1 | 3 | 0.8456 | 0.7959 | 6/49 | 3/149 | 0/149 | 3/149 | 3/149 | 3/149 | 26/149 |
+| base_train | claude-sonnet-4-6 | 150 | 0 | 3 | 0.8 | 0.7 | 10/50 | 3/150 | 0/150 | 3/150 | 0/150 | 0/150 | 28/150 |
+| base_v2 | claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium | 150 | 150 | 3 | 0.8 | 0.7 | 10/50 | 4/150 | 0/150 | 4/150 | 0/150 | 0/150 | 23/150 |
+| base_v2 | claude-opus-4-6-thinking-reasoning-effort-medium | 150 | 150 | 3 | 0.8733 | 0.78 | 9/50 | 3/150 | 0/150 | 3/150 | 0/150 | 0/150 | 22/150 |
+| base_v2 | gpt-5.2-thinking-reasoning-effort-medium | 148 | 152 | 3 | 0.7162 | 0.5625 | 13/48 | 11/148 | 0/148 | 8/148 | 5/148 | 4/148 | 28/148 |
+| disambiguation | tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1122092910.json | 279 | 1 | 5 | 0.3584 | 0.1818 | 21/55 | 54/279 | 0/279 | 41/279 | 15/279 | 15/279 | 140/279 |
+| disambiguation | tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120150735.json | 272 | 8 | 5 | 0.2206 | 0.08 | 12/50 | 35/272 | 0/272 | 28/272 | 12/272 | 12/272 | 90/272 |
+| disambiguation | tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120203628.json | 280 | 0 | 5 | 0.1143 | 0.0893 | 3/56 | 20/280 | 0/280 | 20/280 | 13/280 | 13/280 | 91/280 |
+| disambiguation_test | claude-sonnet-4-6 | 75 | 0 | 3 | 0.72 | 0.52 | 9/25 | 2/75 | 0/75 | 2/75 | 0/75 | 0/75 | 32/75 |
+| disambiguation_train | claude-sonnet-4-6 | 93 | 0 | 3 | 0.5699 | 0.4516 | 8/31 | 11/93 | 0/93 | 8/93 | 0/93 | 0/93 | 33/93 |
+| disambiguation_v2 | claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium | 93 | 75 | 3 | 0.4946 | 0.3871 | 7/31 | 9/93 | 0/93 | 6/93 | 2/93 | 2/93 | 28/93 |
+| disambiguation_v2 | claude-opus-4-6-thinking-reasoning-effort-medium | 93 | 75 | 3 | 0.6129 | 0.5161 | 5/31 | 8/93 | 0/93 | 8/93 | 3/93 | 3/93 | 21/93 |
+| disambiguation_v2 | gpt-5.2-thinking-reasoning-effort-medium | 93 | 75 | 3 | 0.5484 | 0.4516 | 8/31 | 13/93 | 0/93 | 9/93 | 3/93 | 3/93 | 26/93 |
+| hallucination | tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121222640.json | 488 | 2 | 5 | 0.3934 | 0.1979 | 44/96 | 112/488 | 0/488 | 83/488 | 17/488 | 16/488 | 117/488 |
+| hallucination | tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121152333.json | 465 | 25 | 5 | 0.4882 | 0.3563 | 24/87 | 18/465 | 0/465 | 14/465 | 2/465 | 2/465 | 51/465 |
+| hallucination | tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120152721.json | 486 | 4 | 5 | 0.2037 | 0.1031 | 21/97 | 72/486 | 3/486 | 57/486 | 26/486 | 19/486 | 93/486 |
+| hallucination_test | claude-sonnet-4-6 | 150 | 0 | 3 | 0.56 | 0.4 | 17/50 | 18/150 | 0/150 | 14/150 | 0/150 | 0/150 | 25/150 |
+| hallucination_train | claude-sonnet-4-6 | 144 | 0 | 3 | 0.6597 | 0.5208 | 13/48 | 26/144 | 0/144 | 21/144 | 6/144 | 6/144 | 23/144 |
+| hallucination_train_v2 | claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium | 144 | 150 | 3 | 0.6667 | 0.5417 | 11/48 | 24/144 | 0/144 | 23/144 | 3/144 | 3/144 | 27/144 |
+| hallucination_train_v2 | claude-opus-4-6-thinking-reasoning-effort-medium | 144 | 150 | 3 | 0.6597 | 0.5417 | 11/48 | 27/144 | 0/144 | 24/144 | 5/144 | 5/144 | 22/144 |
+| hallucination_train_v2 | gpt-5.2-thinking-reasoning-effort-medium | 138 | 156 | 3 | 0.7246 | 0.5581 | 11/43 | 29/138 | 0/138 | 24/138 | 5/138 | 5/138 | 18/138 |
+| hallucination_train_v2 | gpt-5.2-thinking-reasoning-effort-medium | 48 | 0 | 1 | 0.75 | 0.75 | 0/48 | 8/48 | 0/48 | 7/48 | 2/48 | 2/48 | 4/48 |
