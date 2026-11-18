@@ -1,0 +1,14 @@
+<section id="layers">
+<p class="kick">3 · DEFENCES</p>
+<h2>Four places to put a defence</h2>
+<table style="font-size:26px">
+<tr class="th"><th style="width:17%">Where</th><th style="width:25%">Idea</th><th style="width:20%">Examples</th><th style="width:17%">Normal test</th><th>Attacker who knows it</th></tr>
+<tr><td>1. In the prompt</td><td>Mark the data, or repeat the user’s request after it</td><td>Spotlighting, Prompt Sandwiching</td><td>as low as 1%</td><td>above 95%</td></tr>
+<tr><td>2. A detector</td><td>A second model checks the text before the agent acts</td><td>PromptGuard, Protect AI, PIGuard</td><td>not given</td><td>above 90%; PIGuard 71%</td></tr>
+<tr><td>2. A detector</td><td>Run the agent again without the user’s request and compare</td><td>MELON</td><td>0.24%</td><td>76%; 95% if it knows MELON</td></tr>
+<tr><td>3. Training the model</td><td>Teach the model to ignore orders inside data</td><td>Meta SecAlign, StruQ</td><td>2%</td><td>96%; StruQ broke in every case</td></tr>
+<tr class="hl"><td>4. System design</td><td>Rules live in code, outside the model</td><td>Tool filter, CaMeL</td><td>Tool filter 7.5%</td><td>not tested yet</td></tr>
+</table>
+<p class="src">Numbers are attack success. Normal test = fixed AgentDojo attacks, from each defence’s paper. Attacker who knows it = adaptive attacks in “The Attacker Moves Second” (2025).</p>
+<aside>Savunma nereye konursa ne garanti edebileceği ona göre değişiyor. İlk üç katman olasılıksal: modelin içinde ya da önünde duran bir savunma da bir model, yani kandırılabilecek bir şeyi kandırılabilecek başka bir şeyle koruyorsun. Dördüncü katman kodda: metinle ikna edilemez. Sayılar saldırı başarı oranı. "Normal test" sütunu: savunmanın kendi makalesindeki ya da sabit AgentDojo saldırılarındaki sonuç. "Attacker who knows it" sütunu: The Attacker Moves Second'daki adaptif saldırılar. Spotlighting ve Prompt Sandwiching sabit saldırıda yüzde 1'e kadar iniyor, adaptif saldırıda yüzde 95'in üstü. Detektörler (Protect AI, PromptGuard, Model Armor) yüzde 90'ın üstü, PIGuard yüzde 71. MELON kendi makalesinde GPT-4o'da ortalama yüzde 0,24; adaptif saldırı onu bilmeden yüzde 76, bilerek yüzde 95. Meta SecAlign kendi raporunda yüzde 2, adaptif saldırıyla yüzde 96. StruQ denenen her vakada kırıldı. Sistem tasarımı: AgentDojo'nun basit tool filter'ı ASR'yi yüzde 7,5'e indiriyor; CaMeL'i sonraki slayt anlatıyor. Önemli: The Attacker Moves Second CaMeL gibi sistem tasarımı savunmalarını test etmedi; "sistem tasarımı dayanıyor" iddiası adaptif saldırıyla henüz kanıtlanmadı. Bu tez için açık bir alan.</aside>
+</section>
