@@ -14,44 +14,41 @@
 ## 1. Area summary
 
 **Solved, or close to it.**
-- *Deterministic state oracles work where they can be written.* AgentDojo checks success with a "deterministic binary function" so that an injection cannot also hijack the evaluator [E-03]. AgentHarm, CAR-bench and ASPI use code first and LLM checks only for narrow sub-questions [E-05, E-07, E-19].
-- *Statistical correction for an imperfect judge.* The Rogan–Gladen estimator, with an interval covering both test-set and calibration-set uncertainty, has an ICML 2026 treatment for LLM judges [E-25, E-26, E-28].
-- *Paired designs with exact tests.* These are established practice [E-30, E-32, E-22].
+- *State oracles beat judges where they can be written.* AgentDojo uses a "deterministic binary function" so that an injection cannot hijack the evaluator [E-03]. AgentHarm, CAR-bench and ASPI use code first and LLM checks only for narrow sub-questions [E-05, E-07, E-19].
+- *Judge-error correction.* The Rogan–Gladen estimator with a calibration-aware interval has an ICML 2026 treatment [E-25, E-26].
+- *Paired exact tests.* These are standard practice [E-30, E-32].
 
 **Open.**
-1. *Is a counted success really an attack?* A large share of reported success comes from the harness or from invalid test cases, not from the agent:
-   - On ASB, GPT-4o's attack success rate (ASR) falls from 73.58% to 9.25% once forced attack-tool injection is removed [E-01].
-   - AgentDojo injections overwrite task-critical data [E-01].
+1. *Is a counted success really an attack?* Much reported success comes from the harness or from invalid test cases:
+   - ASB's ASR for GPT-4o falls from 73.58% to 9.25% once forced tool injection is removed [E-01].
+   - AgentDojo injections overwrite task data [E-01].
    - Under an embedding-similarity validity rule, "Mistral appeared vulnerable on all 64 tasks, but only 26 had a successful valid attack" [E-45].
    - Label checks halve JEV's perturbation ASR (69.7 → 36.6) [E-37].
-   - Agents are diverted from their task far more often than attacks complete end to end (17–86% vs ≤16%) [E-02].
-   - The converse also holds: a low ASR mostly means injections were *ignored* (76–80% of failed attacks), not refused [E-44].
-2. *Judges fail under the distribution shift that red-teaming creates.*
-   - Judges degrade "to near random chance", and attacks exploit judge weaknesses to inflate their own success [E-16].
+   - Agents are diverted far more often than attacks complete end to end (17–86% vs ≤16%) [E-02].
+   - Conversely, a low ASR mostly means injections were *ignored* (76–80%), not refused [E-44].
+2. *Judges break under red-teaming shift.*
+   - Judges fall to "near random chance", and attacks exploit them [E-16].
    - Benign wrappers flip LLM judges 57–100% of the time [E-46].
-   - A change of style alone raises the false-negative rate by 0.24 [E-17].
    - Rubric rewrites flip up to 9.1% of verdicts [E-18].
-   - Judges err in the same places, so ensembles and cascades help little [E-36].
+   - Judges err in the same places, so cascades help little [E-36].
 3. *Long-horizon and multi-run metrics are immature.*
-   - Turns-to-success is averaged over successes only [E-06].
+   - Turns-to-success is averaged over successes only.
    - Success within N attempts is reported as plain ASR [E-06, main-session observation].
-   - pass^k exposes large inconsistency between runs [E-07, E-08].
+   - pass^k exposes run-to-run inconsistency [E-07].
    - Temperature 0 does not remove judge jitter [E-18].
 
 **Overhyped.**
-- *"Human-level" judges.* Their accuracy is measured on in-distribution data [E-15, E-20, E-24].
-- *Detector leaderboards.* The best detector on the public BIPIA benchmark catches 2.1% of AgentDojo injections at 1% false-positive rate (FPR) [E-12].
-- *JEV as a security judge.* Its cost and accuracy advantages are real on read-off judgments [E-35, E-36, E-40]. But:
-  - It is a closed, versioned API.
-  - The vendor documents that adversarial content "can move the answer" [E-34].
-  - A counterfeit policy cuts its recall from 82.90% to 3.88% [E-41].
-  - Injected false evidence reaches up to 100% ASR [E-43].
-  - Nobody has tested it inside an agent loop under attack [E-35].
+- "Human-level" judges validated in-distribution [E-15, E-24].
+- Detector leaderboards: the best detector on BIPIA catches 2.1% of AgentDojo injections at 1% false-positive rate [E-12].
+- JEV as a security judge. It is cheap and accurate on read-off judgments [E-35, E-40]. But:
+  - its vendor admits adversarial content "can move the answer" [E-34];
+  - a counterfeit policy cuts its recall from 82.90% to 3.88% [E-41];
+  - nobody has tested it inside an attacked agent loop [E-35].
 
 **Consequence for the thesis.** Measure attack success with:
-- (a) a state oracle and a pre-run task-validity contract;
-- (b) a paired clean/placebo vs attacked design;
-- (c) stratified judge-error correction where a judge is unavoidable;
+- (a) a state oracle plus a pre-run task contract;
+- (b) a paired placebo vs attacked design;
+- (c) a stratified judge-error correction;
 - (d) repeated trials with clustered intervals (Section 3).
 
 ---
@@ -182,7 +179,10 @@ $$\mathrm{TUAR}=\frac1N\sum_i \max_t u(s_{it}),\qquad \mathrm{EXP}=\frac1N\sum_i
 
 - **CI.** Cluster bootstrap. Pair it with M1 (subtract the clean arm).
 - **Detection delay** for a monitor: $D_i=t^{\text{alarm}}_i-t^{\text{first unsafe}}_i$. Report $\Pr(D\le 0)$ (prevented) and the median *D*.
-- **Closest prior work.** CAR-bench separates "actions final" from intermediate-state checks (§3.3, E-07). WASP's intermediate/end-to-end split (E-02). Final-state oracles (E-03, E-08).
+- **Closest prior work.**
+  - CAR-bench's "actions intermediate" check verifies "after each assistant turn" that the reached state lies in the ground-truth set. "Incorrect set actions are penalized even if later corrected, since unexpected physical actions could distract the driver" (§3.3, E-07). That is a binary per-task version of TUAR.
+  - WASP's intermediate/end-to-end split (E-02).
+  - Final-state oracles (E-03, E-08).
 - **What is new.** Time-in-unsafe-state as a first-class outcome, which matters for driving functions.
 
 **M6. Driver-interaction cost (DIC) and false-block rate.** For benign scenarios, count driver prompts (confirmations, clarifications, refusals) that a defence adds over the undefended agent, and the rate of wrongly blocked benign actions:
@@ -199,7 +199,7 @@ Statistics that apply to all of M1–M6:
 - Fix thresholds and weights before seeing results.
 - Report n, coverage and the attempt budget.
 
-Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the methodological anchors. In particular, use bootstrap or exact intervals instead of CLT intervals for small n.
+Inference: E-30 ("Adding Error Bars" and its companion CLT position paper) is the methodological anchor. In particular, use bootstrap or exact intervals instead of CLT intervals for small n.
 
 ---
 
@@ -301,7 +301,7 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
   - "A task is considered solved only if all relevant metrics equal 1" (§3.3).
   - Pass^k and Pass@k follow τ-bench.
 - **Key results:**
-  - Frontier thinking models drop from "68% Pass@3 to 36% Pass^3" (§1).
+  - Frontier thinking models drop from "68% Pass@3 to 36% Pass^3" (§1). §4 repeats the same numbers as "68% Pass@5 ... to 36% Pass^3", a small internal inconsistency.
   - No model exceeds 50% Pass^3 on Disambiguation.
   - User-simulator audit over k = 5 GPT-5 trials: Base "12 user errors (2.4%), 6 sole-source (–6% Pass^5)"; Hallucination −9%; Disambiguation −8% (§4).
 - **Pitfalls it exposes:** N15 (inconsistency between runs), N16 (simulator error). The LLM-judged policies have no reported human validation (Inference: none found in a full-text search).
@@ -327,6 +327,28 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
 - **Pitfalls it exposes:** N3.
 - **Verification:** ABSTRACT-ONLY.
 - **Inference:** Run ABC on the thesis's own vehicle benchmark and include the checklist in an appendix.
+
+### E-10 · Construct validity — Measuring what Matters: Construct Validity in Large Language Model Benchmarks
+- **Authors, year, venue:** Bean, Kearns, Romanou, Hafner et al., 2025. NeurIPS 2025 Datasets and Benchmarks Track (poster).
+- **Tier:** T1. Verified via the OpenReview venue field.
+- **Links:** https://arxiv.org/abs/2511.04703 ; https://openreview.net/forum?id=mdA5lVvNcU
+- **What it measures:** A systematic review of "445 LLM benchmarks" by "29 expert reviewers". It finds "patterns related to the measured phenomena, tasks, and scoring metrics which undermine the validity of the resulting claims", and gives "eight key recommendations" (abstract).
+- **Pitfalls it exposes:** Constructs such as "safety" and "robustness" are often not operationally defined.
+- **Verification:** ABSTRACT-ONLY.
+- **Inference:** Cite it to justify writing down the construct for the thesis explicitly, for example "attacker-caused, policy-violating vehicle action" as opposed to "judge says harmful".
+
+### E-11 · AutoDojo — AutoDojo: A Generative Benchmark for Evaluating Prompt Injection Defenses in LLM Agents
+- **Authors, year:** Ma, Li, Xiao, Yu, Zhang, Vorobeychik, 2026 (v3, 28 Sep 2026). Submitted to ICLR 2027 according to OpenReview, so it is under review.
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2606.15057
+- **What it measures:** Black-box adaptive injection generation on top of AgentDojo and AgentDyn. It observes "only whether a candidate injection succeeds". Ten defences, five target models.
+- **Key results:**
+  - "standard static benchmarks often significantly overestimate defense efficacy" (abstract).
+  - §5: "A low static ASR is cheaply earned". On Claude-Haiku-4.5 the static attack succeeds "0.3%" with no defence. AutoDojo "lifts PIGuard's ASR from 0.0% to 28.0%, DataFilter's from 12.6% to 33.4% ... and ProtectAI's from 7.2% to 15.4%" on GPT-4o-mini.
+  - DRIFT costs "25 on Claude-Haiku-4.5 (70.2%→45.6%)" clean utility.
+  - Under-specified tasks are "particularly vulnerable" (abstract).
+- **Pitfalls it exposes:** Apparent defence success that is really a static-attack artifact (Section 2, inverse problem).
+- **Verification:** PRIMARY-READ (abstract, §1, §5).
 
 ### E-12 · Detector re-evaluation — Passing the Test You Trained On: Re-evaluating Prompt-Injection Detectors for LLM Agents
 - **Author, year:** Zhuowen Liu, 2026 (arXiv, 2 October 2026).
@@ -527,6 +549,60 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
 - **Claim:** The false-alarm rate, not detection rate, is "the limiting factor" for intrusion detection.
 - **Inference:** At 1% attack prevalence, a detector with TPR 0.8 and FPR 0.01 has PPV = 0.008/(0.008 + 0.0099) ≈ 0.45. So more than half of its alarms are false.
 
+### E-30 · Adding Error Bars to Evals — Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations
+- **Author, year:** Evan Miller (Anthropic), 2024.
+- **Tier:** T3. arXiv only. No venue found on OpenReview.
+- **Link:** https://arxiv.org/abs/2411.00640
+- **Recommendations (§1), verbatim list:**
+  - "Computing standard errors of the mean using the Central Limit Theorem"
+  - "When questions are drawn in related groups, computing clustered standard errors"
+  - "Reducing variance by resampling answers"
+  - "conducting statistical inference on the question-level paired differences"
+  - "Using power analysis"
+- **Key result:** "clustered standard errors can be over 3X larger than naive standard errors" (Table 4 caption).
+- **Verification:** PRIMARY-READ (§1–2).
+- **Inference:** Long-horizon scenarios that share a task template are clusters. Resample at the scenario or template level.
+- **Companion paper:** *Position: Don't Use the CLT in LLM Evals With Fewer Than a Few Hundred Datapoints*.
+  - Bowyer, Aitchison, Ivanova, ICML 2025 Position Paper Track (spotlight poster). T1, verified via the OpenReview venue field. ABSTRACT-ONLY. https://openreview.net/forum?id=YhZ2PY2nZa
+  - It finds that CLT-based methods "usually dramatically underestimat[e] uncertainty (i.e. producing error bars that are too small)" for small benchmarks.
+  - Inference: vehicle scenario sets will be small, so use Wilson, Clopper–Pearson or Bayesian intervals plus a cluster bootstrap, not ±1.96·SE.
+
+### E-32 · From Intent to Action — From Intent to Action: Benchmarking LLM Safety in Vehicle Voice Command Authorization
+- **Authors, year:** Afroze, Zhang, Tu, Hei, 2026 (arXiv, 17 Sep 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2609.19630
+- **What it measures / how success is decided:** 202 scenarios with author-assigned Reference Decisions over a 7-class taxonomy. Temperature 0.
+  - "Decision Alignment is the percentage of the 202 scenarios for which the predicted decision exactly matches the Reference Decision".
+  - "False Execute is the percentage of the 161 non-EXECUTE scenarios incorrectly assigned EXECUTE".
+  - Pairwise model comparisons use "two-sided exact McNemar tests" with Holm correction (§4.2).
+- **Key results:**
+  - Alignment ranges from "40.1% for Llama 3.2 3B to 89.1% for Gemini 3.1 Pro Preview".
+  - API models produce "two to three False Executes among 161 non-execution scenarios".
+  - Conclusion: "deployment requires an independent enforcement layer" (abstract).
+- **Pitfalls it exposes:** Single run per scenario at temperature 0 (Inference: no repeat runs are described). Reference decisions were corrected after the pilot (§3.2).
+- **Verification:** PRIMARY-READ (§3–4, abstract).
+- **Inference:** The thesis can borrow False Execute as the vehicle-specific "action-level" failure and the exact-McNemar comparison protocol.
+
+### E-33 · Action-Graded Severity — Beyond Attack-Success Rate: Action-Graded Severity Scale for Tool-Using AI Agents
+- **Author, year:** Owiredu-Ashley, 2026 (arXiv, 8 Jul 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2607.07474
+- **What it measures:** Severity of the worst *executed* action, on a scale from L0 to L6:
+  - L0: no harmful effect
+  - L1: attempted but blocked
+  - L2: reversible local
+  - L3: irreversible local
+  - L4: cross-scope
+  - L5: privilege expansion
+  - L6: escalating chain (Fig. 1, Table I)
+
+  It is computed by a programmatic oracle and by a panel of 3 LLM judges.
+- **Key results:**
+  - "a defense that reports a zero attack-success rate while still permitting an externally visible cross-scope leak".
+  - Judges agree with the oracle at "Krippendorff's alpha = 0.91" but share "a failure to recognize escalation chains" (abstract).
+- **Verification:** PRIMARY-READ (abstract, §1–3).
+- **Inference:** It is the basis for M3. The L6 "chain" level is particularly relevant to long-horizon attacks, and judges miss it.
+
 ### E-34 · TypeSafe / JEV vendor sources (launch post, docs, changelog, naming post)
 - **Author, year:** TypeSafe AI (founder Diogo Almeida), 2026.
 - **Tier:** T4 (vendor).
@@ -592,6 +668,31 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
 - **Verification:** PRIMARY-READ (§2–3, Tables 3–4).
 - **Inference:** About half of JEV's perturbation "failures" were label changes. The same check is needed for any perturbation-style attack on vehicle commands.
 
+### E-38 · Jev in the Wild — Jev in the Wild: A Data-Driven Analysis of the Jev Model's Functionality, Applications and Ecosystem
+- **Authors, year:** Ling, Xue, Ye, 2026 (arXiv, 24 Sep 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2609.30216
+- **What it measures:** A census of "2,170 publicly available Jev projects collected from GitHub as of September 22, 2026" (abstract).
+- **Key results:**
+  - Table 1 counts "Security & Compliance" projects as 93 (4.3%) and "Review & Approval" as 82 (3.8%). "Model & Tool Routing" draws 32.6% of public attention.
+  - "Attribute judgment" is used by 77% of projects.
+- **Relevance:** It shows that Jev is already being wired into review, approval and security gates. This is adoption data, not evidence of efficacy.
+- **Verification:** PRIMARY-READ (Table 1, §4 figure values via text extraction).
+
+### E-39 · Deußer et al. — Evaluating and Benchmarking the System One Model Jev
+- **Authors, year:** Deußer, Ramamurthy, Sparrenberg, Sifa, 2026 (v2, 29 Oct 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2609.37647
+- **What it measures:** jev-1.13.0 zero-shot on 37 datasets, "346,009 requests for under US$10", against Qwen3.8-27B and Gemma-4-E4B using exact option probabilities. All metrics have "95% percentile bootstrap confidence intervals" (§3).
+- **Key results:**
+  - Jev "beats Qwen on 27 of 37 datasets, with none of Qwen's leads outside the bootstrap intervals" (abstract).
+  - Tuned thresholds "raise micro-F1 on UNFAIR-ToS from 0.50 to 0.75" (abstract).
+  - On the 116-example deepset prompt-injection set (Table 2): Jev accuracy 0.741 with ECE 0.236; Qwen 0.767; Gemma 0.664.
+  - Full-split CI for Jev: [0.664, 0.828] (appendix results table).
+- **Pitfalls it exposes:** Jev is poorly calibrated on prompt injection (ECE 0.236 vs 0.015–0.077 on sentiment tasks). Binary probabilities "need tuned thresholds".
+- **Verification:** PRIMARY-READ (abstract, §3, Table 2, appendix table).
+- **Inference:** Do not use Jev's raw 0.5 threshold or its "calibrated" probabilities for injection-type decisions without local calibration.
+
 ### E-40 · JEV on agent traces — JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges
 - **Authors, year:** Zhiqiang Wang, Yichao Gao (USTC), 2026 (arXiv, 28 Sep 2026).
 - **Tier:** T3.
@@ -635,16 +736,86 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
 - **Content:** `AutoModeMiddleware` "uses Jev to check tool calls for risky decisions it may take, and block calls before the tool executes" (17 Sep).
   - The 25 Sep post claims: "In an early Jev-as-a-judge experiment, its scores barely moved across 100 repeated runs, far less than any LLM judge we tested". No data is given.
 - **Verification:** PRIMARY-READ (pages). The consistency claim itself is unsupported marketing; do not cite it as evidence.
+- **Also covered here: Braintrust** (T4), "Eval agent responses with Jev", Izzy Hurley, 18 Sep 2026, https://www.braintrust.dev/blog/evaluate-agent-responses-with-jev.
+  - A how-to for using Jev as a scorer.
+  - It cites TypeSafe's own "193.6× faster execution and 444.6× lower cost" claim.
+  - It warns: "These confidence values are not operating thresholds out of the box. Teams should compare them with observed accuracy on their own examples before using them to automate decisions."
+  - Verification: PRIMARY-READ.
+
+### E-43 · Hidden Risks of Jev — Hidden Risks of Jev: An Empirical Study of Security, Privacy, and Dual Use
+- **Authors, year:** Shang Wang, Tianqing Zhu et al., 2026 (arXiv, 4 Oct 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2610.04985
+- **What it measures / how success is decided:** Jev used as an application decision layer, with six input-manipulation attacks appended to the state. "ASR measures the fraction of cases in which Jev's output matches the attacker-chosen target". Clean rows give the baseline target rate. "Each evaluation is repeated three times" (§IV-A). Also covers backdoors in an open "NanoJev", privacy inference, and dual use.
+- **Key results (Table I, Jev):**
+  - Clean accuracy is 100% on all three tasks.
+  - "context ignoring reaches 96.5% ASR against Jev on support routing, whereas role spoofing achieves 0% ASR against Jev but 100% against NanoJev on subscription cancellation".
+  - Jev-specific injection and a universal suffix reach "100% ASR on subscription cancellation ... and at least 96.8% on issue severity".
+- **Pitfalls it exposes:** It is good practice that they report clean-row baselines. However, the Jev-specific injection works by asserting that the state is "incorrect or outdated" and adding false information, which is evidence manipulation (N22) rather than instruction hijack.
+- **Verification:** PRIMARY-READ (§IV-A, Table I).
+- **Related industry coverage:** a HiddenLayer report covered by InfoWorld, CSO and The Register. UNVERIFIED: the articles were not opened.
+
+### E-44 · Ignored, Not Refused — Ignored, Not Refused: What Low Prompt-Injection Success Rates Hide in Small Tool-Using Agents
+- **Authors, year:** Zarif, Galib et al., 2026 (arXiv, 16 Oct 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2610.23254
+- **What it measures:** An audit of "33,000 trajectories from eleven open-weight agents (2-14B parameters) on InjecAgent and AgentDojo". A label-blind LLM judge classifies how attacks fail. Introduces the Attack–Task Outcome Matrix (ATOM).
+- **Key results:**
+  - "most failed attacks are ignored (76-80%) rather than refused (17-18%)".
+  - With identical model weights, changing only the system prompt shifts InjecAgent ASR "from 0.2% to 43%".
+  - "in 21.7% of AgentDojo episodes, the agent stayed safe but did not complete the user's task" (abstract, §1).
+- **Pitfalls it exposes:** A low ASR is read as defence, when it often reflects incompetence or inattention (the mirror image of WASP, E-02). ASR is highly sensitive to the system prompt.
+- **Verification:** PRIMARY-READ (abstract, §1 checked in text).
+
+### E-45 · Executable task contracts — What Counts as the Same Task? Executable Contracts for Robustness Evaluation of Tool-Using Agents
+- **Authors, year:** Shahriyar, Iftee, Barton, Wright, 2026 (arXiv, 10 Oct 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2610.14477
+- **What it measures:** Whether a perturbed test case is still a valid test of the original task. "A contract states which facts define a task, which edits are allowed, and what finishing the task means, and it checks each changed test case before the agent runs". 14,336 stored runs were re-scored under different validity rules.
+- **Key results:**
+  - Embedding thresholds "allowed 75-100% of edits that changed the task, such as swapping the payee, yet rejected 24-45% of valid hostile notes".
+  - "With a MiniLM cosine threshold, Mistral appeared vulnerable on all 64 tasks, but only 26 had a successful valid attack" (abstract).
+  - Running example: a hostile note asking to pay payee B is an attack, but changing the invoice's *trusted* payee to B is a task change (§1).
+- **Pitfalls it exposes:** N21 directly. It quantifies how invalid test cases inflate vulnerability.
+- **Verification:** PRIMARY-READ (abstract, §1).
+- **Inference:** For the vehicle domain, write contracts per task family (navigation target, contact, climate setpoint, charging limit) and run them before scoring.
+
+### E-46 · Jailbreak-judge reliability — How Reliable Is Your Jailbreak Judge? Calibration and Adversarial Robustness of Automated ASR Scoring
+- **Author, year:** Yang Gao, 2026 (arXiv, 24 Jun 2026).
+- **Tier:** T3.
+- **Link:** https://arxiv.org/abs/2606.25487
+- **What it measures:** HarmBench classifier validation set of "596 human-labeled completions". Compares a dedicated classifier with LLM judges, then attacks both.
+- **Key results:**
+  - The classifier over-flags (precision 0.835, recall 0.974). LLM judges keep "high precision (0.81 to 0.94) but show erratic recall (0.06 to 0.65)".
+  - Benign framing wrappers "flip every LLM-judge between 57% and 100% of the time". One prepended refusal sentence accounts for "39% to 88%".
+  - A white-box GCG attack flips "70% of confident true positives (21 of 30; 95% CI 54 to 86%)" of the classifier (abstract, Table 1).
+- **Pitfalls it exposes:** N6, N8. The direction of judge error depends on the judge *family*, so the sign of ASR bias is not predictable without calibration.
+- **Verification:** PRIMARY-READ (abstract, §3 table text).
+
+### Additional leads (abstract-only; not counted as entries; found via Semantic Scholar forward citations of E-01 and E-16)
+- **Shortcut Sensitivity in Agent-Safety Evaluations** (Demirkiran, Ernstberger; arXiv 2610.22243). Comments say accepted at the NeurIPS 2026 TAE and AIWILD workshops (T2-claimed). Rewriting AgentDojo's `<INFORMATION>` marker "lowers blocking by 8.33 percentage points". In AgentDojo-Traj, exact-tool lookup F1 "falls from F_1=.901 with mixed-domain folds to .495 under domain holdout".
+- **AgentDrift** (Pinjari, Saint-Germain; arXiv 2609.06972). 12,536 trajectories with per-step labels "benign, injection point, hijacked, or failed injection", plus hard negatives. The LLM screening judge "was itself fooled by the hard negatives". Useful for detection-delay (M5).
+- **The Great Pretender** (Monteuuis, Chen, Petit; arXiv 2605.14418). A jailbreak with "80% ASR (on paper)" achieves "a 50% consecutive success rate (5 out of 10 attempts)". ASR "is not a stable quantity".
+- **How Sensitive Are Safety Benchmarks to Judge Configuration Choices?** (Zhang; arXiv 2604.24074; ICIC 2026, claimed). Prompt wording alone "shifts measured harmful-response rates by up to 24.2 percentage points".
+- **Three Ways Classical Test Theory Can Mislead About LLM Judges** (Zhu; arXiv 2609.29709). Reliability statistics without gold labels "cannot isolate the judge".
+- **Risk Under Pressure** (Ehghaghi et al.; arXiv 2606.11409). Compute-aware ASR via "risk-compute curves" in FLOPs, as an alternative to fixed query budgets.
+- **BenchShield** (Zheng et al.; arXiv 2609.11028). Reward-integrity instrumentation for agent benchmarks, with "456 adjudicated trajectories".
 
 ---
 
-## 5. JEV verdict (draft)
+## 5. JEV verdict
 
 **(a) What "JEV" most likely refers to.**
 - Most likely: **Jev, TypeSafe AI's "System One" decision model**, released in early access on 15 Sep 2026 (E-34).
-- Confidence: **high (~90%)**. Every 2026 paper that writes "JEV" in an evaluation or judge context means this model (E-35, E-36, E-37, E-40, E-41).
-- The name is not an acronym. It comes from William Stanley Jevons (E-34).
-- An alternative-meaning search (for example JEPA, "joint embedding") is still pending and will be added below.
+- The name is not an acronym: "We named Jev after William Stanley Jevons" (E-34). Papers write it as "JEV" or "Jev".
+- Confidence: **high (≈90%)**.
+  - Every 2026 paper or post that uses "JEV/Jev" in an evaluation, judge or security context means this model (E-35 to E-46).
+  - Two web searches for other meanings of "JEV" in agent security, automotive or evaluation contexts returned only TypeSafe's Jev.
+- Main alternative (≈5–10%): a mis-hearing or shorthand for **JEPA** (Joint-Embedding Predictive Architecture). JEPA is used in automotive ML, for example:
+  - "Self-Supervised Representation Learning with Joint Embedding Predictive Architecture for Automotive LiDAR Object Detection" (Zhu et al., arXiv 2501.04969);
+  - "A Latent Space Framework for Modeling Transient Engine Emissions Using Joint Embedding Predictive Architectures" (Sundaram et al., arXiv 2601.19822, submitted to SAE WCX 2026). Both checked as arXiv abstract pages only.
+- JEPA is a representation-learning architecture, not a judge or decision model, so it fits "evaluate with JEV" poorly.
+- Recommendation: confirm with the supervisor in one sentence ("TypeSafe's Jev decision model, used as judge/guard?").
 
 **(b) Established vs vendor claims.**
 - *Established by independent studies, all on jev-1.13.0:*
@@ -652,7 +823,9 @@ Inference: E-30 ("Adding Error Bars") and the CLT position paper (E-31) are the 
   - Clearly behind where a verdict must be *derived* (JudgeBench −14.6) and on style-adversarial pairs (−13.5) (E-35).
   - Its errors overlap with LLM judges' errors (E-36).
   - On agent traces it is a reasonable screener (mean F1 77.8, but lower precision) (E-40).
-  - It is steerable by adversarial content, which the vendor itself documents (E-34). Recall 82.90% → 3.88% under a counterfeit policy (E-41). Label-checked perturbation ASR is 36.6% (E-37).
+  - It is steerable by adversarial content, which the vendor itself documents (E-34). Recall 82.90% → 3.88% under a counterfeit policy (E-41). Label-checked perturbation ASR is 36.6% (E-37). Injected false evidence reaches up to 100% target ASR (E-43).
+  - Its probabilities are least calibrated on prompt injection: ECE 0.236 on the deepset set (E-39).
+  - Plain generic injections often fail against it (E-41: mean is_risky 0.905 vs 0.893 baseline). So *weak attacks make it look robust*, while judge-specific attacks break it.
 - *Vendor-only:* "can't hallucinate" (true only in the type-safety sense), calibration claims, workflow-eval speed-ups, architecture claims. There are no public-benchmark numbers by design (E-34).
 
 **(c) Use in the thesis.**
@@ -672,7 +845,7 @@ E-04,InjecAgent,"InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Int
 E-05,AgentHarm,"AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents",Andriushchenko,2024,ICLR 2025,T1,PRIMARY-READ,https://arxiv.org/abs/2410.09024,"rubric + narrow LLM checks; harm score/refusal",
 E-06,AgentLAB,"AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks",Jiang,2026,ICML 2026,T1,PRIMARY-READ,https://arxiv.org/abs/2602.16901,"long-horizon ASR; T2S; turn budget","GPT-5.1 judge temp 0 shared with attack loop; ASR within N attempts (main-session obs.)"
 E-07,CAR-bench,"CAR-bench: Evaluating the Consistency and Limit-Awareness of LLM Agents under Real-World Uncertainty",Kirmayr,2026,ACL 2026 (long),T1,PRIMARY-READ,https://aclanthology.org/2026.acl-long.1886/,"in-car env; 12 code + 7 LLM policies; Pass^k","user-simulator errors -6..-9% Pass^5"
-E-08,tau-bench,"tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",Yao,2024,arXiv (venue not yet verified),T3,ABSTRACT-ONLY,https://arxiv.org/abs/2406.12045,"pass^k; final-state oracle",
+E-08,tau-bench,"tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",Yao,2024,ICLR 2025 (poster),T1,ABSTRACT-ONLY,https://arxiv.org/abs/2406.12045,"pass^k; final-state oracle","venue via OpenReview"
 E-09,ABC checklist,"Establishing Best Practices for Building Rigorous Agentic Benchmarks",Zhu,2025,NeurIPS 2025 Datasets & Benchmarks,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2507.02825,"benchmark validity checklist; N3",
 E-12,Detector re-eval,"Passing the Test You Trained On: Re-evaluating Prompt-Injection Detectors for LLM Agents",Liu,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.03448,"TPR@1%FPR; differential replay; N18/N19",
 E-13,Deployment simulation,"Predicting LLM Safety Before Release by Simulating Deployment",Williams,2026,arXiv (OpenAI),T3,ABSTRACT-ONLY,https://arxiv.org/abs/2607.07184,"eval-vs-production gap; N17","alignment.openai.com post not reachable -> UNVERIFIED"
@@ -698,5 +871,17 @@ E-36,Decision vs LLM rubric judges,"Decision Models vs. LLMs as Rubric Judges: C
 E-37,DecisionRobust,"DecisionRobust: Benchmarking Robustness for JEV Style Decision Models Across Text and Vision",Lan,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.19118,"label-consistent ASR; JEV robustness","Jev raw 69.7 vs checked 36.6"
 E-40,JEV on agent traces,"JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges",Wang,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2609.34862,"JEV as trace screener","F1 77.8 vs 74.1; revised labels"
 E-41,Datadog counterfeit policy,"Jev as a judge: How counterfeit policy steers Jev",Frichette,2026,Datadog Security Labs blog,T4,PRIMARY-READ,https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/,"attack on judge/guard","recall 82.90->3.88%"
-E-42,LangChain Jev posts,"Building a Harness with Jev; Building Prod with Jev and LangGraph",Runkle,2026,LangChain blog,T4,PRIMARY-READ,https://www.langchain.com/blog/building-a-harness-with-jev,"AutoModeMiddleware tool-risk gating","consistency claim unsupported"
+E-42,LangChain + Braintrust Jev posts,"Building a Harness with Jev; Building Prod with Jev and LangGraph; Eval agent responses with Jev",Runkle,2026,LangChain blog; Braintrust blog,T4,PRIMARY-READ,https://www.langchain.com/blog/building-a-harness-with-jev,"AutoModeMiddleware tool-risk gating; Jev as scorer","consistency claim unsupported; Braintrust: confidences are not operating thresholds"
+E-10,Construct validity,"Measuring what Matters: Construct Validity in Large Language Model Benchmarks",Bean,2025,NeurIPS 2025 Datasets & Benchmarks,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2511.04703,"construct definition for 'attack success'",
+E-11,AutoDojo,"AutoDojo: A Generative Benchmark for Evaluating Prompt Injection Defenses in LLM Agents",Ma,2026,arXiv (ICLR 2027 submission),T3,PRIMARY-READ,https://arxiv.org/abs/2606.15057,"static vs adaptive; apparent-defence artifacts","PIGuard 0.0->28.0% on GPT-4o-mini"
+E-30,Error bars,"Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations",Miller,2024,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2411.00640,"clustered SE; paired differences; power",
+E-30b,CLT position (companion of E-30),"Position: Don't Use the CLT in LLM Evals With Fewer Than a Few Hundred Datapoints",Bowyer,2025,ICML 2025 Position Track,T1,ABSTRACT-ONLY,https://openreview.net/forum?id=YhZ2PY2nZa,"small-n intervals","folded into entry E-30"
+E-32,From Intent to Action,"From Intent to Action: Benchmarking LLM Safety in Vehicle Voice Command Authorization",Afroze,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2609.19630,"False Execute; 7-class vehicle decisions; exact McNemar",
+E-33,Action-Graded Severity,"Beyond Attack-Success Rate: Action-Graded Severity Scale for Tool-Using AI Agents",Owiredu-Ashley,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2607.07474,"severity L0-L6; Krippendorff alpha 0.91",
+E-38,Jev in the Wild,"Jev in the Wild: A Data-Driven Analysis of the Jev Model's Functionality, Applications and Ecosystem",Ling,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2609.30216,"adoption of Jev in security/approval gates",
+E-39,Deusser Jev benchmark,"Evaluating and Benchmarking the System One Model Jev",Deusser,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2609.37647,"Jev calibration/accuracy on 37 datasets","prompt-injection set acc 0.741 ECE 0.236"
+E-43,Hidden Risks of Jev,"Hidden Risks of Jev: An Empirical Study of Security, Privacy, and Dual Use",Wang,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.04985,"attacks on Jev as decision layer","Jev-specific injection = false evidence (N22)"
+E-44,Ignored Not Refused,"Ignored, Not Refused: What Low Prompt-Injection Success Rates Hide in Small Tool-Using Agents",Zarif,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.23254,"ATOM; low ASR != defence",
+E-45,Executable task contracts,"What Counts as the Same Task? Executable Contracts for Robustness Evaluation of Tool-Using Agents",Shahriyar,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.14477,"test-case validity (N21)","64 apparent vs 26 valid"
+E-46,Jailbreak-judge reliability,"How Reliable Is Your Jailbreak Judge? Calibration and Adversarial Robustness of Automated ASR Scoring",Gao,2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2606.25487,"judge recall/robustness","wrappers flip LLM judges 57-100%"
 ```

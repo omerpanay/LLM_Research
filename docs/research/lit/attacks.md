@@ -15,7 +15,7 @@ Conventions
 ## 1. Area summary (≤400 words)
 
 **Largely settled (well replicated):**
-- Indirect prompt injection (IPI) through tool outputs works against every model family tested, from GPT-4-era agents to 2026 frontier models (A-07, A-08, A-09, A-11, A-12). Static template attacks are no longer a meaningful robustness test: defenses reporting ≈0–2% static ASR fall to >90% under adaptive search, RL or humans (A-38, A-40, A-41, A-42, A-13).
+- Indirect prompt injection (IPI) via tool outputs works against every model family tested, GPT-4-era to 2026 frontier (A-07–A-12). Static template attacks are no longer a robustness test: defenses at ≈0–2% static ASR fall to >90% under adaptive search, RL or humans (A-38, A-40–A-42, A-13).
 - Multi-turn / long-horizon decomposition beats one-shot attacks. Splitting a harmful goal into individually benign tool calls bypasses refusal training (A-01: Claude-4.5 27.2% intent hijacking vs 73.3% tool chaining; A-02: 91.2% mean final ASR).
 - Persistent state (memory files, scheduled tasks, skills, artifacts) turns a one-time injection into a cross-session compromise (A-19, A-21, A-23, A-17).
 
@@ -29,7 +29,7 @@ Conventions
 - Headline ASRs often come from LLM judges that share a model family with the attack generator (A-02 uses GPT-4.1 for generator and judge; A-01 uses a GPT-5.1 internal judge) or from single-step "next action" parsing with invalid outputs excluded (A-08 ASR-valid, A-24).
 - Retrieval success is not end-to-end success: AgentPoison's ">80%" abstract figure is retrieval ASR; end-to-end driving ASR-t is 54.7–59.6% (A-15, Table 1).
 - Hijack ≠ harm: WASP reports up to 86% intermediate hijacking but 0–17% end-to-end attacker-goal completion ("security by incompetence", A-11).
-- Some 2026 attack results disable production safeguards (A-42 queries Gemini "without any safety classifiers and with disabled out-of-model prompt injection defenses", Sec. 5.1).
+- Some 2026 attack results disable production safeguards (A-42, Sec. 5.1: Gemini queried "without any safety classifiers"). Physical prompt injection varies widely: CHAI 81.8% on DriveLM (A-45) vs 5.0–29.4% on robots with 75–100% effective simple mitigations (A-61).
 - Long horizon is not monotonically worse for the defender: with a *stateful* defender, ASR fell from 57.4% to 31.5% (A-05, Sec. 5.4), opposite in direction to AgentLAB's turn-budget curves (A-01, Fig. 7) which use a different protocol.
 
 ---
@@ -52,7 +52,9 @@ Conventions
 | Adaptive optimisation attackers | any text channel | query access (black-box) or gradients (white-box) | A-38, A-39, A-40, A-41, A-42, A-13, A-43 | MetaSecAlign 2% static → 96% adaptive on AgentDojo (A-38 Sec. 5) |
 | Physical visual prompt injection | camera (signs, objects) | places printed text in scene, black-box | A-45, A-46 | CHAI 81.8% on DriveLM (A-45 Sec. 1) |
 | Acoustic / voice injection | microphone (ultrasonic, concurrent audio) | nearby speaker | A-47, A-48 | 69.10% vs Gemini 3 Pro (A-48 abstract) |
-| Embodied jailbreak | user prompt to LLM planner | malicious user | A-44 | "often achieving 100%" (A-44 abstract) |
+| Embodied jailbreak | user prompt to LLM planner | malicious user | A-44, A-59 | "often achieving 100%" (A-44 abstract) |
+| Environment-state text injection | planner-visible state descriptions | third party shaping state text | A-62, A-29 (b(s)) | planning-level ASR gain up to 89.32% vs execution-level 43.69% (A-62 abstract) |
+| Latency / availability (slowdown) | scene text → long reasoning | places printed text, black-box | A-63 | 6.96× slowdown; 4.74× when printed (A-63 abstract) |
 
 ---
 
@@ -316,9 +318,9 @@ Conventions
 - Link: https://arxiv.org/abs/2508.14925
 - Threat model: malicious MCP server whose **tool description** carries instructions; poisoned tool is never executed; malicious action done via legitimate tools. Paradigms: explicit-trigger function hijacking, implicit-trigger function hijacking, implicit-trigger **parameter tampering** (Sec. 3.1). 45 servers, 353 tools, 1,348 cases, 20 model settings.
 - Key results: "o1mini and Phi-4 exhibited the highest vulnerability, with extremely high average ASRs of 72.8% and 70.2%"; GPT-4o-mini 61.8% (Sec. 4.2); highest refusal "Claude-3.7-Sonnet less than 3%" (abstract); "more capable models are often more susceptible" (abstract).
-- How success is measured: **tool-call output classification** (single turn): Success / Ignored / Direct Execution / Refused (Sec. 3.4). ASR = successes / **valid outputs** (following InjecAgent). Who/what assigns labels is not stated in the parts read → *unclear*.
+- How success is measured: **tool-call output classification** (single turn): Success / Ignored / Direct Execution / Refused (Sec. 4.1 "Evaluation Label"). ASR = successes / **valid outputs**, "Following (Zhan et al. 2024)" i.e. InjecAgent (Sec. 4.1 "Evaluation Metrics"). Who/what assigns labels is not stated in the parts read → *unclear*.
 - Automotive relevance: third-party connectors (parking, charging, music) as MCP-like servers; parameter tampering paradigm = A-30.
-- Verification: PRIMARY-READ (Sec. 1, 3.1, 3.4, 4.1–4.2).
+- Verification: PRIMARY-READ (Sec. 1, 3.1, 3.4 "LLM Agent Evaluation", 4.1–4.2).
 
 ### A-25 · FuncPoison — FuncPoison: Poisoning Function Library to Hijack Multi-agent Autonomous Driving Systems
 - Long, Y. & Li, S., 2025 · Venue: arXiv · Tier: T3
@@ -497,8 +499,8 @@ Conventions
 - PAIR: Chao, P. et al., "Jailbreaking Black Box Large Language Models in Twenty Queries", IEEE SaTML 2025 (Semantic Scholar DOI 10.1109/SaTML64287.2025.00010; ICLR 2024 submission rejected per OpenReview) · T1 (via S2 DOI)
 - GCG: Zou, A. et al., "Universal and Transferable Adversarial Attacks on Aligned Language Models", 2023, arXiv only (no venue in arXiv record; S2 venue "arXiv.org") · T3 · https://arxiv.org/abs/2307.15043
 - Threat model: TAP/PAIR black-box attacker-LLM search with judge scoring; GCG white-box greedy coordinate gradient suffixes with transfer.
-- Key results: GCG abstract — suffixes trained on Vicuna-7B/13B "induce objectionable content in the public interfaces to ChatGPT, Bard, and Claude". For agents see A-39 (TAP > GCG; no GCG transfer to GPT-5).
-- How success is measured: TAP/PAIR use an LLM judge during search; GCG uses refusal-prefix matching (from my knowledge, not re-read).
+- Key results (abstracts): TAP jailbreaks GPT4-Turbo and GPT4o "for more than 80% of the prompts" and also LlamaGuard-protected LLMs; PAIR "often requires fewer than twenty queries to produce a jailbreak"; GCG suffixes trained on Vicuna-7B/13B "induce objectionable content in the public interfaces to ChatGPT, Bard, and Claude". For agents see A-39 (TAP > GCG; no GCG transfer to GPT-5).
+- How success is measured: TAP/PAIR use an attacker LLM with a scoring/pruning step during search (abstracts); final-judge details and GCG's success criterion not read.
 - Automotive relevance: building blocks of the thesis attack generator.
 - Verification: ABSTRACT-ONLY (venues checked).
 
@@ -661,6 +663,50 @@ Conventions
 - Automotive relevance: background framing for perception-channel attacks.
 - Verification: ABSTRACT-ONLY.
 
+### Group 11 — Forward citations of CHAI (A-45) and Promptware (A-17) via Semantic Scholar
+
+### A-61 · Physical prompt injection on VLM robots — Hijacking Robots with a Piece of Paper: A Systematic Study of Physical Prompt Injection in VLM-Controlled Robots
+- Samarakoon, S. M. B. P. et al., 2026 · Venue: arXiv · Tier: T3
+- Link: https://arxiv.org/abs/2608.05715
+- Threat model: human-readable signage in the robot's visual field; taxonomy: indirect signage, task redefinition, authority impersonation, conflict injection; 20 prompts × 3 layouts × 3 command formulations, 5,670 trials.
+- Key results (abstract): "attacks succeed at 27.0%, 29.4%, and 5.0%" on GPT-4o, Gemini 2.5 Flash, Qwen3-VL-32B; "successful compromise is nearly always conscious (99.9% acknowledgment rate)"; mitigations: prompt-based defense "75-100% effective", two-stage verification "85-100%", text masking "100%".
+- How success is measured: not read (physical sorting outcome, per abstract wording).
+- Automotive relevance: a sober counterpoint to CHAI's 81.8% — success depends heavily on task framing, and simple text masking stops it (at the cost of tasks that need to read signs, which driving does).
+- Verification: ABSTRACT-ONLY.
+- Inference: for cars, text masking is not an option (road signs must be read), so the "simple defenses work" conclusion does not transfer.
+
+### A-62 · ESTI — Breaking Planner Integrity Boundary: Environment State-Text Injection Attack on LLM-Driven Embodied Agents
+- Liu, J. et al., 2026 · Venue: arXiv · Tier: T3
+- Link: https://arxiv.org/abs/2608.16806
+- Threat model: adversarial objective rewritten as false *environment-state evidence* (object properties, spatial relations, affordances, execution feedback) without changing the user instruction, model or executor; closed-loop.
+- Key results (abstract): beats Vanilla IPI, EIRAD and BadRobot, "improving planning-level and execution-level attack success rates by up to 89.32% and 43.69%, respectively".
+- How success is measured: planning-level vs execution-level (verifiable environmental change) — the two are reported separately.
+- Automotive relevance: vehicle-state text (sensor summaries, CAN-derived status strings) handed to an LLM planner is the same surface; analogous to b(s) state tampering in A-29.
+- Verification: ABSTRACT-ONLY.
+- Inference: the planning-vs-execution gap mirrors WASP's intermediate-vs-end-to-end gap (A-11); both argue for execution-level oracles.
+
+### A-63 · Overthink slowdown — Overthink-Triggered Slowdown Attacks on LVLM-Based Robotic Systems
+- Han, Q. et al., 2026 · Venue: arXiv · Tier: T3
+- Link: https://arxiv.org/abs/2607.01518
+- Threat model: black-box; human-readable scene text triggers excessively long reasoning, delaying decisions.
+- Key results (abstract): "the strongest single-trigger case reaching 6.96x"; "physical printing of the text trigger still causes up to 4.74x latency amplification".
+- How success is measured: latency amplification vs thresholds.
+- Automotive relevance: availability/latency is a safety property in a moving vehicle; this is an untargeted attack class missing from agent-security benchmarks (cf. idea 9).
+- Verification: ABSTRACT-ONLY.
+
+### A-64 · Promptware kill chain — The Promptware Kill Chain: How Prompt Injections Gradually Evolved Into a Multistep Malware Delivery Mechanism
+- Brodt, O. et al. (incl. Schneier, B.; Nassi, B.), 2026 · Venue: arXiv · Tier: T3
+- Link: https://arxiv.org/abs/2601.09625
+- Content (abstract): seven stages — Initial Access (prompt injection), Privilege Escalation (jailbreaking), Reconnaissance, Persistence (memory and retrieval poisoning), Command and Control, Lateral Movement, Actions on Objective; of 36 studies/incidents, "at least twenty-one documented attacks that traverse four or more stages".
+- How success is measured: n/a (analysis).
+- Automotive relevance: a kill-chain vocabulary that maps onto ISO/SAE 21434 attack-path analysis; useful for structuring the thesis attack taxonomy.
+- Verification: ABSTRACT-ONLY.
+
+### A-65 · Prompt injection on LLM-enabled AVs — Battling Prompt Injection Attacks on LLM-Enabled Autonomous Vehicles
+- Authors not retrieved, 2026 · Venue: 2026 International Conference on Future and Intelligent Networking (FINE), per Semantic Scholar citation listing only · Tier: unknown
+- Link: none retrieved (no arXiv ID in Semantic Scholar record)
+- Verification: UNVERIFIED (title and venue string only, from the Semantic Scholar list of papers citing A-45). Listed so the thesis author can retrieve it; do not cite any content.
+
 ---
 
 ## 4. Open problems & original ideas
@@ -691,4 +737,75 @@ Each idea names the closest existing work and why it is not yet covered. "Publis
 
 ## 5. Registry rows
 
-(Pending — written at the end of the survey.)
+One row per source (A-43 split into a/b/c). Year = first arXiv version.
+
+```csv
+id,short_name,title,authors_first,year,venue,tier,verification,url,used_for,notes
+A-01,AgentLAB,AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks,"Jiang, Tanqiu",2026,ICML 2026 (PMLR 306),T1,PRIMARY-READ,https://arxiv.org/abs/2602.16901,attacks: long-horizon taxonomy; ASR tables,LLM judge (GPT-5.1); venue verified on PMLR v306
+A-02,STAC,STAC: When Innocent Tools Form Dangerous Chains for LLM Agents,"Li, Jing-Jing",2025,REALM 2026 workshop (ACL Anthology 2026.realm-1.17),T2,PRIMARY-READ,https://arxiv.org/abs/2509.25624,attacks: tool chaining,GPT-4.1 generator and judge; ICLR 2026 withdrawn
+A-03,Crescendo,"Great, Now Write an Article About That: The Crescendo Multi-Turn LLM Jailbreak Attack","Russinovich, Mark",2024,USENIX Security 2025,T1,PRIMARY-READ,https://arxiv.org/abs/2404.01833,attacks: multi-turn jailbreak root,Sec. 1 evaluation only; GPT-4 judge + Perspective/Azure
+A-04,X-Teaming,X-Teaming: Multi-Turn Jailbreaks and Defenses with Adaptive Multi-Agents,"Rahman, Salman",2025,COLM 2025,T1,PRIMARY-READ,https://arxiv.org/abs/2504.13203,attacks: multi-agent attacker architecture,HarmBench evaluation; verifier 1-5
+A-05,Adaptive Adversaries,"Adaptive Adversaries: A Multi-Turn, Multi-LLM Benchmark for LLM Agent Security","Jain, Devina",2026,ICML 2026 workshop AIWILD,T2,PRIMARY-READ,https://arxiv.org/abs/2607.18063,attacks/eval: fresh vs stateful defender,stateful defender lowers ASR 57.4->31.5
+A-06,ShadowMem (MAGE v1),Safeguarding LLM Agents against Long-Horizon Threats via Shadow Memory,"Wang, Yuhui",2026,ACM CCS 2026 (S2 DOI 10.1145/3830454.3846601),T1,ABSTRACT-ONLY,https://arxiv.org/abs/2605.03228,defense context; seed correction,seed listed as MAGE attack; it is a defense
+A-07,Greshake IPI,Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection,"Greshake, Kai",2023,AISec 2023 (ACM workshop @CCS),T2,PRIMARY-READ,https://arxiv.org/abs/2302.12173,"attacks: IPI foundation, channel taxonomy",qualitative demos
+A-08,InjecAgent,InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents,"Zhan, Qiusi",2024,Findings of ACL 2024,T1,PRIMARY-READ,https://arxiv.org/abs/2403.02691,attacks: single-step IPI baseline,ASR-valid excludes invalid outputs; simulated tool responses
+A-09,AgentDojo,AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents,"Debenedetti, Edoardo",2024,NeurIPS 2024 D&B,T1,PRIMARY-READ,https://arxiv.org/abs/2406.13352,"attacks/eval: harness, state oracle",GPT-4o targeted ASR 47.69 (Tab 3) vs 57.69 (Tab 5)
+A-10,Formalizing PI,Formalizing and Benchmarking Prompt Injection Attacks and Defenses,"Liu, Yupei",2023,USENIX Security 2024,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2310.12815,attacks: formal definitions,non-agentic tasks
+A-11,WASP,WASP: Benchmarking Web Agent Security Against Prompt Injection Attacks,"Evtimov, Ivan",2025,NeurIPS 2025 D&B,T1,PRIMARY-READ,https://arxiv.org/abs/2504.18575,attacks/eval: intermediate vs end-to-end,rule oracle e2e; GPT-4o judge intermediate
+A-12,INFUSE,INFUSE: A Unified Surface Benchmark for Indirect Prompt Injection in Agentic Systems,"Nguyen, Thuy Dung",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.20776,attacks/eval: judge vs heuristic gap,58.2->14.3 is stress subset only
+A-13,AutoDojo,AutoDojo: A Generative Benchmark for Evaluating Prompt Injection Defenses in LLM Agents,"Ma, Xinhang",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2606.15057,attacks: adaptive black-box generation,under-specified tasks more vulnerable
+A-14,ASPI,ASPI: Seeking Ambiguity Clarification Amplifies Prompt Injection Vulnerability in LLM Agents,"Sehwag, Udari Madhushani",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2605.17324,attacks: clarification channel,AgentDojo-based; ask_user channel
+A-15,AgentPoison,AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases,"Chen, Zhaorun",2024,NeurIPS 2024,T1,PRIMARY-READ,https://arxiv.org/abs/2407.12784,attacks: RAG/memory backdoor; driving agent,headline >80% is retrieval; ASR-t 54.7-59.6 on Agent-Driver
+A-16,MINJA,Memory Injection Attacks on LLM Agents via Query-Only Interaction,"Dong, Shen",2025,NeurIPS 2025,T1,PRIMARY-READ,https://arxiv.org/abs/2503.03704,attacks: query-only memory injection,assumes shared memory bank
+A-17,Promptware,Invitation Is All You Need! Promptware Attacks Against LLM-Powered Assistants in Production Are Practical and Dangerous,"Nassi, Ben",2025,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2508.12175,attacks: calendar/email delayed tool invocation; ISO/SAE 21434 TARA,no peer-reviewed venue found
+A-18,MemHarm,From Attack Success to Attack Severity: Counterfactual Memory Attacks on LLM Agents,"Zou, Mingxi",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2609.34132,attacks: severity metric,counterfactual memory regret
+A-19,CarryoverBench,After the Attacker Leaves: Benchmarking Carryover Attacks on LLM Agents,"Xu, Zhiyue",2026,EMNLP 2026 Main,T1,PRIMARY-READ,https://arxiv.org/abs/2610.28425,attacks: cross-session carryover,rule-based verifier; no decay over 5 rounds
+A-20,MemoryDojo,MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory,"Yang, David H.",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2611.09721,attacks: memory architectures compared,5 memory systems
+A-21,MemGhost/WhisperBench,When Claws Remember but Do Not Tell: Stealthy Memory Injection in Persistent Personal Agents,"Zhang, Yechao",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2607.05189,attacks: one-email stealth memory write,87.5% OpenClaw/GPT-5.4
+A-22,MemPoison,MemPoison: Bypassing Selective Memory Mechanisms to Plant Backdoors in LLM Agents,"Wang, Hongtao",2026,ACM CCS 2026 (claimed),T1-claimed,ABSTRACT-ONLY,https://arxiv.org/abs/2605.29960,attacks: selective-memory backdoor,venue from arXiv comment + S2
+A-23,SkillRelayBench,Understanding and Mitigating Cross-Session Attacks via Persistent Artifacts in Agent Skill Composition,"Liao, Dianshu",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.13227,attacks: cross-session artifacts,"Codex CLI, Gemini CLI, Claude Code"
+A-24,MCPTox,MCPTox: A Benchmark for Tool Poisoning on Real-World MCP Servers,"Wang, Zhiqiang",2025,AAAI 2026 (Proc. AAAI 40(42) 35811-35819),T1,PRIMARY-READ,https://arxiv.org/abs/2508.14925,attacks: tool-metadata poisoning,ASR over valid outputs; labeler unclear
+A-25,FuncPoison,FuncPoison: Poisoning Function Library to Hijack Multi-agent Autonomous Driving Systems,"Long, Yuzhen",2025,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2509.24408,attacks: driving MAS supply chain,no numbers in abstract
+A-26,MCP-SafetyBench,MCP-SafetyBench: A Benchmark for Safety Evaluation of Large Language Models with Real-World MCP Servers,"Zong, Xuanjun",2025,ICLR 2026,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2512.15163,attacks: MCP taxonomy (20 types),has navigation domain
+A-27,TrustShiftProbe,"TrustShiftProbe: Characterizing, Benchmarking, and Defending Staged Trust Attacks on MCP Servers","Rostamzadeh, Mehrdad",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2608.23763,attacks: staged trust / rug pull,69.5% mean ASR
+A-28,Cross-channel fragmentation,Measuring and Exploiting Implicit Trust in LLM Tool-Calling Pipelines,"Ediga, Murali",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2609.18217,attacks: multi-channel fragments,5-point compliance rubric (scoring section only)
+A-29,Task tampering,Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks,"Zhang, Rongting",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2611.07640,attacks: instruction-free decision tampering,programmatic + narrow LLM judge; 97.2% human agreement
+A-30,Parameter poisoning,"Right Tool, Wrong Parameters: Defending LLM Agents Against Parameter Poisoning","Wang, Yao",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2611.04673,attacks: parameter poisoning,93.06% Qwen3.6-27B; 57.64% GPT-4o
+A-31,Voluntary servitude,Voluntary Servitude: Weaponized Safety Warning Mechanisms for Controlling AI Agents,"Zendel, Ilan",2026,NeurIPS 2026,T1,PRIMARY-READ,https://arxiv.org/abs/2611.04393,attacks: fabricated-hazard steering,Llama-3.3-70B judge; kappa 0.742
+A-32,ChatInject,ChatInject: Abusing Chat Templates for Prompt Injection in LLM Agents,"Chang, Hwan",2025,ICLR 2026,T1,PRIMARY-READ,https://arxiv.org/abs/2509.22830,attacks: role/template spoofing,simulated multi-turn in one observation
+A-33,Prompt Infection,Prompt Infection: LLM-to-LLM Prompt Injection within Multi-Agent Systems,"Lee, Donghyun",2024,arXiv (ICLR 2025 rejected),T3,ABSTRACT-ONLY,https://arxiv.org/abs/2410.07283,attacks: MAS self-replication,
+A-34,MAS hijack,Multi-Agent Systems Execute Arbitrary Malicious Code,"Triedman, Harold",2025,COLM 2025,T1,PRIMARY-READ,https://arxiv.org/abs/2503.12188,attacks: orchestrator control-flow hijack,reverse-shell oracle
+A-35,Can CaMeLs Talk,Can CaMeLs Talk? Securing Multi-Agent Systems Against Indirect Prompt Injection Attacks,"Peters-Gill, James",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2610.05640,attacks/defense: non-composition,MultiAgentDojo 12.9/0.2/0.0
+A-36,AiTM,Red-Teaming LLM Multi-Agent Systems via Communication Attacks,"He, Pengfei",2025,Findings of ACL 2025,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2502.14847,attacks: message interception,numbers not verified
+A-37,Agent Smith,Agent Smith: A Single Image Can Jailbreak One Million Multimodal LLM Agents Exponentially Fast,"Gu, Xiangming",2024,ICML 2024 (PMLR v235),T1,ABSTRACT-ONLY,https://arxiv.org/abs/2402.08567,attacks: infectious jailbreak,
+A-38,Attacker Moves Second,The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections,"Nasr, Milad",2025,arXiv (ICLR 2026 rejected),T3,PRIMARY-READ,https://arxiv.org/abs/2510.09023,attacks: adaptive evaluation standard,12 defenses bypassed
+A-39,Hofer et al.,Assessing Automated Prompt Injection Attacks in Agentic Environments,"Hofer, David",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2606.10525,attacks: GCG vs TAP on AgentDojo,TAP 45.2 vs GCG 24.1 (Qwen3-4B)
+A-40,AutoInject,Learning to Inject: Automated Prompt Injection via Reinforcement Learning,"Chen, Xin",2026,NeurIPS 2026,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2602.05746,attacks: RL suffix generator,breaks Meta-SecAlign-70B
+A-41,RL-Hammer,RL Is a Hammer and LLMs Are Nails: A Simple Reinforcement Learning Recipe for Strong Prompt Injection,"Wen, Yuxin",2025,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2510.04885,attacks: RL attacker,98% GPT-4o; 72% GPT-5+IH
+A-42,Agent swarms,Scaling Adaptive Prompt Injection Attacks with Agent Swarms,"Kurakin, Alexey",2026,arXiv (tech report),T3,PRIMARY-READ,https://arxiv.org/abs/2611.11861,attacks: swarm optimiser,Gemini safety classifiers disabled in tests
+A-43a,TAP,Tree of Attacks: Jailbreaking Black-Box LLMs Automatically,"Mehrotra, Anay",2023,NeurIPS 2024,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2312.02119,attacks: black-box search baseline,venue via OpenReview + arXiv comment
+A-43b,PAIR,Jailbreaking Black Box Large Language Models in Twenty Queries,"Chao, Patrick",2023,IEEE SaTML 2025 (S2 DOI),T1,ABSTRACT-ONLY,https://arxiv.org/abs/2310.08419,attacks: black-box search baseline,venue via S2 DOI 10.1109/SaTML64287.2025.00010; ICLR 2024 rejected
+A-43c,GCG,Universal and Transferable Adversarial Attacks on Aligned Language Models,"Zou, Andy",2023,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2307.15043,attacks: white-box suffix baseline,no venue in arXiv record
+A-44,RoboPAIR,Jailbreaking LLM-Controlled Robots,"Robey, Alexander",2024,ICRA 2025 (S2 DOI),T1,ABSTRACT-ONLY,https://arxiv.org/abs/2410.13691,attacks: embodied jailbreak incl. self-driving LLM,
+A-45,CHAI,CHAI: Command Hijacking against embodied AI,"Burbano, Luis",2025,IEEE SaTML 2026 (S2 DOI),T1,PRIMARY-READ,https://arxiv.org/abs/2510.00181,attacks: physical visual prompt injection,output-label ASR; DriveLM 81.8%
+A-46,Typographic AD,Towards Transferable Attacks Against Vision-LLMs in Autonomous Driving with Typography,"Chung, Nhat",2024,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2405.14169,attacks: typographic driving scenes,
+A-47,DolphinAttack,DolphinAttack: Inaudible Voice Commands,"Zhang, Guoming",2017,ACM CCS 2017 (arXiv JREF),T1,ABSTRACT-ONLY,https://arxiv.org/abs/1708.09537,attacks: ultrasonic voice channel,Audi navigation demo
+A-48,Concurrent audio PI,Piggybacking on Perception: Stealthy Concurrent Audio Prompt Injections against Multimodal LLM Agents,"Liu, Mingxiao",2026,arXiv,T3,PRIMARY-READ,https://arxiv.org/abs/2607.28165,attacks: audio channel,Qwen-Max auxiliary judge; 69.10% Gemini 3 Pro
+A-49,Intent to Action,From Intent to Action: Benchmarking LLM Safety in Vehicle Voice Command Authorization,"Afroze, Diba",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2609.19630,automotive target set (False Execute),benchmark not attack
+A-50,CAR-bench,CAR-bench: Evaluating the Consistency and Limit-Awareness of LLM Agents under Real-World Uncertainty,"Kirmayr, Johannes",2026,ACL 2026,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2601.22027,automotive host environment,venue per S2 + repo audit
+A-51,ECLIPSE,ECLIPSE: Self-Evolving Stealthy Prompt Injection Attack against Long-Horizon Agentic Systems,"Zhao, Shiqian",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2608.30441,attacks: hybrid long-horizon,96.7% no defense
+A-52,Divide and Inject,Divide and Inject: Can Agents Reconstruct an Indirect Prompt Injection from Fragments?,"Lee, Michael",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2609.36576,attacks: fragmented IPI,61.4% macro ASR
+A-53,Staged PI,Blocking at the Boundary: Auditing Long-Horizon Agents against Staged Prompt Injection,"Liu, Jingkai",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.05163,attacks: staged IPI vs Claude Code/Codex,
+A-54,Trust region effect,Where You Inject Matters: The Trust Region Effect in LLM Agents,"Guo, Chengquan",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.38867,attacks: injection placement,2.6x README vs code
+A-55,Derived-action trap,Can agents whose sole duty is to keep humans alive be hijacked to kill? Delayed multi-turn derived-action trap attacks in simulated high-stakes environments,"Habdank, Josef A.",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.15153,attacks: delayed telemetry injection,single author; qualitative
+A-56,MINJA realism,Memory Poisoning Attack and Defense on Memory Based LLM-Agents,"Sunil, Balachandra Devarangadi",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2601.05504,attacks: realism check of MINJA,pre-existing memories reduce effectiveness
+A-57,Provider-side IPI,Who Is Your Agent Serving? Provider-Side Indirect Prompt Injection in Proactive Agents,"Wang, Rui",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.05266,attacks: proactive recommendation steering,up to 77.4 pp gain
+A-58,AgentVigil,AgentVigil: Generic Black-Box Red-teaming for Indirect Prompt Injection against LLM Agents,"Wang, Zhun",2025,Findings of EMNLP 2025 (claimed via OpenReview/dblp mirror),T1-claimed,ABSTRACT-ONLY,https://arxiv.org/abs/2505.05849,attacks: MCTS fuzzing baseline,71% o3-mini AgentDojo
+A-59,BadRobot,BadRobot: Jailbreaking Embodied LLM Agents in the Physical World,"Zhang, Hangtao",2024,ICLR 2025,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2407.20242,attacks: embodied voice jailbreak,word-action misalignment
+A-60,Embodied survey,Towards Robust and Secure Embodied AI: A Survey on Vulnerabilities and Attacks,"Xing, Wenpeng",2025,ACM Computing Surveys (S2 DOI 10.1145/3806048),T2,ABSTRACT-ONLY,https://arxiv.org/abs/2502.13175,background: embodied attack survey,
+A-61,Paper hijack (physical PI),Hijacking Robots with a Piece of Paper: A Systematic Study of Physical Prompt Injection in VLM-Controlled Robots,"Samarakoon, S. M. Bhagya P.",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2608.05715,attacks: physical PI counterpoint,5.0-29.4% ASR; simple mitigations 75-100%
+A-62,ESTI,Breaking Planner Integrity Boundary: Enviroment State-Text Injection Attack on LLM-Driven Embodied Agents,"Liu, Jiawei",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2608.16806,attacks: state-text injection; planning vs execution ASR,title spelling 'Enviroment' as on arXiv
+A-63,Overthink slowdown,Overthink-Triggered Slowdown Attacks on LVLM-Based Robotic Systems,"Han, Qiang",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2607.01518,attacks: latency/availability,6.96x; printed 4.74x
+A-64,Promptware kill chain,The Promptware Kill Chain: How Prompt Injections Gradually Evolved Into a Multistep Malware Delivery Mechanism,"Brodt, Oleg",2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2601.09625,taxonomy: kill chain,21 of 36 attacks span >=4 stages
+A-65,LLM-AV prompt injection (FINE),Battling Prompt Injection Attacks on LLM-Enabled Autonomous Vehicles,,2026,FINE 2026 (per Semantic Scholar only),unknown,UNVERIFIED,,to retrieve,title only from S2 citation list of CHAI
+```
