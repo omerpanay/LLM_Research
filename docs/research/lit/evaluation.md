@@ -79,9 +79,9 @@ Each row is a way that a case can **look like** a successful attack without bein
 | N18 | **Detector or monitor false alarms at low base rate** | A detector "detects" an attack in a benign tool output. At realistic attack prevalence most alarms are false. | FPRs on benign tool outputs "range from none to over 90%" (abstract, E-12). Base-rate fallacy (E-29). | Report TPR at fixed low FPR measured on *your own* benign tool outputs. Convert to positive predictive value (PPV) at an assumed prevalence. |
 | N19 | **Contamination, or training on the test** | High scores come from training-data overlap with the benchmark. | The BIPIA leader "was trained on full BIPIA inputs" (abstract, E-12). CMU JEV study "cannot rule out that benchmark items were seen in training" (Limitations, E-35). | Audit training data where public. Use fresh, in-house scenarios (the vehicle domain helps). |
 | N20 | **Rubric-wording or annotator-panel artifact** | The verdict depends on how the rubric is phrased or which human panel defines truth. | Up to 9.1% verdict flips from content-preserving rewrites (abstract, E-18). One judge correlates 0.43–0.61 with an expert panel but 0.03–0.07 with a crowd panel on the same items (abstract, E-24). | Rubric-paraphrase invariance test (E-18). Name the reference panel. Report agreement per panel. |
-
 | N21 | **Invalid test case: the "attack" edit changed the task itself** | The perturbation alters a fact that defines the task (for example the trusted payee), so the agent's changed action is correct. | Embedding thresholds "allowed 75-100% of edits that changed the task, such as swapping the payee". With a MiniLM threshold, "Mistral appeared vulnerable on all 64 tasks, but only 26 had a successful valid attack" (abstract, E-45). | An executable task contract checked *before* the run: task-defining facts, allowed edit fields, completion predicate (E-45). This is the agent analogue of N9. |
 | N22 | **False evidence rather than instruction hijack** | The injected content asserts new "facts", for example that the state is outdated, and the model follows the evidence. The failure is in trust separation, not instruction-following. | The Jev-specific injection "first claims that the original application state is incorrect or outdated, and then adds false information that strongly supports the attacker-chosen target". It reaches 100% ASR on subscription cancellation (§IV-A, Table I, E-43). | Classify every payload as *instruction* vs *evidence* manipulation and report them separately. Check whether a correctly behaving system *could* have known the evidence was untrusted (provenance available?). |
+| N23 | **Goal collision between user task and attacker goal** | The attacker-goal predicate is already satisfied by the *legitimate* user task, because the attacker's target appears in the user's own request. A clean run then scores as "attack success". | Main-session measurement, not literature: replaying 2,709 stored clean AgentDojo runs against all injection-task oracles gave 13 false-positive pairs out of 17,547. All 13 came from banking user_task_15 in AgentDojo v1, whose legitimate prompt contains the attacker IBAN. The collision was fixed in v1.1.1. | Clean-run oracle sweep. Before any attack run, evaluate every injection-task oracle on clean runs. Any positive is a goal collision, so exclude or redesign that (user task, injection task) pair. M1's clean arm catches the same artifact automatically. |
 
 **The inverse problem: things that look like defence success but are not.**
 - *The attack was ignored, not resisted.* "most failed attacks are ignored (76-80%) rather than refused". Changing only the system prompt moves InjecAgent ASR "from 0.2% to 43%". In "21.7% of AgentDojo episodes, the agent stayed safe but did not complete the user's task" (abstract, E-44).
@@ -90,7 +90,7 @@ Each row is a way that a case can **look like** a successful attack without bein
 - **Detection.** Report the attack-outcome × task-outcome matrix (E-44's ATOM), an undefended baseline per model, and adaptive attacks (E-01 §8, E-11).
 
 Inference on grouping:
-- N1, N2, N3, N12 and N21 are *benchmark artifacts*.
+- N1, N2, N3, N12, N21 and N23 are *benchmark artifacts*.
 - N4, N5 and N16 are *ordinary agent or capability failure*.
 - N6, N7, N8, N15 and N20 are *measurement (judge) error*.
 - N9, N10, N11 and N22 are *non-security or mis-specified behaviour*.
@@ -246,6 +246,7 @@ Inference: E-30 ("Adding Error Bars" and its companion CLT position paper) is th
   - No defence: BU 69.0%, UA 50.01%, targeted ASR 57.69%. Tool filter: ASR 6.84% (Table 5). All with 95% CIs.
   - Running all 629 security cases on GPT-4o "costs around US$35" (App. D).
 - **Pitfalls it exposes:** Untargeted ASR = 1 − UA mixes in ordinary failure (N5). Its own oracles are partly brittle and its injections overwrite task data (N2, N3, via E-01).
+- **Main-session measurement (not from the paper):** in the v1 banking suite, a goal collision makes the injection-task oracle fire on clean runs: 13/17,547 clean (run, injection-task) pairs, all from user_task_15, fixed in v1.1.1 (N23). Pin the AgentDojo version in the thesis.
 - **Verification:** PRIMARY-READ (§3.3–3.4, App. C–D).
 - **Inference:** AgentDojo's oracle-first design is the template for an in-vehicle environment. Keep it, and add the placebo arm (M1).
 
@@ -809,7 +810,7 @@ Inference: E-30 ("Adding Error Bars" and its companion CLT position paper) is th
 - Most likely: **Jev, TypeSafe AI's "System One" decision model**, released in early access on 15 Sep 2026 (E-34).
 - The name is not an acronym: "We named Jev after William Stanley Jevons" (E-34). Papers write it as "JEV" or "Jev".
 - Confidence: **high (≈90%)**.
-  - Every 2026 paper or post that uses "JEV/Jev" in an evaluation, judge or security context means this model (E-35 to E-46).
+  - Every 2026 paper or post that uses "JEV/Jev" in an evaluation, judge or security context means this model (E-34 to E-43).
   - Two web searches for other meanings of "JEV" in agent security, automotive or evaluation contexts returned only TypeSafe's Jev.
 - Main alternative (≈5–10%): a mis-hearing or shorthand for **JEPA** (Joint-Embedding Predictive Architecture). JEPA is used in automotive ML, for example:
   - "Self-Supervised Representation Learning with Joint Embedding Predictive Architecture for Automotive LiDAR Object Detection" (Zhu et al., arXiv 2501.04969);
@@ -834,7 +835,9 @@ Inference: E-30 ("Adding Error Bars" and its companion CLT position paper) is th
 
 ---
 
-## 6. Registry rows (draft; extended below as entries are added)
+## 6. Registry rows
+
+The rows match the entries above. E-30b is a companion paper folded into entry E-30. The three "main-session" facts (AgentLAB repo and stored results, CAR-bench clean-trial flips, AgentDojo goal-collision sweep) are measurements by the coordinating session, not literature, so they have no rows.
 
 ```csv
 id,short_name,title,authors_first,year,venue,tier,verification,url,used_for,notes
