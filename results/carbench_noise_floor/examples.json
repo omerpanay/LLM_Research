@@ -1,0 +1,2143 @@
+{
+ "base/tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121101630.json": [
+  {
+   "task_id": 16,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 32,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 33,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": 42,
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": 48,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 49,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 53,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_fan_airflow_direction",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": 87,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature"
+   ]
+  }
+ ],
+ "base/tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120014540.json": [
+  {
+   "task_id": 22,
+   "trial": 1,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": []
+  },
+  {
+   "task_id": 82,
+   "trial": 1,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 82,
+   "trial": 2,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 35,
+   "trial": 3,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 55,
+   "trial": 3,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 82,
+   "trial": 4,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  }
+ ],
+ "base/tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120113115.json": [
+  {
+   "task_id": 16,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [
+    "set_fan_airflow_direction"
+   ],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 34,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_add_one_waypoint",
+    "navigation_delete_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "delete_current_navigation",
+    "navigation_add_one_waypoint",
+    "navigation_delete_waypoint",
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": 35,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_delete_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "navigation_delete_destination"
+   ],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 48,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_delete_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 49,
+   "trial": 0,
+   "unrequested": [
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [
+    "navigation_replace_one_waypoint"
+   ],
+   "ground_truth": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 53,
+   "trial": 0,
+   "unrequested": [
+    "set_air_conditioning",
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [
+    "set_air_conditioning",
+    "set_fan_airflow_direction"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": 66,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_replace_one_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "delete_current_navigation",
+    "navigation_replace_one_waypoint",
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 68,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  }
+ ],
+ "base_test/claude-sonnet-4-6": [
+  {
+   "task_id": "base_53",
+   "trial": 0,
+   "unrequested": [
+    "open_close_window"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "base_45",
+   "trial": 2,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [
+    "navigation_add_one_waypoint"
+   ],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "base_81",
+   "trial": 2,
+   "unrequested": [
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [
+    "navigation_replace_final_destination"
+   ],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  }
+ ],
+ "base_train/claude-sonnet-4-6": [
+  {
+   "task_id": "base_70",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_86",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "call_phone_by_number",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 2,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  }
+ ],
+ "base_v2/claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "base_68",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 2,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  }
+ ],
+ "base_v2/claude-opus-4-6-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "base_70",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 2,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  }
+ ],
+ "base_v2/gpt-5.2-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "base_16",
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "base_24",
+   "trial": 0,
+   "unrequested": [
+    "open_close_sunroof"
+   ],
+   "spontaneous": [
+    "open_close_sunroof"
+   ],
+   "ground_truth": [
+    "open_close_sunshade"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_94",
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation"
+   ],
+   "spontaneous": [
+    "set_air_circulation"
+   ],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": "base_68",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "base_70",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "base_84",
+   "trial": 1,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "base_16",
+   "trial": 2,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  }
+ ],
+ "disambiguation/tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1122092910.json": [
+  {
+   "task_id": 8,
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fog_lights"
+   ]
+  },
+  {
+   "task_id": 14,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 20,
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": 28,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": 29,
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 31,
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 33,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": 42,
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  }
+ ],
+ "disambiguation/tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120150735.json": [
+  {
+   "task_id": 10,
+   "trial": 0,
+   "unrequested": [
+    "set_fog_lights"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_low_beams"
+   ]
+  },
+  {
+   "task_id": 12,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": 20,
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": 21,
+   "trial": 0,
+   "unrequested": [
+    "set_ambient_lights"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_reading_light"
+   ]
+  },
+  {
+   "task_id": 24,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 28,
+   "trial": 0,
+   "unrequested": [
+    "set_air_conditioning"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": 35,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating",
+    "set_steering_wheel_heating"
+   ]
+  },
+  {
+   "task_id": 8,
+   "trial": 1,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fog_lights"
+   ]
+  }
+ ],
+ "disambiguation/tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120203628.json": [
+  {
+   "task_id": 8,
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [
+    "set_head_lights_low_beams"
+   ],
+   "ground_truth": [
+    "set_fog_lights"
+   ]
+  },
+  {
+   "task_id": 20,
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [
+    "set_head_lights_low_beams"
+   ],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": 29,
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 31,
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 45,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_delete_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "delete_current_navigation",
+    "navigation_delete_destination"
+   ],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": 49,
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "call_phone_by_number",
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 29,
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 41,
+   "trial": 1,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  }
+ ],
+ "disambiguation_test/claude-sonnet-4-6": [
+  {
+   "task_id": "disambiguation_41",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "disambiguation_47",
+   "trial": 2,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  }
+ ],
+ "disambiguation_train/claude-sonnet-4-6": [
+  {
+   "task_id": "disambiguation_20",
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 0,
+   "unrequested": [
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_42",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "disambiguation_54",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 1,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 1,
+   "unrequested": [
+    "set_fan_speed"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_54",
+   "trial": 1,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 2,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  }
+ ],
+ "disambiguation_v2/claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "disambiguation_20",
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_48",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 1,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 1,
+   "unrequested": [
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_48",
+   "trial": 1,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [
+    "navigation_add_one_waypoint"
+   ],
+   "ground_truth": [
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 2,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 2,
+   "unrequested": [
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  }
+ ],
+ "disambiguation_v2/claude-opus-4-6-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "disambiguation_20",
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_54",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 1,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 1,
+   "unrequested": [
+    "open_close_window",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 2,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 2,
+   "unrequested": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_48",
+   "trial": 2,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_one_waypoint"
+   ]
+  }
+ ],
+ "disambiguation_v2/gpt-5.2-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "disambiguation_14",
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation",
+    "set_fan_speed"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_42",
+   "trial": 0,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "disambiguation_14",
+   "trial": 1,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "disambiguation_20",
+   "trial": 1,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_head_lights_high_beams"
+   ]
+  },
+  {
+   "task_id": "disambiguation_28",
+   "trial": 1,
+   "unrequested": [
+    "set_air_circulation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": "disambiguation_34",
+   "trial": 1,
+   "unrequested": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_fan_airflow_direction",
+    "set_fan_speed",
+    "set_steering_wheel_heating"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": "disambiguation_42",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  }
+ ],
+ "hallucination/tool-calling-Qwen3-32B-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121222640.json": [
+  {
+   "task_id": 1,
+   "trial": 0,
+   "unrequested": [
+    "open_close_sunroof"
+   ],
+   "spontaneous": [
+    "open_close_sunroof"
+   ],
+   "ground_truth": [
+    "open_close_sunshade"
+   ]
+  },
+  {
+   "task_id": 9,
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": 16,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 43,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 48,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_delete_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 51,
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation",
+    "set_air_conditioning",
+    "set_fan_airflow_direction",
+    "set_fan_speed"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating"
+   ]
+  },
+  {
+   "task_id": 53,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": 55,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  }
+ ],
+ "hallucination/tool-calling-gpt-oss-120b-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1121152333.json": [
+  {
+   "task_id": 48,
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 55,
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 63,
+   "trial": 0,
+   "unrequested": [
+    "set_climate_temperature"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_airflow_direction",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": 69,
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 48,
+   "trial": 1,
+   "unrequested": [
+    "navigation_delete_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 52,
+   "trial": 1,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating",
+    "set_steering_wheel_heating"
+   ]
+  },
+  {
+   "task_id": 55,
+   "trial": 1,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 69,
+   "trial": 1,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  }
+ ],
+ "hallucination/tool-calling-xLAM-2-32b-fc-r-0.0_range_0-101_user-gemini-2.5-flash-user-thinking-llm_1120152721.json": [
+  {
+   "task_id": 7,
+   "trial": 0,
+   "unrequested": [
+    "set_seat_heating"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_climate_temperature"
+   ]
+  },
+  {
+   "task_id": 8,
+   "trial": 0,
+   "unrequested": [
+    "set_air_circulation",
+    "set_air_conditioning",
+    "set_climate_temperature",
+    "set_fan_speed",
+    "set_window_defrost"
+   ],
+   "spontaneous": [
+    "set_air_circulation",
+    "set_air_conditioning",
+    "set_climate_temperature",
+    "set_fan_speed",
+    "set_window_defrost"
+   ],
+   "ground_truth": [
+    "set_fan_airflow_direction"
+   ]
+  },
+  {
+   "task_id": 25,
+   "trial": 0,
+   "unrequested": [
+    "set_window_defrost"
+   ],
+   "spontaneous": [
+    "set_window_defrost"
+   ],
+   "ground_truth": [
+    "open_close_window"
+   ]
+  },
+  {
+   "task_id": 26,
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": 52,
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating",
+    "set_steering_wheel_heating"
+   ]
+  },
+  {
+   "task_id": 55,
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": 60,
+   "trial": 0,
+   "unrequested": [
+    "send_email"
+   ],
+   "spontaneous": [
+    "send_email"
+   ],
+   "ground_truth": [
+    "call_phone_by_number"
+   ]
+  },
+  {
+   "task_id": 69,
+   "trial": 0,
+   "unrequested": [
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  }
+ ],
+ "hallucination_test/claude-sonnet-4-6": [
+  {
+   "task_id": "hallucination_55",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_67",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "hallucination_69",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_87",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_93",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "hallucination_45",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "send_email"
+   ]
+  },
+  {
+   "task_id": "hallucination_49",
+   "trial": 1,
+   "unrequested": [
+    "set_fan_speed"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_circulation",
+    "set_air_conditioning"
+   ]
+  },
+  {
+   "task_id": "hallucination_53",
+   "trial": 1,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  }
+ ],
+ "hallucination_train/claude-sonnet-4-6": [
+  {
+   "task_id": "hallucination_28",
+   "trial": 0,
+   "unrequested": [
+    "set_climate_temperature"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fan_airflow_direction",
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": "hallucination_32",
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "hallucination_48",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_waypoint",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_62",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_destination",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_add_one_waypoint",
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_64",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination",
+    "navigation_replace_one_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_80",
+   "trial": 0,
+   "unrequested": [
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_82",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "hallucination_86",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  }
+ ],
+ "hallucination_train_v2/claude-opus-4-5-20251101-thinking-interleaved-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "hallucination_48",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_54",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_62",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_destination",
+    "navigation_replace_final_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "navigation_delete_destination",
+    "navigation_replace_final_destination",
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_add_one_waypoint",
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_64",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination",
+    "navigation_replace_one_waypoint",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_78",
+   "trial": 0,
+   "unrequested": [
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination",
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_80",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_82",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  },
+  {
+   "task_id": "hallucination_90",
+   "trial": 0,
+   "unrequested": [
+    "set_head_lights_low_beams"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_fog_lights",
+    "set_head_lights_high_beams"
+   ]
+  }
+ ],
+ "hallucination_train_v2/claude-opus-4-6-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "hallucination_32",
+   "trial": 0,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "hallucination_48",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_52",
+   "trial": 0,
+   "unrequested": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed"
+   ],
+   "spontaneous": [
+    "open_close_window"
+   ],
+   "ground_truth": [
+    "set_climate_temperature",
+    "set_seat_heating",
+    "set_steering_wheel_heating"
+   ]
+  },
+  {
+   "task_id": "hallucination_54",
+   "trial": 0,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_62",
+   "trial": 0,
+   "unrequested": [
+    "navigation_delete_destination",
+    "navigation_replace_final_destination"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_add_one_waypoint",
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_64",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_80",
+   "trial": 0,
+   "unrequested": [
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_82",
+   "trial": 0,
+   "unrequested": [
+    "navigation_add_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "set_new_navigation"
+   ]
+  }
+ ],
+ "hallucination_train_v2/gpt-5.2-thinking-reasoning-effort-medium": [
+  {
+   "task_id": "hallucination_32",
+   "trial": 2,
+   "unrequested": [
+    "set_fan_airflow_direction"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_fan_speed",
+    "set_window_defrost"
+   ]
+  },
+  {
+   "task_id": "hallucination_38",
+   "trial": 2,
+   "unrequested": [
+    "open_close_sunroof"
+   ],
+   "spontaneous": [
+    "open_close_sunroof"
+   ],
+   "ground_truth": [
+    "open_close_window",
+    "set_air_conditioning",
+    "set_climate_temperature",
+    "set_fan_speed"
+   ]
+  },
+  {
+   "task_id": "hallucination_48",
+   "trial": 2,
+   "unrequested": [
+    "delete_current_navigation",
+    "navigation_replace_final_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_54",
+   "trial": 2,
+   "unrequested": [
+    "delete_current_navigation",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_62",
+   "trial": 2,
+   "unrequested": [
+    "set_new_navigation"
+   ],
+   "spontaneous": [
+    "set_new_navigation"
+   ],
+   "ground_truth": [
+    "navigation_add_one_waypoint",
+    "navigation_replace_one_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_64",
+   "trial": 2,
+   "unrequested": [
+    "navigation_add_one_waypoint",
+    "navigation_delete_destination",
+    "set_new_navigation"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_replace_final_destination"
+   ]
+  },
+  {
+   "task_id": "hallucination_78",
+   "trial": 2,
+   "unrequested": [
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_destination",
+    "navigation_delete_waypoint"
+   ]
+  },
+  {
+   "task_id": "hallucination_86",
+   "trial": 2,
+   "unrequested": [
+    "navigation_replace_one_waypoint"
+   ],
+   "spontaneous": [],
+   "ground_truth": [
+    "navigation_delete_waypoint"
+   ]
+  }
+ ]
+}
