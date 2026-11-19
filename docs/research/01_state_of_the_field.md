@@ -1,0 +1,45 @@
+# 01 · State of the field (November 2026)
+
+What is solved, what is open, what is overhyped — per thesis stage. IDs refer to entries in `lit/attacks.md` (A-), `lit/evaluation.md` (E-), `lit/defenses.md` (D-, N-), `lit/automotive.md` (V-); tiers and verification status are in `sources.csv` (243 rows; 174 arXiv ids checked against live titles, 0 mismatches — `sources_check.md`). "Own measurement" = `results/` in this repo. A 10-claim random audit of the literature notes against primary PDFs is recorded in `00_INDEX.md` (10/10 consistent).
+
+## Headline in five sentences
+1. Making agents misbehave is easy and well replicated; static attack templates are no longer a robustness test (A-38: defences at ≈0–2% static ASR exceed 90% under adaptive attack — note A-38 is a rejected ICLR 2026 submission, T3).
+2. **Measuring** attack success is the weak link: harness artifacts, invalid test cases, judge errors, retries and ordinary failure inflate or deflate ASR by large factors (E-01, E-16, E-45; own measurements).
+3. Deterministic, out-of-band defences (CaMeL family, IFC, origin checks) are the only class that has held under the adaptive tests that exist — but at a large utility cost and without any strong white-box, long-horizon or human red-team test (D-01, D-19, D-09).
+4. Long-horizon attacks and defences are measured with incompatible protocols (fresh vs persistent sessions, attempts vs turns), so headline comparisons are not yet meaningful (A-05 vs A-01; own measurement on AgentLAB).
+5. The automotive intersection — in-car tools, multi-turn attacker, vehicle state, state oracle — has no published benchmark; production assistants expose comfort, navigation and communication tools, and the realistic attacker is a remote content injector (V-01, V-02, V-08).
+
+## Attack
+| | Evidence |
+|---|---|
+| **Solved / settled** | Indirect prompt injection works on every model family tested (A-07–A-12). Decomposing a harmful goal into benign steps beats one-shot requests (A-01 Table 2: tool chaining 73–96% on all models; A-02). Persistent state turns one injection into cross-session compromise (A-19, A-21, A-23). Tool/MCP metadata is an injection channel (MCPTox o1-mini 72.8%, A-24). |
+| **Open** | Instruction-free *decision tampering* (fake hazards, parameter poisoning, false evidence) evades instruction-focused defences (A-29, A-30, A-31; E-43: 100% ASR on a JEV-specific false-evidence payload). Multi-agent composition breaks per-agent guarantees (A-35, multi-CaMeL). Physical/acoustic channels into cars are shown only on static images, small robots or phones, not closed-loop vehicles (A-45, A-48, V-07). |
+| **Overhyped** | "Long horizon ⇒ stronger": AgentLAB's task-injection ASRs are success-within-up-to-10–17-attempts rates; at one attempt GPT-4o is 32.6% vs 79.9% reported (own measurement, `results/agentlab_ti_budget/`), and a stateful defender *lowers* ASR over turns (A-05: 57.4% → 31.5%). AgentPoison's ">80%" is retrieval success; end-to-end ASR-t on the driving agent is 56.8% (A-15 Table 1; checked). WASP: up to 86% diversion but 0–17% end-to-end completion (A-11, "security by incompetence"). Some 2026 attacks ran with production safety classifiers off (A-42). |
+
+## Evaluate
+| | Evidence |
+|---|---|
+| **Solved / settled** | State oracles beat LLM judges where they can be written (AgentDojo's deterministic checks, E-03). Own replay of 2,709 stored clean AgentDojo runs: goal-specific state oracles fired without attack in 13 of 17,547 pairs, all from one goal-collision artifact fixed upstream in v1.1.1 (`results/agentdojo_clean_oracle_floor/`). Misclassification-corrected prevalence (Rogan–Gladen, PPI) now has an ICML 2026 treatment for LLM judges (E-25, verified "Proceedings of the 43rd ICML"). |
+| **Open** | (i) Which measured successes are real: harness-forced tools (ASB 73.58% → 9.25%, E-01), injections that overwrite task data (E-01), invalid perturbations ("vulnerable on all 64 tasks, only 26 valid", E-45, checked), ignored-not-refused (76–80%, E-44). (ii) Judge reliability under red-teaming shift — near chance (E-16), benign wrappers flip judges 57–100% (E-46), 5–7% verdict jitter at temperature 0 (E-18). (iii) Long-horizon metrics: turns-to-success conditions on success (censoring), success-within-N reported as ASR (E-06 + own). (iv) Clean-run noise: 12–34% of CAR-bench tasks flip between identical clean trials for frontier models; broad "unrequested action" oracles have a 2–20% clean upper bound (own, `results/carbench_noise_floor/`). |
+| **Overhyped** | "Human-level" judges validated in-distribution (E-15, E-24). Detector leaderboards (best BIPIA detector catches 2.1% of AgentDojo injections at 1% FPR, E-12). JEV as a security judge: cheap and accurate on read-off judgments (E-35, E-40: F1 77.8 on 5,219 traces), but a counterfeit policy cuts its recall from 82.90% to 3.88% (E-41, vendor blog) and nobody has tested it inside an attacked agent loop. |
+
+## Defend
+| | Evidence |
+|---|---|
+| **Solved (narrowly)** | For injections that must *create a new tool call*, deterministic enforcement works on current benchmarks: CaMeL, FIDES, SPIDES, ROPE, SPILLWAY, Progent drive static ASR to ≈0–3% (D-01, D-06–D-10). |
+| **Open** | Utility: CaMeL 77% vs 84% in its own paper but 26–53% vs 63–90% clean utility in third-party AutoDojo runs (D-19 Table 5, checked); parameter poisoning: CaMeL holds (0.69% ASR) but benign utility falls 90.28% → 43.75% (D-11). Long horizon: on replayed AgentLAB task-injection cases Progent admits 8.7/8.3/15.1% overall (43.5% on Qwen travel) and DRIFT up to 25.4%, while ROPE holds 0.0% (D-09 Table 3, checked; ROPE is self-evaluated, T3). Human-in-the-loop: every deterministic system escalates to user approval; all approval counts assume a perfect approver (D-07: 1.84 approvals per completed task), none under driving workload. |
+| **Overhyped** | Model-level "provable" defences (Meta-SecAlign 2% static → 96% adaptive, D-39/D-44). Detector AUROC (AlignmentCheck AUROC ≈0.93 but precision 0.096 at 2% attack prevalence, D-32, checked). The claim that system-level defences need no adaptive evaluation: A-38 explicitly skipped CaMeL/Tool Filter; the only adaptive test is black-box with success-bit feedback (D-19). |
+
+## Automotive
+| | Evidence |
+|---|---|
+| **Known** | Production LLM features are comfort, navigation, media, communication; VW states ChatGPT in IDA gets no vehicle data (V, VW press, primary). VW Group China announced an onboard agent (H2 2026) and a multi-agent CEA 2.0 joining driving and cockpit (2027) (primary). Calendar-invite/e-mail injections against Gemini caused physical side effects in a smart home; a 21434-style TARA rated 73% of threats high-critical (V-08). |
+| **Open** | No adversarial in-car benchmark (CAR-bench has 58 tools/19 policies and no attacker; V-01). From Intent to Action (V-02) is single-turn authorisation: frontier LLMs still false-execute 1.2–13.7%. No study of cockpit→driving cascades, rental-car memory carry-over, parked-vs-driving context exploitation, or confirmation fatigue under driving load (`lit/automotive.md` §7). |
+| **Governance** | Nothing certifies an LLM agent. ISO/SAE 21434 gives TARA vocabulary but no success-probability factor; SOTIF (ISO 21448) excludes cybersecurity, which cleanly separates ordinary LLM failure (SOTIF-like) from attacks (21434). EU AI Act high-risk obligations deferred by Reg. (EU) 2026/1744 (snippets; verify). |
+
+## Where the supervisor's framing needs updating (argued with evidence)
+1. **"AgentLAB is very important"** — agreed, but as an *object of measurement* as much as a tool: its public code scores intent hijacking on text with an LLM judge the attacker optimises against, counts PARTIAL as success for memory poisoning, and reports task injection as success within N attempts (`lit/codebase_audit.md`, own measurements). Use AgentLAB's attack machinery; do not inherit its scoring.
+2. **"Is this really an attack?"** — the literature now offers at least 23 distinct non-attack categories (`lit/evaluation.md` §2). A five-question filter is a good start; the thesis should add *placebo arms*, *task contracts* and *budget matching*.
+3. **"Build your own metrics"** — yes; the strongest candidates are causal ASR (paired/placebo), judge-corrected ASR, budget curves, Kaplan–Meier turns-to-compromise, transient-unsafe-action rate, severity-weighted ASR and driver-interaction cost (`03_thesis_design.md` §6).
+4. **"Final citations on peer-reviewed work"** — several load-bearing papers are not peer-reviewed or were rejected: The Attacker Moves Second (rejected ICLR 2026), CaMeL (arXiv), Design Patterns (arXiv), Prompt Infection (rejected ICLR 2025); STAC appears only at a workshop. Cite them as T3 motivation and carry core claims with T1/T2 sources and own measurements.
+5. **"Evaluate agents across agent architectures"** — architecture is confounded with prompt/model choices; the prototype shows plan-then-execute stops injected commands but not argument tampering or memory read at planning time. Compare architectures on the *same* model, tools and tasks, and report per attack family.

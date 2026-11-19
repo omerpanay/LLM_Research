@@ -14,7 +14,7 @@ import sys
 import time
 import urllib.request
 
-ARXIV = re.compile(r"(\d{4}\.\d{4,5})")
+ARXIV = re.compile(r"(?:arxiv\.org/(?:abs|pdf|html)/|arXiv[: ]\s*)(\d{4}\.\d{4,5})", re.I)
 
 
 def norm(s):
@@ -36,7 +36,7 @@ def main(path, out):
     stats = {"ok": 0, "mismatch": 0, "unchecked": 0, "error": 0}
     cache = {}
     for r in rows:
-        m = ARXIV.search((r.get("url") or "") + " " + (r.get("notes") or ""))
+        m = ARXIV.search(r.get("url") or "")
         if not m:
             stats["unchecked"] += 1
             lines.append(f"| {r['id']} | {r['title'][:70]} | — | — | not checked automatically |")

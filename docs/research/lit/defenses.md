@@ -73,8 +73,9 @@ Layer: P = prompt, D = detection, M = model, S = system/architecture, T = trajec
 | D-43 | ASIDE | M | no | no | no | "without performance loss" (abstract) | ABSTRACT-ONLY |
 | D-45 | Signed requirement manifests (multi-agent handoff) | S | yes (verifier) | partial (pre-signing injection test) | no | "no detectable utility loss" vs structured (Qwen3-8B) | extraction before signing is the trust boundary |
 | D-47 | Stateful cooperative defenders (EMRA) | T (chat) | no | partial ("evolving" multi-turn attacks) | yes (multi-turn chat, not tool agents) | n/a | evaluates jailbreak-style chat, not tool use |
+| D-48 | LeanGuard (395M moderation encoder) | D | no (classifier) | no | no | ~100x less compute than a reasoning guard (abstract) | content moderation, not an injection authority |
 
-*Rows D-16/D-17 are folded into D-14 (cluster).*
+*IDs D-16/D-17 are unused (folded into the D-14 cluster). D-46, D-49, D-50 are attacks/benchmarks used as evidence and have no matrix row.*
 
 ---
 
@@ -631,4 +632,31 @@ D-49b,PISmith,PISmith: Reinforcement Learning-based Red Teaming for Prompt Injec
 D-49c,HoferAutoPI,Assessing Automated Prompt Injection Attacks in Agentic Environments,Hofer,2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2606.10525,"adaptive attack",TAP > GCG
 D-49d,ClimbingTheHill,Climbing the Hill: Prompt Injection Red-Teaming Against Frontier Models with Curriculum Reinforcement Learning,Yin,2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2609.33628,"adaptive attack",93.8% ASR@10 AgentDyn
 D-50,AgentLAB,AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks,Jiang,2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2602.16901,"long-horizon benchmark",
+N-01,ConfusedDeputy,The Confused Deputy: (or why capabilities might have been invented),Hardy,1988,ACM SIGOPS Operating Systems Review 22:36-38,T2,ABSTRACT-ONLY,https://doi.org/10.1145/54289.871709,"neighbouring field: capabilities","bibliographic record via Semantic Scholar/DBLP journals/sigops/Hardy88; text not opened"
+N-02,DennisVanHorn,Programming semantics for multiprogrammed computations,Dennis,1966,Commun. ACM 9:143-155,T1,UNVERIFIED,https://doi.org/10.1145/365230.365252,"neighbouring field: capabilities","record verified (DBLP journals/cacm/DennisH66); text not opened"
+N-03,AndersonReport,Computer Security Technology Planning Study (ESD-TR-73-51),Anderson,1972,USAF ESD technical report,T3,UNVERIFIED,https://apps.dtic.mil/sti/pdfs/AD0758206.pdf,"neighbouring field: reference monitor","DTIC listing seen via web search only"
+N-04,SaltzerSchroeder,The protection of information in computer systems,Saltzer,1975,Proc. IEEE 63:1278-1308,T1,UNVERIFIED,https://doi.org/10.1109/PROC.1975.9939,"neighbouring field: design principles","record verified (DBLP journals/pieee/SaltzerS75); text not opened"
+N-05,DenningLattice,A lattice model of secure information flow,Denning,1976,Commun. ACM 19:236-243,T1,UNVERIFIED,https://doi.org/10.1145/360051.360056,"neighbouring field: IFC","record verified (DBLP journals/cacm/Denning76); text not opened"
+N-06,MyersLiskovDLM,A decentralized model for information flow control,Myers,1997,SOSP 1997,T1,UNVERIFIED,https://doi.org/10.1145/268998.266669,"neighbouring field: IFC","record verified (DBLP conf/sosp/MyersL97); text not opened"
+N-07,SchneiderEnforceable,Enforceable security policies,Schneider,2000,ACM TISSEC,T1,UNVERIFIED,https://dblp.org/rec/journals/tissec/Schneider00,"neighbouring field: security automata","DBLP key via Semantic Scholar; volume/pages not confirmed"
+N-08,BauerRV-LTL,Runtime Verification for LTL and TLTL,Bauer,2011,ACM TOSEM 20:14,T1,UNVERIFIED,https://doi.org/10.1145/2000799.2000800,"neighbouring field: temporal monitors","record verified (DBLP journals/tosem/BauerLS11)"
+N-09,Cedar,Cedar: A New Language for Expressive Fast Safe and Analyzable Authorization,Cutler,2024,PACMPL 8 (OOPSLA) 670-697,T1,ABSTRACT-ONLY,https://arxiv.org/abs/2403.04651,"neighbouring field: policy language","Semantic Scholar journal record + arXiv abstract"
+N-10,SafeRLShield,Safe Reinforcement Learning via Shielding,Alshiekh,2018,AAAI 2018 (venue unverified),T1,ABSTRACT-ONLY,https://arxiv.org/abs/1708.08611,"neighbouring field: shields","AAAI page behind bot wall"
+N-11,Simplex,Using Simplicity to Control Complexity,Sha,2001,IEEE Software 18:20-28,T2,UNVERIFIED,https://doi.org/10.1109/MS.2001.936213,"neighbouring field: runtime assurance","record verified (DBLP journals/software/Sha01)"
+N-12,CBF-QP,Control Barrier Function Based Quadratic Programs for Safety Critical Systems,Ames,2017,IEEE TAC 62:3861-3876,T1,UNVERIFIED,https://doi.org/10.1109/TAC.2016.2638961,"neighbouring field: safety filters","record verified (DBLP journals/tac/AmesXGT17); overview arXiv 1903.11199 abstract read"
+N-13,EngSaferWorld,Engineering a Safer World: Systems Thinking Applied to Safety,Leveson,2011,MIT Press (open access),T2,UNVERIFIED,https://doi.org/10.7551/mitpress/8179.001.0001,"neighbouring field: STPA","DOAB/OAPEN catalogue records via web search"
+N-14,STPA-ISO26262,Using STPA in Compliance with ISO 26262 for Developing a Safe Architecture for Fully Automated Vehicles,Abdulkhaleq,2017,Automotive - Safety & Security (claimed),T2,ABSTRACT-ONLY,https://arxiv.org/abs/1703.03657,"neighbouring field: STPA automotive",27 UCAs / 176 hazards
+N-15,STPA-Agents,Towards Verifiably Safe Tool Use for LLM Agents,Doshi,2026,ICSE NIER 2026 (claimed),T2,ABSTRACT-ONLY,https://arxiv.org/abs/2601.08012,"STPA for LLM agents",
+N-16,ISO26262-9,ISO 26262-9:2018 Road vehicles - Functional safety - Part 9: ASIL-oriented and safety-oriented analyses,ISO,2018,ISO standard,T2,UNVERIFIED,https://www.iso.org/standard/68391.html,"neighbouring field: ASIL decomposition","iso.org listing via web search only; full text not accessible"
+N-17,ISO-PAS-8800,ISO/PAS 8800:2024 Road vehicles - Safety and artificial intelligence,ISO,2024,ISO PAS,T2,UNVERIFIED,https://www.iso.org/standard/83303.html,"neighbouring field: AI safety in vehicles","iso.org listing via web search only"
+N-18,AliceWarningland,Alice in Warningland: A Large-Scale Field Study of Browser Security Warning Effectiveness,Akhawe,2013,USENIX Security 2013,T1,ABSTRACT-ONLY,https://www.usenix.org/conference/usenixsecurity13/technical-sessions/presentation/akhawe,"confirmation fatigue",70.2% click-through Chrome SSL
+N-19,NHTSA-Distraction,Visual-Manual NHTSA Driver Distraction Guidelines for In-Vehicle Electronic Devices,NHTSA,2013,Federal Register notice 2013-09883,T2,UNVERIFIED,https://regulations.justia.com/regulations/fedreg/2013/04/26/2013-09883.html,"driver distraction budget","2 s / 12 s criteria from web-search snippets only"
+N-20,ParasuramanRiley,Humans and Automation: Use Misuse Disuse Abuse,Parasuraman,1997,Human Factors 39:230-253,T1,UNVERIFIED,https://doi.org/10.1518/001872097778543886,"automation trust / HITL","record verified (DBLP journals/hf/ParasuramanR97)"
+N-21,DingusPNAS,Driver crash risk factors and prevalence evaluation using naturalistic driving data,Dingus,2016,PNAS 113:2636-2641,T1,UNVERIFIED,https://doi.org/10.1073/pnas.1513271113,"distraction crash risk","Semantic Scholar record; numbers not read"
+X-01,Conseca,Contextual Agent Security: A Policy for Every Purpose,Tsai,2025,HotOS 2025,T2,ABSTRACT-ONLY,https://arxiv.org/abs/2501.17070,"contextual policies","DBLP conf/hotos/TsaiB25"
+X-02,UCM,Untrusted Content Masking for Web Agents with Security Guarantees,Nikolic,2026,NeurIPS 2026,T1,UNVERIFIED,https://openreview.net/forum?id=hckd9UoUPT,"masking baseline in SPIDES","OpenReview search shows NeurIPS 2026 poster; paper not read"
+X-03,AutoformalCedar,Autoformalization of Agent Instructions into Policy-as-Code,Mondl,2026,ICML 2026 AIWILD workshop (claimed),T2,ABSTRACT-ONLY,https://arxiv.org/abs/2606.26649,"Cedar policies for agents",
+X-04,AegisOS,Aegis OS: A Transactional Multi-Tenant Operating System Runtime for Eliminating Authorization Fatigue in Autonomous Coding Agents,Zhao,2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2611.08516,"authorization fatigue",prompts on 45-57% of tool calls
+X-05,SA-CUA,Towards Safe Autonomy for Computer Use,Seip,2026,arXiv,T3,ABSTRACT-ONLY,https://arxiv.org/abs/2610.18508,"confirmation fatigue; endorsement channel",
+X-06,VIGIL,VIGIL: Defending LLM Agents Against Tool-Stream Injection via Verify-Before-Commit,unknown (not read),2026,ACL 2026,T1,UNVERIFIED,https://aclanthology.org/2026.acl-long.443/,"baseline in PAA","title seen in ACL Anthology volume listing only"
 ```

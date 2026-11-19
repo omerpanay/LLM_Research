@@ -26,6 +26,7 @@ Why this is most likely:
 | Possibility | Why it could be meant | How to tell |
 |---|---|---|
 | G-Eval (LLM-as-judge with chain-of-thought and form-filling; Liu et al., EMNLP 2023) | "G-Eval" spoken quickly in German ("Geh-Eval") can sound like "JEV"; it is a classic judge method relevant to "build your own metrics" | Ask: "Did you mean the TypeSafe model or G-Eval-style LLM judges?" |
+| JEPA (Joint-Embedding Predictive Architecture, LeCun et al.; e.g. I-JEPA, V-JEPA) | the only other "JE…" model family the literature agent found; pronounced close to "JEV"/"JEPA models" | Ask; it would point to world-model / self-supervised vision research, far from agent security, so unlikely in this context |
 | Generic "judge/evaluation models" | Supervisor may have used "JEV" loosely for judge models | Same question |
 | An internal VW name | Cannot be checked from public sources | Ask; do not search internal systems from outside |
 
