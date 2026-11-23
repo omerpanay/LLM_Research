@@ -1,0 +1,236 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01 · Alanın durumu</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">01 · Alanın durumu</h1><div class="nav"><a href="00_INDEX.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="02_gaps_ranked.html">sonraki →</a> · kaynak: <code>docs/research/01_state_of_the_field.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>01 · State of the field (November 2026)</h1></div><div class="cell tr" lang="tr"><h1>01 · Alanın durumu (Kasım 2026)</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>What is solved, what is open, what is overhyped — per thesis stage. IDs refer to entries in <code>lit/attacks.md</code> (A-), <code>lit/evaluation.md</code> (E-), <code>lit/defenses.md</code> (D-, N-), <code>lit/automotive.md</code> (V-); tiers and verification status are in <code>sources.csv</code> (243 rows; 174 arXiv ids checked against live titles, 0 mismatches — <code>sources_check.md</code>). "Own measurement" = <code>results/</code> in this repo. A 10-claim random audit of the literature notes against primary PDFs is recorded in <code>00_INDEX.md</code> (10/10 consistent).</p></div><div class="cell tr" lang="tr"><p>Her tez aşaması için: ne çözüldü, ne açık, ne abartılıyor. ID'ler şu dosyalardaki girdileri gösterir: <code>lit/attacks.md</code> (A-), <code>lit/evaluation.md</code> (E-), <code>lit/defenses.md</code> (D-, N-), <code>lit/automotive.md</code> (V-). Kaynak seviyeleri (tiers) ve doğrulama durumu <code>sources.csv</code> içinde (243 satır; 174 arXiv id'si canlı başlıklarla karşılaştırıldı, 0 uyumsuzluk — <code>sources_check.md</code>). "Kendi ölçümümüz" (own measurement) = bu repodaki <code>results/</code>. Literatür notlarının birincil PDF'lerle karşılaştırıldığı 10 iddialık rastgele bir denetim <code>00_INDEX.md</code> içinde kayıtlı (10/10 tutarlı).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Headline in five sentences</h2></div><div class="cell tr" lang="tr"><h2>Beş cümlede ana mesaj</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ol>
+<li>Making agents misbehave is easy and well replicated; static attack templates are no longer a robustness test (A-38: defences at ≈0–2% static ASR exceed 90% under adaptive attack — note A-38 is a rejected ICLR 2026 submission, T3).</li>
+<li><strong>Measuring</strong> attack success is the weak link: harness artifacts, invalid test cases, judge errors, retries and ordinary failure inflate or deflate ASR by large factors (E-01, E-16, E-45; own measurements).</li>
+<li>Deterministic, out-of-band defences (CaMeL family, IFC, origin checks) are the only class that has held under the adaptive tests that exist — but at a large utility cost and without any strong white-box, long-horizon or human red-team test (D-01, D-19, D-09).</li>
+<li>Long-horizon attacks and defences are measured with incompatible protocols (fresh vs persistent sessions, attempts vs turns), so headline comparisons are not yet meaningful (A-05 vs A-01; own measurement on AgentLAB).</li>
+<li>The automotive intersection — in-car tools, multi-turn attacker, vehicle state, state oracle — has no published benchmark; production assistants expose comfort, navigation and communication tools, and the realistic attacker is a remote content injector (V-01, V-02, V-08).</li>
+</ol></div><div class="cell tr" lang="tr"><ol>
+<li>Ajanları yanlış davranmaya zorlamak kolay ve defalarca tekrarlanmış bir sonuç; statik saldırı şablonları artık bir sağlamlık (robustness) testi değil (A-38: statik saldırı başarı oranı (attack success rate, ASR) ≈0–2% olan savunmalar, uyarlanabilir (adaptive) saldırı altında 90% üzerine çıkıyor — not: A-38 reddedilmiş bir ICLR 2026 başvurusu, T3).</li>
+<li>Saldırı başarısını <strong>ölçmek</strong> zayıf halka: test düzeneği artefaktları (harness artifacts), geçersiz test vakaları, yargıç (judge) hataları, tekrar denemeler ve sıradan başarısızlıklar ASR'yi büyük katsayılarla şişiriyor ya da düşürüyor (E-01, E-16, E-45; kendi ölçümlerimiz).</li>
+<li>Deterministik, bant dışı (out-of-band) savunmalar (CaMeL ailesi, IFC, köken kontrolleri) mevcut uyarlanabilir testlere dayanabilen tek sınıf — ama fayda (utility) açısından büyük bir bedelle ve güçlü bir white-box, uzun ufuklu (long-horizon) ya da insan red-team testi olmadan (D-01, D-19, D-09).</li>
+<li>Uzun ufuklu saldırılar ve savunmalar birbiriyle uyumsuz protokollerle ölçülüyor (taze ve kalıcı oturumlar, denemeler ve turlar); bu yüzden manşet karşılaştırmalar henüz anlamlı değil (A-05 vs A-01; AgentLAB üzerinde kendi ölçümümüz).</li>
+<li>Otomotiv kesişimi — araç içi araçlar (tools), çok turlu saldırgan, araç durumu, durum oracle'ı (state oracle) — için yayımlanmış bir benchmark yok; üretimdeki asistanlar konfor, navigasyon ve iletişim araçları sunuyor ve gerçekçi saldırgan uzaktan içerik enjekte eden biri (V-01, V-02, V-08).</li>
+</ol></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Attack</h2></div><div class="cell tr" lang="tr"><h2>Saldırı</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th></th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solved / settled</strong></td>
+<td>Indirect prompt injection works on every model family tested (A-07–A-12). Decomposing a harmful goal into benign steps beats one-shot requests (A-01 Table 2: tool chaining 73–96% on all models; A-02). Persistent state turns one injection into cross-session compromise (A-19, A-21, A-23). Tool/MCP metadata is an injection channel (MCPTox o1-mini 72.8%, A-24).</td>
+</tr>
+<tr>
+<td><strong>Open</strong></td>
+<td>Instruction-free <em>decision tampering</em> (fake hazards, parameter poisoning, false evidence) evades instruction-focused defences (A-29, A-30, A-31; E-43: 100% ASR on a JEV-specific false-evidence payload). Multi-agent composition breaks per-agent guarantees (A-35, multi-CaMeL). Physical/acoustic channels into cars are shown only on static images, small robots or phones, not closed-loop vehicles (A-45, A-48, V-07).</td>
+</tr>
+<tr>
+<td><strong>Overhyped</strong></td>
+<td>"Long horizon ⇒ stronger": AgentLAB's task-injection ASRs are success-within-up-to-10–17-attempts rates; at one attempt GPT-4o is 32.6% vs 79.9% reported (own measurement, <code>results/agentlab_ti_budget/</code>), and a stateful defender <em>lowers</em> ASR over turns (A-05: 57.4% → 31.5%). AgentPoison's "&gt;80%" is retrieval success; end-to-end ASR-t on the driving agent is 56.8% (A-15 Table 1; checked). WASP: up to 86% diversion but 0–17% end-to-end completion (A-11, "security by incompetence"). Some 2026 attacks ran with production safety classifiers off (A-42).</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th></th>
+<th>Kanıt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Çözüldü / netleşti</strong></td>
+<td>Dolaylı istem enjeksiyonu (indirect prompt injection) test edilen her model ailesinde işe yarıyor (A-07–A-12). Zararlı bir hedefi zararsız adımlara bölmek, tek atışlık isteklerden daha başarılı (A-01 Table 2: tüm modellerde tool chaining 73–96%; A-02). Kalıcı durum, tek bir enjeksiyonu oturumlar arası ele geçirmeye dönüştürüyor (A-19, A-21, A-23). Tool/MCP meta verisi bir enjeksiyon kanalı (MCPTox o1-mini 72.8%, A-24).</td>
+</tr>
+<tr>
+<td><strong>Açık</strong></td>
+<td>Talimatsız <em>karar kurcalama</em> (instruction-free decision tampering; sahte tehlikeler, parametre zehirleme, sahte kanıt) talimat odaklı savunmaları atlatıyor (A-29, A-30, A-31; E-43: JEV'e özgü sahte kanıt yükünde 100% ASR). Çok ajanlı yapılar ajan başına garantileri bozuyor (A-35, multi-CaMeL). Arabalara giden fiziksel/akustik kanallar yalnızca statik görüntülerde, küçük robotlarda ya da telefonlarda gösterildi; kapalı döngü araçlarda değil (A-45, A-48, V-07).</td>
+</tr>
+<tr>
+<td><strong>Abartılan</strong></td>
+<td>"Uzun ufuk ⇒ daha güçlü": AgentLAB'in görev enjeksiyonu (task injection) ASR'leri "en fazla 10–17 deneme içinde başarı" oranları; tek denemede GPT-4o, raporlanan 79.9% yerine 32.6% (kendi ölçümümüz, <code>results/agentlab_ti_budget/</code>), ve durum tutan (stateful) bir savunucu turlar boyunca ASR'yi <em>düşürüyor</em> (A-05: 57.4% → 31.5%). AgentPoison'ın "&gt;80%" değeri erişim (retrieval) başarısı; sürüş ajanında uçtan uca ASR-t 56.8% (A-15 Table 1; kontrol edildi). WASP: en fazla 86% yönlendirme ama 0–17% uçtan uca tamamlama (A-11, "beceriksizlik sayesinde güvenlik" (security by incompetence)). 2026'daki bazı saldırılar, üretimdeki güvenlik sınıflandırıcıları kapalıyken çalıştırıldı (A-42).</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Evaluate</h2></div><div class="cell tr" lang="tr"><h2>Değerlendirme</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th></th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solved / settled</strong></td>
+<td>State oracles beat LLM judges where they can be written (AgentDojo's deterministic checks, E-03). Own replay of 2,709 stored clean AgentDojo runs: goal-specific state oracles fired without attack in 13 of 17,547 pairs, all from one goal-collision artifact fixed upstream in v1.1.1 (<code>results/agentdojo_clean_oracle_floor/</code>). Misclassification-corrected prevalence (Rogan–Gladen, PPI) now has an ICML 2026 treatment for LLM judges (E-25, verified "Proceedings of the 43rd ICML").</td>
+</tr>
+<tr>
+<td><strong>Open</strong></td>
+<td>(i) Which measured successes are real: harness-forced tools (ASB 73.58% → 9.25%, E-01), injections that overwrite task data (E-01), invalid perturbations ("vulnerable on all 64 tasks, only 26 valid", E-45, checked), ignored-not-refused (76–80%, E-44). (ii) Judge reliability under red-teaming shift — near chance (E-16), benign wrappers flip judges 57–100% (E-46), 5–7% verdict jitter at temperature 0 (E-18). (iii) Long-horizon metrics: turns-to-success conditions on success (censoring), success-within-N reported as ASR (E-06 + own). (iv) Clean-run noise: 12–34% of CAR-bench tasks flip between identical clean trials for frontier models; broad "unrequested action" oracles have a 2–20% clean upper bound (own, <code>results/carbench_noise_floor/</code>).</td>
+</tr>
+<tr>
+<td><strong>Overhyped</strong></td>
+<td>"Human-level" judges validated in-distribution (E-15, E-24). Detector leaderboards (best BIPIA detector catches 2.1% of AgentDojo injections at 1% FPR, E-12). JEV as a security judge: cheap and accurate on read-off judgments (E-35, E-40: F1 77.8 on 5,219 traces), but a counterfeit policy cuts its recall from 82.90% to 3.88% (E-41, vendor blog) and nobody has tested it inside an attacked agent loop.</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th></th>
+<th>Kanıt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Çözüldü / netleşti</strong></td>
+<td>Yazılabildikleri yerde durum oracle'ları LLM yargıçlarından daha iyi (AgentDojo'nun deterministik kontrolleri, E-03). Saklanan 2,709 temiz AgentDojo çalıştırmasını kendimiz yeniden oynattık: hedefe özgü durum oracle'ları 17,547 çiftin 13'ünde saldırı olmadan tetiklendi; hepsi, v1.1.1'de kaynak projede düzeltilmiş tek bir hedef çakışması (goal-collision) artefaktından geliyor (<code>results/agentdojo_clean_oracle_floor/</code>). Yanlış sınıflandırmaya göre düzeltilmiş yaygınlık (Rogan–Gladen, PPI) artık LLM yargıçları için bir ICML 2026 çalışmasında ele alınıyor (E-25, doğrulandı: "Proceedings of the 43rd ICML").</td>
+</tr>
+<tr>
+<td><strong>Açık</strong></td>
+<td>(i) Ölçülen başarıların hangileri gerçek: düzeneğin zorladığı araç çağrıları (ASB 73.58% → 9.25%, E-01), görev verisinin üzerine yazan enjeksiyonlar (E-01), geçersiz pertürbasyonlar ("64 görevin hepsinde savunmasız, yalnızca 26'sı geçerli", E-45, kontrol edildi), reddedilmeyip sadece görmezden gelinen enjeksiyonlar (ignored-not-refused; 76–80%, E-44). (ii) Red-teaming kaynaklı dağılım kaymasında yargıç güvenilirliği — neredeyse yazı-tura düzeyinde (E-16); zararsız sarmalayıcılar yargıçların kararını 57–100% oranında tersine çeviriyor (E-46); sıcaklık (temperature) 0'da 5–7% karar oynaklığı (E-18). (iii) Uzun ufuklu metrikler: başarıya kadar geçen tur sayısı yalnızca başarılı olanlara bakıyor (sansürleme, censoring); N deneme içinde başarı, ASR olarak raporlanıyor (E-06 + kendi ölçümümüz). (iv) Temiz çalıştırma gürültüsü: öncü (frontier) modellerde CAR-bench görevlerinin 12–34% kadarı, aynı temiz denemeler arasında sonuç değiştiriyor; geniş "istenmemiş eylem" oracle'larının temiz çalıştırmada 2–20% üst sınırı (upper bound) var (kendi ölçümümüz, <code>results/carbench_noise_floor/</code>).</td>
+</tr>
+<tr>
+<td><strong>Abartılan</strong></td>
+<td>Dağılım içinde (in-distribution) doğrulanmış "insan düzeyinde" yargıçlar (E-15, E-24). Dedektör sıralama tabloları (en iyi BIPIA dedektörü, 1% FPR'de AgentDojo enjeksiyonlarının yalnızca 2.1% kadarını yakalıyor, E-12). Güvenlik yargıcı olarak JEV: doğrudan okunabilen yargılarda ucuz ve isabetli (E-35, E-40: 5,219 izde F1 77.8), ama sahte bir politika recall değerini 82.90%'dan 3.88%'e düşürüyor (E-41, satıcı blogu) ve kimse onu saldırı altındaki bir ajan döngüsünün içinde test etmedi.</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Defend</h2></div><div class="cell tr" lang="tr"><h2>Savunma</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th></th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Solved (narrowly)</strong></td>
+<td>For injections that must <em>create a new tool call</em>, deterministic enforcement works on current benchmarks: CaMeL, FIDES, SPIDES, ROPE, SPILLWAY, Progent drive static ASR to ≈0–3% (D-01, D-06–D-10).</td>
+</tr>
+<tr>
+<td><strong>Open</strong></td>
+<td>Utility: CaMeL 77% vs 84% in its own paper but 26–53% vs 63–90% clean utility in third-party AutoDojo runs (D-19 Table 5, checked); parameter poisoning: CaMeL holds (0.69% ASR) but benign utility falls 90.28% → 43.75% (D-11). Long horizon: on replayed AgentLAB task-injection cases Progent admits 8.7/8.3/15.1% overall (43.5% on Qwen travel) and DRIFT up to 25.4%, while ROPE holds 0.0% (D-09 Table 3, checked; ROPE is self-evaluated, T3). Human-in-the-loop: every deterministic system escalates to user approval; all approval counts assume a perfect approver (D-07: 1.84 approvals per completed task), none under driving workload.</td>
+</tr>
+<tr>
+<td><strong>Overhyped</strong></td>
+<td>Model-level "provable" defences (Meta-SecAlign 2% static → 96% adaptive, D-39/D-44). Detector AUROC (AlignmentCheck AUROC ≈0.93 but precision 0.096 at 2% attack prevalence, D-32, checked). The claim that system-level defences need no adaptive evaluation: A-38 explicitly skipped CaMeL/Tool Filter; the only adaptive test is black-box with success-bit feedback (D-19).</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th></th>
+<th>Kanıt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Çözüldü (dar anlamda)</strong></td>
+<td>Yeni bir araç çağrısı <em>oluşturması gereken</em> enjeksiyonlar için deterministik zorlama, mevcut benchmark'larda işe yarıyor: CaMeL, FIDES, SPIDES, ROPE, SPILLWAY, Progent statik ASR'yi ≈0–3% düzeyine indiriyor (D-01, D-06–D-10).</td>
+</tr>
+<tr>
+<td><strong>Açık</strong></td>
+<td>Fayda (utility): CaMeL kendi makalesinde 77% vs 84%, ama üçüncü taraf AutoDojo çalıştırmalarında 26–53% vs 63–90% temiz utility (D-19 Table 5, kontrol edildi); parametre zehirleme: CaMeL dayanıyor (0.69% ASR) ama zararsız (benign) görevlerdeki utility 90.28% → 43.75% düşüyor (D-11). Uzun ufuk: yeniden oynatılan AgentLAB görev enjeksiyonu vakalarında Progent toplamda 8.7/8.3/15.1% geçiriyor (Qwen travel'da 43.5%), DRIFT en fazla 25.4% geçiriyor; ROPE ise 0.0%'da kalıyor (D-09 Table 3, kontrol edildi; ROPE'u kendi yazarları değerlendirdi, T3). Döngüde insan (human-in-the-loop): her deterministik sistem kullanıcı onayına başvuruyor; tüm onay sayıları kusursuz bir onaylayıcı varsayıyor (D-07: tamamlanan görev başına 1.84 onay), hiçbiri sürüş yükü altında ölçülmedi.</td>
+</tr>
+<tr>
+<td><strong>Abartılan</strong></td>
+<td>Model düzeyinde "kanıtlanabilir" savunmalar (Meta-SecAlign statikte 2% → uyarlanabilirde 96%, D-39/D-44). Dedektör AUROC değeri (AlignmentCheck AUROC ≈0.93 ama 2% saldırı yaygınlığında precision 0.096, D-32, kontrol edildi). Sistem düzeyindeki savunmaların uyarlanabilir değerlendirmeye ihtiyacı olmadığı iddiası: A-38 CaMeL/Tool Filter'ı açıkça atladı; tek uyarlanabilir test, başarı biti geri bildirimli bir black-box test (D-19).</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Automotive</h2></div><div class="cell tr" lang="tr"><h2>Otomotiv</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th></th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Known</strong></td>
+<td>Production LLM features are comfort, navigation, media, communication; VW states ChatGPT in IDA gets no vehicle data (V, VW press, primary). VW Group China announced an onboard agent (H2 2026) and a multi-agent CEA 2.0 joining driving and cockpit (2027) (primary). Calendar-invite/e-mail injections against Gemini caused physical side effects in a smart home; a 21434-style TARA rated 73% of threats high-critical (V-08).</td>
+</tr>
+<tr>
+<td><strong>Open</strong></td>
+<td>No adversarial in-car benchmark (CAR-bench has 58 tools/19 policies and no attacker; V-01). From Intent to Action (V-02) is single-turn authorisation: frontier LLMs still false-execute 1.2–13.7%. No study of cockpit→driving cascades, rental-car memory carry-over, parked-vs-driving context exploitation, or confirmation fatigue under driving load (<code>lit/automotive.md</code> §7).</td>
+</tr>
+<tr>
+<td><strong>Governance</strong></td>
+<td>Nothing certifies an LLM agent. ISO/SAE 21434 gives TARA vocabulary but no success-probability factor; SOTIF (ISO 21448) excludes cybersecurity, which cleanly separates ordinary LLM failure (SOTIF-like) from attacks (21434). EU AI Act high-risk obligations deferred by Reg. (EU) 2026/1744 (snippets; verify).</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th></th>
+<th>Kanıt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bilinen</strong></td>
+<td>Üretimdeki LLM özellikleri konfor, navigasyon, medya ve iletişim; VW, IDA'daki ChatGPT'nin araç verisi almadığını belirtiyor (V, VW basın açıklaması, birincil). VW Group China bir araç içi ajan (H2 2026) ve sürüşü ve kokpiti birleştiren çok ajanlı bir CEA 2.0 (2027) duyurdu (birincil). Gemini'ye karşı takvim daveti/e-posta enjeksiyonları akıllı bir evde fiziksel yan etkilere yol açtı; 21434 tarzı bir TARA, tehditlerin 73% kadarını yüksek-kritik olarak derecelendirdi (V-08).</td>
+</tr>
+<tr>
+<td><strong>Açık</strong></td>
+<td>Araç içi adversarial bir benchmark yok (CAR-bench'te 58 araç/19 politika var ama saldırgan yok; V-01). From Intent to Action (V-02) tek turlu yetkilendirmeye bakıyor: öncü LLM'ler hâlâ 1.2–13.7% oranında yanlışlıkla eylem yürütüyor. Kokpit→sürüş zincirleme etkileri, kiralık araçta belleğin sonraki kullanıcıya taşınması, park/sürüş bağlamının istismarı ya da sürüş yükü altında onay yorgunluğu üzerine hiçbir çalışma yok (<code>lit/automotive.md</code> §7).</td>
+</tr>
+<tr>
+<td><strong>Yönetişim</strong></td>
+<td>Hiçbir şey bir LLM ajanını sertifikalandırmıyor. ISO/SAE 21434 TARA kavramlarını veriyor ama başarı olasılığı faktörü içermiyor; SOTIF (ISO 21448) siber güvenliği kapsam dışı bırakıyor; bu da sıradan LLM başarısızlığını (SOTIF benzeri) saldırılardan (21434) temiz biçimde ayırıyor. AB Yapay Zekâ Yasası'nın (EU AI Act) yüksek risk yükümlülükleri Reg. (EU) 2026/1744 ile ertelendi (yalnızca kısa alıntılar; doğrulanmalı).</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Where the supervisor's framing needs updating (argued with evidence)</h2></div><div class="cell tr" lang="tr"><h2>Danışmanın bakış açısının güncellenmesi gereken yerler (kanıtla savunulmuş)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ol>
+<li><strong>"AgentLAB is very important"</strong> — agreed, but as an <em>object of measurement</em> as much as a tool: its public code scores intent hijacking on text with an LLM judge the attacker optimises against, counts PARTIAL as success for memory poisoning, and reports task injection as success within N attempts (<code>lit/codebase_audit.md</code>, own measurements). Use AgentLAB's attack machinery; do not inherit its scoring.</li>
+<li><strong>"Is this really an attack?"</strong> — the literature now offers at least 23 distinct non-attack categories (<code>lit/evaluation.md</code> §2). A five-question filter is a good start; the thesis should add <em>placebo arms</em>, <em>task contracts</em> and <em>budget matching</em>.</li>
+<li><strong>"Build your own metrics"</strong> — yes; the strongest candidates are causal ASR (paired/placebo), judge-corrected ASR, budget curves, Kaplan–Meier turns-to-compromise, transient-unsafe-action rate, severity-weighted ASR and driver-interaction cost (<code>03_thesis_design.md</code> §6).</li>
+<li><strong>"Final citations on peer-reviewed work"</strong> — several load-bearing papers are not peer-reviewed or were rejected: The Attacker Moves Second (rejected ICLR 2026), CaMeL (arXiv), Design Patterns (arXiv), Prompt Infection (rejected ICLR 2025); STAC appears only at a workshop. Cite them as T3 motivation and carry core claims with T1/T2 sources and own measurements.</li>
+<li><strong>"Evaluate agents across agent architectures"</strong> — architecture is confounded with prompt/model choices; the prototype shows plan-then-execute stops injected commands but not argument tampering or memory read at planning time. Compare architectures on the <em>same</em> model, tools and tasks, and report per attack family.</li>
+</ol></div><div class="cell tr" lang="tr"><ol>
+<li><strong>"AgentLAB çok önemli"</strong> — katılıyoruz, ama bir araç olduğu kadar bir <em>ölçüm nesnesi</em> olarak da: açık kodu intent hijacking'i, saldırganın kendisine karşı optimize ettiği bir LLM yargıcıyla metin üzerinden puanlıyor, memory poisoning'de PARTIAL'ı başarı sayıyor ve task injection'ı N deneme içinde başarı olarak raporluyor (<code>lit/codebase_audit.md</code>, kendi ölçümlerimiz). AgentLAB'in saldırı mekanizmasını kullan; puanlamasını devralma.</li>
+<li><strong>"Bu gerçekten bir saldırı mı?"</strong> — literatür artık en az 23 ayrı "saldırı olmayan" kategori sunuyor (<code>lit/evaluation.md</code> §2). Beş soruluk bir filtre iyi bir başlangıç; tez buna <em>plasebo kolları</em> (placebo arms), <em>görev sözleşmeleri</em> (task contracts) ve <em>bütçe eşleme</em> (budget matching) eklemeli.</li>
+<li><strong>"Kendi metriklerini oluştur"</strong> — evet; en güçlü adaylar: Causal ASR (eşli/plasebo), yargıca göre düzeltilmiş ASR (judge-corrected ASR), bütçe eğrileri, Kaplan–Meier ile ele geçirilene kadar geçen tur sayısı (turns-to-compromise), geçici güvensiz eylem oranı (transient-unsafe-action rate), şiddet ağırlıklı ASR (severity-weighted ASR) ve sürücü etkileşim maliyeti (driver-interaction cost) (<code>03_thesis_design.md</code> §6).</li>
+<li><strong>"Nihai atıflar hakemli çalışmalara dayansın"</strong> — yük taşıyan birkaç makale hakemli değil ya da reddedildi: The Attacker Moves Second (ICLR 2026'da reddedildi), CaMeL (arXiv), Design Patterns (arXiv), Prompt Infection (ICLR 2025'te reddedildi); STAC yalnızca bir workshop'ta yer alıyor. Bunları T3 motivasyon olarak an; temel iddiaları T1/T2 kaynaklarla ve kendi ölçümlerinle taşı.</li>
+<li><strong>"Ajanları farklı ajan mimarilerinde değerlendir"</strong> — mimari, istem/model seçimleriyle karışık (confounded); prototip, plan-then-execute (önce planla, sonra yürüt) yaklaşımının enjekte edilen komutları durdurduğunu ama argüman kurcalamayı ya da planlama anında bellek okumayı durdurmadığını gösteriyor. Mimarileri <em>aynı</em> model, araçlar ve görevler üzerinde karşılaştır ve sonuçları saldırı ailesine göre raporla.</li>
+</ol></div></div></main></body></html>

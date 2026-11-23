@@ -1,0 +1,175 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>07 · Hocaya sorulacak 10 soru</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">07 · Hocaya sorulacak 10 soru</h1><div class="nav"><a href="06_roadmap.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="08_discoveries_and_ideas.html">sonraki →</a> · kaynak: <code>docs/research/07_supervisor_questions.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>07 · The 10 most important questions for the supervisor this week</h1></div><div class="cell tr" lang="tr"><h1>07 · Bu hafta danışmana sorulacak en önemli 10 soru</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Ordered by how much the answer changes the plan. Each has a default I will follow if there is no answer by Friday 27 Nov.</p></div><div class="cell tr" lang="tr"><p>Sorular, cevabın planı ne kadar değiştirdiğine göre sıralandı. Her birinin yanında, 27 Kasım Cuma'ya kadar cevap gelmezse izleyeceğim varsayılan yol var.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question (ready to ask)</th>
+<th>Why it matters</th>
+<th>Default if no answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>"When you asked me to research JEV models, did you mean TypeSafe AI's decision model JEV, or LLM-as-judge methods in general (e.g. G-Eval)? Was this week's presentation what you had in mind?"</td>
+<td>Decides whether RQ1a exists</td>
+<td>Treat as TypeSafe JEV, time-boxed sub-question (<code>09</code>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>"May I centre the thesis on measurement validity — showing which measured attack successes are real — and use it to answer the attack and defence questions? Concretely RQ1–RQ3 in <code>03_thesis_design.md</code>."</td>
+<td>Reframes the thesis around directive 2</td>
+<td>Proceed with the validity-first design</td>
+</tr>
+<tr>
+<td>3</td>
+<td>"AgentLAB's public code scores intent hijacking as harmful text with an LLM judge the attacker also optimises against, and its task-injection ASRs are best-of-up-to-10-attempts. Is it OK if part of my contribution is an audit of AgentLAB's measurement, and may I contact the authors?"</td>
+<td>Turns directive 4 ("AgentLAB is important") into a concrete, citable contribution</td>
+<td>Contact authors politely with the questions in <code>lit/codebase_audit.md</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>"Which compute can I use: a GPU for open models (vLLM), and/or an API budget? Is sending synthetic benchmark data to an external API allowed?"</td>
+<td>Decides model choices and experiment size</td>
+<td>Plan for open models on GPU; API only for a small subset</td>
+</tr>
+<tr>
+<td>5</td>
+<td>"AgentLAB's attacker is an 'abliterated' open model with safety training removed. Is using such a model allowed at VW? If not, which attacker model is approved?"</td>
+<td>Policy/ethics; affects attack strength</td>
+<td>Use an approved instruction model with a red-team prompt</td>
+</tr>
+<tr>
+<td>6</td>
+<td>"Is building an AgentDojo-format in-car suite from CAR-bench (both MIT) acceptable, and do I need approval for third-party open-source code?"</td>
+<td>Engineering path (<code>05</code>)</td>
+<td>Proceed with CarDojo</td>
+</tr>
+<tr>
+<td>7</td>
+<td>"Which agent architectures matter most for the team's work — ReAct-style tool calling, plan-then-execute, CaMeL-style dual LLM, multi-agent?"</td>
+<td>Fixes the architecture axis</td>
+<td>ReAct, plan-then-execute, CaMeL-style</td>
+</tr>
+<tr>
+<td>8</td>
+<td>"Does the team use an ISO/SAE 21434 TARA template or impact scale I could use for severity weights (without any internal data)?"</td>
+<td>Severity-weighted ASR and threat model language</td>
+<td>Use the public 4×4 impact scheme</td>
+</tr>
+<tr>
+<td>9</td>
+<td>"Which peer-reviewed venues count for the final citations, and how should I treat important arXiv-only work (e.g. The Attacker Moves Second, CaMeL)?"</td>
+<td>Directive 5</td>
+<td>Cite T3 as motivation only; core claims on T1/T2 + own measurements</td>
+</tr>
+<tr>
+<td>10</td>
+<td>"Can parts be published (e.g. a workshop paper on the measurement audit), and what company review does the thesis need before submission?"</td>
+<td>Timeline (W36) and possible paper</td>
+<td>Plan a review window in W36; no external posting before approval</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Soru (sormaya hazır)</th>
+<th>Neden önemli</th>
+<th>Cevap gelmezse varsayılan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>"Benden JEV modellerini araştırmamı istediğinizde TypeSafe AI'ın karar modeli JEV'i mi kastettiniz, yoksa genel olarak LLM-as-judge (LLM'i hakem olarak kullanma) yöntemlerini mi (örn. G-Eval)? Bu haftaki sunum aklınızdaki şey miydi?"</td>
+<td>RQ1a'nın olup olmayacağını belirler</td>
+<td>TypeSafe JEV olarak kabul et, süresi sınırlı bir alt soru yap (<code>09</code>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>"Tezin merkezine ölçüm geçerliliğini (measurement validity) koyabilir miyim — yani ölçülen saldırı başarılarından hangilerinin gerçek olduğunu göstermeyi — ve saldırı ile savunma sorularını bunun üzerinden cevaplayabilir miyim? Somut olarak <code>03_thesis_design.md</code> içindeki RQ1–RQ3."</td>
+<td>Tezi 2. yönergenin (directive) etrafında yeniden çerçeveler</td>
+<td>Önce geçerlilik (validity-first) tasarımıyla devam et</td>
+</tr>
+<tr>
+<td>3</td>
+<td>"AgentLAB'ın açık kodu, niyet ele geçirmeyi (intent hijacking) saldırganın da karşısında optimize ettiği bir LLM hakemiyle zararlı metin olarak puanlıyor; görev enjeksiyonu (task injection) saldırı başarı oranları (attack success rate, ASR) da en fazla 10 denemenin en iyisi. Katkımın bir kısmının AgentLAB'ın ölçümünün denetimi olması uygun olur mu, yazarlarla iletişime geçebilir miyim?"</td>
+<td>4. yönergeyi ("AgentLAB önemli") somut, atıf yapılabilir bir katkıya dönüştürür</td>
+<td><code>lit/codebase_audit.md</code> içindeki sorularla yazarlara kibarca ulaş</td>
+</tr>
+<tr>
+<td>4</td>
+<td>"Hangi hesaplama kaynaklarını kullanabilirim: açık modeller için bir GPU (vLLM) ve/veya bir API bütçesi? Sentetik benchmark verisini harici bir API'ye göndermek serbest mi?"</td>
+<td>Model seçimlerini ve deney boyutunu belirler</td>
+<td>GPU'da açık modellerle planla; API'yi yalnızca küçük bir alt küme için kullan</td>
+</tr>
+<tr>
+<td>5</td>
+<td>"AgentLAB'ın saldırganı, güvenlik eğitimi kaldırılmış 'abliterated' bir açık model. VW'de böyle bir model kullanmak serbest mi? Değilse hangi saldırgan model onaylı?"</td>
+<td>Politika/etik; saldırının gücünü etkiler</td>
+<td>Red-team istemiyle (prompt) onaylı bir instruction modeli kullan</td>
+</tr>
+<tr>
+<td>6</td>
+<td>"CAR-bench'ten (ikisi de MIT lisanslı) AgentDojo formatında bir araç içi test seti kurmak kabul edilebilir mi, üçüncü taraf açık kaynak kod için onay almam gerekiyor mu?"</td>
+<td>Mühendislik yolu (<code>05</code>)</td>
+<td>CarDojo ile devam et</td>
+</tr>
+<tr>
+<td>7</td>
+<td>"Ekibin işi için hangi ajan mimarileri en önemli — ReAct tarzı tool çağırma (tool calling), önce planla sonra uygula (plan-then-execute), CaMeL tarzı çift LLM (dual LLM), çoklu ajan (multi-agent)?"</td>
+<td>Mimari eksenini sabitler</td>
+<td>ReAct, plan-then-execute, CaMeL tarzı</td>
+</tr>
+<tr>
+<td>8</td>
+<td>"Ekip, önem ağırlıkları (severity weights) için kullanabileceğim bir ISO/SAE 21434 TARA şablonu veya etki ölçeği kullanıyor mu (hiçbir iç veri olmadan)?"</td>
+<td>Önem ağırlıklı ASR ve tehdit modeli dili</td>
+<td>Açık (public) 4×4 etki şemasını kullan</td>
+</tr>
+<tr>
+<td>9</td>
+<td>"Son atıflarda hangi hakemli (peer-reviewed) yayın yerleri geçerli sayılıyor, ve yalnızca arXiv'de olan önemli çalışmaları (örn. The Attacker Moves Second, CaMeL) nasıl ele almalıyım?"</td>
+<td>5. yönerge</td>
+<td>T3'ü yalnızca motivasyon olarak an; temel iddiaları T1/T2 + kendi ölçümlerine dayandır</td>
+</tr>
+<tr>
+<td>10</td>
+<td>"Bazı kısımlar yayımlanabilir mi (örn. ölçüm denetimi üzerine bir workshop makalesi), ve tezin teslimden önce hangi şirket incelemesinden geçmesi gerekiyor?"</td>
+<td>Zaman çizelgesi (W36) ve olası makale</td>
+<td>W36'da bir inceleme penceresi planla; onaydan önce dışarıda paylaşım yapma</td>
+</tr>
+</tbody>
+</table></div></div></main></body></html>

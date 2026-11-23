@@ -1,0 +1,763 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>06 · Haftalık yol haritası</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">06 · Haftalık yol haritası</h1><div class="nav"><a href="05_technical_feasibility.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="07_supervisor_questions.html">sonraki →</a> · kaynak: <code>docs/research/06_roadmap.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>06 · Roadmap to 31 July 2027</h1></div><div class="cell tr" lang="tr"><h1>06 · 31 Temmuz 2027'ye kadar yol haritası</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Internship: 9 Nov 2026 – 30 Jul 2027 per the internship plan (the brief says 31 Jul; Friday 30 Jul 2027 is the last working day, so both dates give the same plan). 38 working weeks, 35 h/week. Holidays assumed (Lower Saxony, computed): 24–26 Dec, 31 Dec–1 Jan, Good Friday 26 Mar, Easter Monday 29 Mar, 1 May (Saturday), Ascension 6 May, Whit Monday 17 May. Personal leave is not yet planned — subtract it from buffer weeks.</p></div><div class="cell tr" lang="tr"><p>Staj: staj planına göre 9 Kas 2026 – 30 Tem 2027 (görev tanımında 31 Tem yazıyor; son iş günü 30 Tem 2027 Cuma olduğu için iki tarih de aynı planı verir). 38 iş haftası, haftada 35 saat. Varsayılan resmî tatiller (Aşağı Saksonya, hesaplandı): 24–26 Ara, 31 Ara–1 Oca, Kutsal Cuma 26 Mar, Paskalya Pazartesisi 29 Mar, 1 May (Cumartesi), Göğe Yükseliş 6 May, Pentekost Pazartesisi 17 May. Kişisel izin henüz planlanmadı — onu tampon (buffer) haftalardan düşün.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Rule:</strong> every phase ends with a <em>gate</em> (a concrete artefact). If the gate is missed, use the fallback in §4 instead of slipping the whole plan.</p></div><div class="cell tr" lang="tr"><p><strong>Kural:</strong> her aşama bir <em>kapı</em> (gate) ile biter (somut bir çıktı). Kapı kaçırılırsa, tüm planı kaydırmak yerine §4'teki yedek planı (fallback) kullan.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>1. Phases</h2></div><div class="cell tr" lang="tr"><h2>1. Aşamalar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Weeks</th>
+<th>Dates</th>
+<th>Goal</th>
+<th>Gate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0 Orientation &amp; plan</td>
+<td>W1–W4</td>
+<td>9 Nov – 4 Dec</td>
+<td>Plan agreed; measurement audit (E0) done</td>
+<td>2-page thesis plan signed off</td>
+</tr>
+<tr>
+<td>P1 Infrastructure</td>
+<td>W5–W12</td>
+<td>7 Dec – 29 Jan</td>
+<td>CarDojo v0; AgentDojo + AgentLAB task injection reproduced (E1); labelling protocol</td>
+<td>First end-to-end attacked + clean run on CarDojo with state oracle</td>
+</tr>
+<tr>
+<td>P2 Attack</td>
+<td>W13–W20</td>
+<td>1 Feb – 26 Mar</td>
+<td>6 families × 3 architectures × 2 models; budget curves (E3)</td>
+<td>Dataset v1 + interim presentation</td>
+</tr>
+<tr>
+<td>P3 Evaluate</td>
+<td>W21–W25</td>
+<td>29 Mar – 30 Apr</td>
+<td>Validity filter on E3; judge validation with human labels (E2); metrics frozen</td>
+<td>Measurement chapter draft + frozen metric code</td>
+</tr>
+<tr>
+<td>P4 Defend</td>
+<td>W26–W31</td>
+<td>3 May – 11 Jun</td>
+<td>D0–D5, adaptive attacker (E4); external validity on CAR-bench (E5)</td>
+<td>Defence results table</td>
+</tr>
+<tr>
+<td>P5 Write &amp; submit</td>
+<td>W32–W38</td>
+<td>14 Jun – 30 Jul</td>
+<td>Full draft 2 Jul; review; final talk</td>
+<td>Submission</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Aşama</th>
+<th>Haftalar</th>
+<th>Tarihler</th>
+<th>Hedef</th>
+<th>Kapı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0 Oryantasyon ve plan</td>
+<td>W1–W4</td>
+<td>9 Kas – 4 Ara</td>
+<td>Plan üzerinde anlaşıldı; ölçüm denetimi (E0) yapıldı</td>
+<td>2 sayfalık tez planı onaylandı</td>
+</tr>
+<tr>
+<td>P1 Altyapı</td>
+<td>W5–W12</td>
+<td>7 Ara – 29 Oca</td>
+<td>CarDojo v0; AgentDojo + AgentLAB görev enjeksiyonu (task injection) yeniden üretildi (E1); etiketleme protokolü</td>
+<td>CarDojo üzerinde durum oracle'ı (state oracle) ile ilk uçtan uca saldırılı + temiz çalıştırma</td>
+</tr>
+<tr>
+<td>P2 Saldırı</td>
+<td>W13–W20</td>
+<td>1 Şub – 26 Mar</td>
+<td>6 aile × 3 mimari × 2 model; bütçe eğrileri (E3)</td>
+<td>Veri seti v1 + ara sunum</td>
+</tr>
+<tr>
+<td>P3 Değerlendirme</td>
+<td>W21–W25</td>
+<td>29 Mar – 30 Nis</td>
+<td>E3'e geçerlilik filtresi; insan etiketleriyle hakem doğrulaması (judge validation) (E2); metrikler donduruldu</td>
+<td>Ölçüm bölümü taslağı + dondurulmuş metrik kodu</td>
+</tr>
+<tr>
+<td>P4 Savunma</td>
+<td>W26–W31</td>
+<td>3 May – 11 Haz</td>
+<td>D0–D5, uyarlanabilir saldırgan (adaptive attacker) (E4); CAR-bench üzerinde dış geçerlilik (E5)</td>
+<td>Savunma sonuçları tablosu</td>
+</tr>
+<tr>
+<td>P5 Yazma ve teslim</td>
+<td>W32–W38</td>
+<td>14 Haz – 30 Tem</td>
+<td>Tam taslak 2 Tem; gözden geçirme; final sunumu</td>
+<td>Teslim</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>2. Week by week</h2></div><div class="cell tr" lang="tr"><h2>2. Hafta hafta</h2></div></div>
+<div class="row long"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Wk</th>
+<th>Dates</th>
+<th>Main work</th>
+<th>Deliverable / milestone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W1</td>
+<td>9–13 Nov</td>
+<td>Onboarding; first reading</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W2</td>
+<td>16–20 Nov</td>
+<td>Literature presentation to supervisor; <strong>research pass in this repo</strong> (state of field, audits, prototype)</td>
+<td><code>docs/research/</code> + presentation</td>
+</tr>
+<tr>
+<td>W3</td>
+<td>23–27 Nov</td>
+<td>Ask the 10 questions (<code>07</code>); read AgentLAB/CAR-bench/AgentDojo code paths named in the audit; run <code>carlab_mini</code> and the two free analyses yourself</td>
+<td>Answers logged; decision on JEV scope</td>
+</tr>
+<tr>
+<td>W4</td>
+<td>30 Nov–4 Dec</td>
+<td>Write the 2-page plan from <code>03_thesis_design.md</code>; request compute/API access and attacker-model approval</td>
+<td><strong>Gate P0:</strong> plan signed off</td>
+</tr>
+<tr>
+<td>W5</td>
+<td>7–11 Dec</td>
+<td>Set up VW-approved environment (Python, AgentDojo, vLLM or API); run AgentDojo banking with 1 model (E1a)</td>
+<td>first reproduced numbers</td>
+</tr>
+<tr>
+<td>W6</td>
+<td>14–18 Dec</td>
+<td>Run AgentLAB long-horizon task injection on 1 model; reproduce the budget curve (E1b); email AgentLAB authors with the audit questions</td>
+<td>budget-curve reproduction</td>
+</tr>
+<tr>
+<td>W7</td>
+<td>21–23 Dec</td>
+<td>(short week) CarDojo design doc: tools, data, injection vectors, invariants, oracles</td>
+<td>design doc</td>
+</tr>
+<tr>
+<td>W8</td>
+<td>28–30 Dec</td>
+<td>(holiday week) buffer / reading: CaMeL code, Design Patterns paper</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W9</td>
+<td>4–8 Jan</td>
+<td>CarDojo: tools + environment.yaml from CAR-bench data; snapshot logging</td>
+<td>10 tools running</td>
+</tr>
+<tr>
+<td>W10</td>
+<td>11–15 Jan</td>
+<td>CarDojo: 15 user tasks with utility checks; driving context, speaker role</td>
+<td><code>check_suites</code> passes</td>
+</tr>
+<tr>
+<td>W11</td>
+<td>18–22 Jan</td>
+<td>CarDojo: 8 injection tasks with goal-specific oracles; injection vectors</td>
+<td>first attacked run</td>
+</tr>
+<tr>
+<td>W12</td>
+<td>25–29 Jan</td>
+<td>Clean baseline K = 3 on 2 models; noise floor on CarDojo; labelling protocol for E2</td>
+<td><strong>Gate P1:</strong> end-to-end attacked + clean run</td>
+</tr>
+<tr>
+<td>W13</td>
+<td>1–5 Feb</td>
+<td>Task injection one-shot vs long-horizon at matched budget (H2)</td>
+<td>budget-matched table</td>
+</tr>
+<tr>
+<td>W14</td>
+<td>8–12 Feb</td>
+<td>Instruction-free tampering + transient manipulation families</td>
+<td>2 families running</td>
+</tr>
+<tr>
+<td>W15</td>
+<td>15–19 Feb</td>
+<td>Tool chaining / intent hijacking with passenger role, scored on executed actions</td>
+<td>2 families running</td>
+</tr>
+<tr>
+<td>W16</td>
+<td>22–26 Feb</td>
+<td>Cross-session memory poisoning harness</td>
+<td>6 families done</td>
+</tr>
+<tr>
+<td>W17</td>
+<td>1–5 Mar</td>
+<td>Architectures: plan-then-execute and dual-LLM/CaMeL-style agent</td>
+<td>3 architectures</td>
+</tr>
+<tr>
+<td>W18</td>
+<td>8–12 Mar</td>
+<td>E3 main runs (model 1)</td>
+<td>raw results</td>
+</tr>
+<tr>
+<td>W19</td>
+<td>15–19 Mar</td>
+<td>E3 main runs (model 2); turn and attempt budget curves</td>
+<td>raw results</td>
+</tr>
+<tr>
+<td>W20</td>
+<td>22–25 Mar</td>
+<td>Interim presentation; dataset v1 with data card</td>
+<td><strong>Gate P2:</strong> dataset v1 + talk</td>
+</tr>
+<tr>
+<td>W21</td>
+<td>30 Mar–2 Apr</td>
+<td>(short week) Apply validity filter to E3; label distribution per family</td>
+<td>validity tables</td>
+</tr>
+<tr>
+<td>W22</td>
+<td>5–9 Apr</td>
+<td>E2: label 200 traces (2 annotators on 50 for agreement)</td>
+<td>gold set</td>
+</tr>
+<tr>
+<td>W23</td>
+<td>12–16 Apr</td>
+<td>E2: LLM judges + decision model (JEV/open) vs gold; Rogan–Gladen; RQ1a</td>
+<td>judge card</td>
+</tr>
+<tr>
+<td>W24</td>
+<td>19–23 Apr</td>
+<td>Freeze metrics; statistical analysis (mixed-effects, Holm); answer RQ1/RQ2</td>
+<td>frozen metric code</td>
+</tr>
+<tr>
+<td>W25</td>
+<td>26–30 Apr</td>
+<td>Write measurement chapter + attack chapter drafts</td>
+<td><strong>Gate P3:</strong> 2 chapter drafts</td>
+</tr>
+<tr>
+<td>W26</td>
+<td>3–7 May</td>
+<td>D1/D2 (prompt, detector incl. decision-model guard)</td>
+<td>static defence results</td>
+</tr>
+<tr>
+<td>W27</td>
+<td>10–14 May</td>
+<td>D4 provenance + vehicle-state gate (own)</td>
+<td>gate implemented</td>
+</tr>
+<tr>
+<td>W28</td>
+<td>18–21 May</td>
+<td>(short week) D5 trajectory monitor; D4+D5</td>
+<td>all defences</td>
+</tr>
+<tr>
+<td>W29</td>
+<td>24–28 May</td>
+<td>Adaptive attacker per defence, B ∈ {1,5,20} (E4)</td>
+<td>adaptive results</td>
+</tr>
+<tr>
+<td>W30</td>
+<td>31 May–4 Jun</td>
+<td>Driver-interaction cost, latency; external validity on CAR-bench (E5)</td>
+<td>E5 numbers</td>
+</tr>
+<tr>
+<td>W31</td>
+<td>7–11 Jun</td>
+<td>Defence chapter draft; freeze experiments</td>
+<td><strong>Gate P4:</strong> defence table</td>
+</tr>
+<tr>
+<td>W32</td>
+<td>14–18 Jun</td>
+<td>Write intro, background, related work (reuse <code>docs/research/01</code>, <code>lit/</code>)</td>
+<td>chapters 1–3</td>
+</tr>
+<tr>
+<td>W33</td>
+<td>21–25 Jun</td>
+<td>Threat model + discussion + limitations</td>
+<td>chapters 4, 9</td>
+</tr>
+<tr>
+<td>W34</td>
+<td>28 Jun–2 Jul</td>
+<td>Full draft complete (<strong>2 Jul</strong>) → supervisor + university advisor</td>
+<td>full draft</td>
+</tr>
+<tr>
+<td>W35</td>
+<td>5–9 Jul</td>
+<td>Revisions; reproducibility pass (one command per table)</td>
+<td>v2</td>
+</tr>
+<tr>
+<td>W36</td>
+<td>12–16 Jul</td>
+<td>Company review (confidentiality), figures, abstract; optional workshop paper</td>
+<td>v3</td>
+</tr>
+<tr>
+<td>W37</td>
+<td>19–23 Jul</td>
+<td>Final talk; team handover note (1 page + defence recommendations)</td>
+<td>talk</td>
+</tr>
+<tr>
+<td>W38</td>
+<td>26–30 Jul</td>
+<td>Buffer; submission; archive code/data</td>
+<td><strong>Submission</strong></td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Hf</th>
+<th>Tarihler</th>
+<th>Ana iş</th>
+<th>Çıktı / kilometre taşı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W1</td>
+<td>9–13 Kas</td>
+<td>İşe alışma; ilk okumalar</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W2</td>
+<td>16–20 Kas</td>
+<td>Danışmana literatür sunumu; <strong>bu repoda araştırma turu</strong> (alanın durumu, denetimler, prototip)</td>
+<td><code>docs/research/</code> + sunum</td>
+</tr>
+<tr>
+<td>W3</td>
+<td>23–27 Kas</td>
+<td>10 soruyu sor (<code>07</code>); denetimde adı geçen AgentLAB/CAR-bench/AgentDojo kod yollarını oku; <code>carlab_mini</code>'yi ve iki ücretsiz analizi kendin çalıştır</td>
+<td>Cevaplar kaydedildi; JEV kapsamı hakkında karar</td>
+</tr>
+<tr>
+<td>W4</td>
+<td>30 Kas–4 Ara</td>
+<td><code>03_thesis_design.md</code>'den 2 sayfalık planı yaz; hesaplama/API erişimi ve saldırgan model onayı iste</td>
+<td><strong>Kapı P0:</strong> plan onaylandı</td>
+</tr>
+<tr>
+<td>W5</td>
+<td>7–11 Ara</td>
+<td>VW onaylı ortamı kur (Python, AgentDojo, vLLM veya API); AgentDojo banking'i 1 modelle çalıştır (E1a)</td>
+<td>ilk yeniden üretilmiş sayılar</td>
+</tr>
+<tr>
+<td>W6</td>
+<td>14–18 Ara</td>
+<td>AgentLAB uzun ufuklu (long-horizon) görev enjeksiyonunu 1 modelde çalıştır; bütçe eğrisini yeniden üret (E1b); denetim sorularıyla AgentLAB yazarlarına e-posta at</td>
+<td>bütçe eğrisinin yeniden üretimi</td>
+</tr>
+<tr>
+<td>W7</td>
+<td>21–23 Ara</td>
+<td>(kısa hafta) CarDojo tasarım dokümanı: araçlar, veri, enjeksiyon vektörleri, değişmezler (invariants), oracle'lar</td>
+<td>tasarım dokümanı</td>
+</tr>
+<tr>
+<td>W8</td>
+<td>28–30 Ara</td>
+<td>(tatil haftası) tampon / okuma: CaMeL kodu, Design Patterns makalesi</td>
+<td>—</td>
+</tr>
+<tr>
+<td>W9</td>
+<td>4–8 Oca</td>
+<td>CarDojo: CAR-bench verisinden araçlar + environment.yaml; anlık görüntü (snapshot) kaydı</td>
+<td>10 araç çalışıyor</td>
+</tr>
+<tr>
+<td>W10</td>
+<td>11–15 Oca</td>
+<td>CarDojo: fayda (utility) kontrollü 15 kullanıcı görevi; sürüş bağlamı, konuşmacı rolü</td>
+<td><code>check_suites</code> geçiyor</td>
+</tr>
+<tr>
+<td>W11</td>
+<td>18–22 Oca</td>
+<td>CarDojo: hedefe özgü oracle'lı 8 enjeksiyon görevi; enjeksiyon vektörleri</td>
+<td>ilk saldırılı çalıştırma</td>
+</tr>
+<tr>
+<td>W12</td>
+<td>25–29 Oca</td>
+<td>2 modelde temiz temel ölçüm (baseline) K = 3; CarDojo'da gürültü tabanı (noise floor); E2 için etiketleme protokolü</td>
+<td><strong>Kapı P1:</strong> uçtan uca saldırılı + temiz çalıştırma</td>
+</tr>
+<tr>
+<td>W13</td>
+<td>1–5 Şub</td>
+<td>Eşit bütçede tek atış (one-shot) ile uzun ufuklu görev enjeksiyonu karşılaştırması (H2)</td>
+<td>bütçesi eşitlenmiş tablo</td>
+</tr>
+<tr>
+<td>W14</td>
+<td>8–12 Şub</td>
+<td>Talimatsız kurcalama (instruction-free tampering) + geçici manipülasyon (transient manipulation) aileleri</td>
+<td>2 aile çalışıyor</td>
+</tr>
+<tr>
+<td>W15</td>
+<td>15–19 Şub</td>
+<td>Yolcu rolüyle araç zincirleme (tool chaining) / niyet ele geçirme (intent hijacking), yürütülen eylemler üzerinden puanlanır</td>
+<td>2 aile çalışıyor</td>
+</tr>
+<tr>
+<td>W16</td>
+<td>22–26 Şub</td>
+<td>Oturumlar arası bellek zehirleme (cross-session memory poisoning) düzeneği</td>
+<td>6 aile tamam</td>
+</tr>
+<tr>
+<td>W17</td>
+<td>1–5 Mar</td>
+<td>Mimariler: önce planla sonra yürüt (plan-then-execute) ve çift LLM'li/CaMeL tarzı ajan</td>
+<td>3 mimari</td>
+</tr>
+<tr>
+<td>W18</td>
+<td>8–12 Mar</td>
+<td>E3 ana çalıştırmaları (model 1)</td>
+<td>ham sonuçlar</td>
+</tr>
+<tr>
+<td>W19</td>
+<td>15–19 Mar</td>
+<td>E3 ana çalıştırmaları (model 2); tur ve deneme bütçesi eğrileri</td>
+<td>ham sonuçlar</td>
+</tr>
+<tr>
+<td>W20</td>
+<td>22–25 Mar</td>
+<td>Ara sunum; veri kartıyla (data card) birlikte veri seti v1</td>
+<td><strong>Kapı P2:</strong> veri seti v1 + sunum</td>
+</tr>
+<tr>
+<td>W21</td>
+<td>30 Mar–2 Nis</td>
+<td>(kısa hafta) E3'e geçerlilik filtresini uygula; aile başına etiket dağılımı</td>
+<td>geçerlilik tabloları</td>
+</tr>
+<tr>
+<td>W22</td>
+<td>5–9 Nis</td>
+<td>E2: 200 izi (trace) etiketle (uyum için 50 tanesinde 2 etiketleyici)</td>
+<td>altın set (gold set)</td>
+</tr>
+<tr>
+<td>W23</td>
+<td>12–16 Nis</td>
+<td>E2: LLM hakemleri + karar modeli (JEV/açık) ile altın set karşılaştırması; Rogan–Gladen; RQ1a</td>
+<td>hakem kartı</td>
+</tr>
+<tr>
+<td>W24</td>
+<td>19–23 Nis</td>
+<td>Metrikleri dondur; istatistiksel analiz (karma etkiler (mixed-effects), Holm); RQ1/RQ2'yi cevapla</td>
+<td>dondurulmuş metrik kodu</td>
+</tr>
+<tr>
+<td>W25</td>
+<td>26–30 Nis</td>
+<td>Ölçüm bölümü + saldırı bölümü taslaklarını yaz</td>
+<td><strong>Kapı P3:</strong> 2 bölüm taslağı</td>
+</tr>
+<tr>
+<td>W26</td>
+<td>3–7 May</td>
+<td>D1/D2 (prompt, karar modeli korumasını da içeren dedektör)</td>
+<td>statik savunma sonuçları</td>
+</tr>
+<tr>
+<td>W27</td>
+<td>10–14 May</td>
+<td>D4 köken (provenance) + araç durumu kapısı (vehicle-state gate) (kendi)</td>
+<td>kapı uygulandı</td>
+</tr>
+<tr>
+<td>W28</td>
+<td>18–21 May</td>
+<td>(kısa hafta) D5 gidişat izleyici (trajectory monitor); D4+D5</td>
+<td>tüm savunmalar</td>
+</tr>
+<tr>
+<td>W29</td>
+<td>24–28 May</td>
+<td>Her savunma için uyarlanabilir saldırgan, B ∈ {1,5,20} (E4)</td>
+<td>uyarlanabilir sonuçlar</td>
+</tr>
+<tr>
+<td>W30</td>
+<td>31 May–4 Haz</td>
+<td>Sürücü etkileşim maliyeti, gecikme; CAR-bench üzerinde dış geçerlilik (E5)</td>
+<td>E5 sayıları</td>
+</tr>
+<tr>
+<td>W31</td>
+<td>7–11 Haz</td>
+<td>Savunma bölümü taslağı; deneyleri dondur</td>
+<td><strong>Kapı P4:</strong> savunma tablosu</td>
+</tr>
+<tr>
+<td>W32</td>
+<td>14–18 Haz</td>
+<td>Giriş, arka plan, ilgili çalışmaları yaz (<code>docs/research/01</code>, <code>lit/</code> yeniden kullanılır)</td>
+<td>bölüm 1–3</td>
+</tr>
+<tr>
+<td>W33</td>
+<td>21–25 Haz</td>
+<td>Tehdit modeli + tartışma + sınırlılıklar</td>
+<td>bölüm 4, 9</td>
+</tr>
+<tr>
+<td>W34</td>
+<td>28 Haz–2 Tem</td>
+<td>Tam taslak tamam (<strong>2 Tem</strong>) → danışman + üniversite danışmanı</td>
+<td>tam taslak</td>
+</tr>
+<tr>
+<td>W35</td>
+<td>5–9 Tem</td>
+<td>Düzeltmeler; yeniden üretilebilirlik turu (tablo başına tek komut)</td>
+<td>v2</td>
+</tr>
+<tr>
+<td>W36</td>
+<td>12–16 Tem</td>
+<td>Şirket incelemesi (gizlilik), şekiller, özet; isteğe bağlı workshop makalesi</td>
+<td>v3</td>
+</tr>
+<tr>
+<td>W37</td>
+<td>19–23 Tem</td>
+<td>Final sunumu; ekip devir notu (1 sayfa + savunma önerileri)</td>
+<td>sunum</td>
+</tr>
+<tr>
+<td>W38</td>
+<td>26–30 Tem</td>
+<td>Tampon; teslim; kod/veriyi arşivle</td>
+<td><strong>Teslim</strong></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>3. Weekly rhythm</h2></div><div class="cell tr" lang="tr"><h2>3. Haftalık ritim</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Monday: 3 goals for the week. Friday: log (done / blocked / next) to supervisor. Every second week: 1-hour literature refresh (new arXiv/OpenReview work citing AgentLAB, CAR-bench, CaMeL) and re-check the gaps in <code>02_gaps_ranked.md</code>.</p></div><div class="cell tr" lang="tr"><p>Pazartesi: hafta için 3 hedef. Cuma: danışmana kayıt (yapıldı / takıldı / sıradaki). İki haftada bir: 1 saatlik literatür tazeleme (AgentLAB, CAR-bench, CaMeL'e atıf yapan yeni arXiv/OpenReview çalışmaları) ve <code>02_gaps_ranked.md</code>'deki boşlukları yeniden kontrol et.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>4. Risks, early signals, fallbacks</h2></div><div class="cell tr" lang="tr"><h2>4. Riskler, erken sinyaller, yedek planlar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Early signal</th>
+<th>Mitigation</th>
+<th>Fallback scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No GPU / API approval</td>
+<td>No access by W6</td>
+<td>Start approval in W4; use AgentDojo with API model on a small subset; continue design work</td>
+<td><strong>Scope A:</strong> measurement study on AgentLAB + AgentDojo artefacts and stored results only (RQ1), small CarDojo demo</td>
+</tr>
+<tr>
+<td>Attacker model (abliterated) not allowed</td>
+<td>Supervisor says no in W3</td>
+<td>Use an approved instruction-tuned model with a red-teaming system prompt; report the difference</td>
+<td>same plan, weaker attacker noted as limitation</td>
+</tr>
+<tr>
+<td>CarDojo takes longer than 4 weeks</td>
+<td><code>check_suites</code> not passing by W11</td>
+<td>Cut to 12 tools / 10 tasks / 6 injection tasks</td>
+<td><strong>Scope B (default):</strong> CarDojo small + 4 families + 2 architectures</td>
+</tr>
+<tr>
+<td>Costs higher than estimated</td>
+<td>Week-1 measurement &gt; 2× estimate</td>
+<td>Reduce K to 2 for exploratory cells; run main cells only on open model</td>
+<td>fewer cells, same RQs</td>
+</tr>
+<tr>
+<td>LLM user simulator drift</td>
+<td>&gt; 10% of clean runs flagged for drift</td>
+<td>Scripted user turns for attack families; LLM user only in E5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Field moves (a CarDojo-like paper appears)</td>
+<td>biweekly refresh finds it</td>
+<td>Position as replication + measurement audit; contributions 1, 2, 5 stay new</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Writing late</td>
+<td>no chapter draft by W25</td>
+<td>write related work in W32 from <code>lit/</code> files</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Ahead of plan in April</td>
+<td>gates P2/P3 early</td>
+<td><strong>Scope C:</strong> multi-agent cockpit↔service hand-off (multi-CaMeL finding) or open-model hidden-state probes as guard</td>
+<td>workshop paper</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Erken sinyal</th>
+<th>Önlem</th>
+<th>Yedek kapsam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPU / API onayı yok</td>
+<td>W6'ya kadar erişim yok</td>
+<td>Onay sürecini W4'te başlat; küçük bir alt kümede API modeliyle AgentDojo kullan; tasarım işine devam et</td>
+<td><strong>Kapsam A:</strong> yalnızca AgentLAB + AgentDojo çıktıları ve saklanan sonuçlar üzerinde ölçüm çalışması (RQ1), küçük CarDojo demosu</td>
+</tr>
+<tr>
+<td>Saldırgan modele (abliterated) izin verilmiyor</td>
+<td>Danışman W3'te hayır diyor</td>
+<td>Kırmızı takım (red-teaming) sistem promptuyla onaylı bir talimat ayarlı (instruction-tuned) model kullan; farkı raporla</td>
+<td>aynı plan, daha zayıf saldırgan sınırlılık olarak not edilir</td>
+</tr>
+<tr>
+<td>CarDojo 4 haftadan uzun sürüyor</td>
+<td><code>check_suites</code> W11'e kadar geçmiyor</td>
+<td>12 araç / 10 görev / 6 enjeksiyon görevine indir</td>
+<td><strong>Kapsam B (varsayılan):</strong> küçük CarDojo + 4 aile + 2 mimari</td>
+</tr>
+<tr>
+<td>Maliyetler tahminden yüksek</td>
+<td>1. hafta ölçümü &gt; 2× tahmin</td>
+<td>Keşif hücrelerinde K'yi 2'ye düşür; ana hücreleri yalnızca açık modelde çalıştır</td>
+<td>daha az hücre, aynı RQ'lar</td>
+</tr>
+<tr>
+<td>LLM kullanıcı simülatöründe kayma (drift)</td>
+<td>temiz çalıştırmaların &gt; 10%'u kayma için işaretlendi</td>
+<td>Saldırı aileleri için senaryolu (scripted) kullanıcı turları; LLM kullanıcı yalnızca E5'te</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Alan ilerliyor (CarDojo benzeri bir makale çıkıyor)</td>
+<td>iki haftalık tazeleme bunu buluyor</td>
+<td>Replikasyon + ölçüm denetimi olarak konumla; katkı 1, 2, 5 yeni kalır</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Yazma gecikiyor</td>
+<td>W25'e kadar bölüm taslağı yok</td>
+<td>ilgili çalışmaları W32'de <code>lit/</code> dosyalarından yaz</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Nisan'da planın önündeyiz</td>
+<td>P2/P3 kapıları erken geçildi</td>
+<td><strong>Kapsam C:</strong> çok ajanlı kokpit↔servis devri (multi-CaMeL bulgusu) veya koruma olarak açık model gizli durum sondaları (hidden-state probes)</td>
+<td>workshop makalesi</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>5. Milestone summary</h2></div><div class="cell tr" lang="tr"><h2>5. Kilometre taşı özeti</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>4 Dec 2026: plan signed off.</li>
+<li>29 Jan 2027: first attacked + clean CarDojo run.</li>
+<li>26 Mar 2027: dataset v1, interim talk.</li>
+<li>30 Apr 2027: metrics frozen; measurement chapter.</li>
+<li>11 Jun 2027: defence results.</li>
+<li>2 Jul 2027: full draft.</li>
+<li>30 Jul 2027: submission.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>4 Ara 2026: plan onaylandı.</li>
+<li>29 Oca 2027: ilk saldırılı + temiz CarDojo çalıştırması.</li>
+<li>26 Mar 2027: veri seti v1, ara sunum.</li>
+<li>30 Nis 2027: metrikler donduruldu; ölçüm bölümü.</li>
+<li>11 Haz 2027: savunma sonuçları.</li>
+<li>2 Tem 2027: tam taslak.</li>
+<li>30 Tem 2027: teslim.</li>
+</ul></div></div></main></body></html>

@@ -1,0 +1,393 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>08 · Keşifler ve özgün fikirler</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">08 · Keşifler ve özgün fikirler</h1><div class="nav"><a href="07_supervisor_questions.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="09_jev_clarification.html">sonraki →</a> · kaynak: <code>docs/research/08_discoveries_and_ideas.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>08 · Discoveries, challenges and original ideas</h1></div><div class="cell tr" lang="tr"><h1>08 · Keşifler, itirazlar ve özgün fikirler</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Things Ömer did not ask for but should know, then original ideas with a publishability verdict. "Own measurement" = reproducible from this repo at zero cost.</p></div><div class="cell tr" lang="tr"><p>Ömer'in sormadığı ama bilmesi gereken şeyler, ardından yayımlanabilirlik değerlendirmesiyle birlikte özgün fikirler. "Kendi ölçüm" (own measurement) = bu repodan sıfır maliyetle yeniden üretilebilir.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>A. Discoveries from this research pass</h2></div><div class="cell tr" lang="tr"><h2>A. Bu araştırma turundaki keşifler</h2></div></div>
+<div class="row long"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Discovery</th>
+<th>Evidence</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>AgentLAB's task-injection ASRs are best-of-N-attempts.</strong> The repo's stored per-attempt results reproduce the paper's numbers exactly (GPT-4o 79.9%, Llama-3.3-70B 86.8%, Qwen3-235B 93.1%, Claude 0.0%, GPT-5.1+RP 20.8%, +detector 2.8%), but each pair had up to 10–17 attempts. At one attempt GPT-4o is 32.6%, below the paper's one-shot baseline of 62.5%.</td>
+<td>own measurement, <code>results/agentlab_ti_budget/</code></td>
+<td>The "long-horizon &gt; one-shot" claim needs budget matching. Directly answers "is this really an attack?" on the supervisor's anchor paper.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>AgentLAB's intent-hijacking code has no tools.</strong> The public victim is a plain chat model; success = GPT-5.1 text-harm score ≥ 4/5; the attacker's TextGrad loss optimises against that same judge; up to 42 judge calls per attack with conversation rewind. The paper describes the family as achieving harm "through tool execution".</td>
+<td><code>lit/codebase_audit.md</code> §1.1–1.2 (commit 36f58e6)</td>
+<td>Either different code produced the paper numbers, or the family measures conversational jailbreak. Ask the authors before citing it as agent attack success.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Memory poisoning counts PARTIAL as success</strong>, with a stricter rule for the baseline filter than for attacked runs.</td>
+<td><code>lit/codebase_audit.md</code> §1.4</td>
+<td>Asymmetric thresholds inflate the causal effect.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Clean in-car runs are noisy.</strong> 12–34% of CAR-bench tasks flip between identical clean trials (frontier models); unrequested state-changing actions occur in up to ~20% of clean runs (upper bound), ~0–4% on a spontaneity heuristic; zero unrequested e-mails/calls by frontier models.</td>
+<td>own measurement, <code>results/carbench_noise_floor/</code></td>
+<td>Broad deviation oracles need paired controls; narrow attacker-goal oracles are almost noise-free.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>AgentDojo's goal oracles are clean — except one goal collision.</strong> Replaying 2,709 stored clean runs: 13 of 17,547 (clean run × attack oracle) pairs fire without attack, all in banking user_task_15 where the attacker's IBAN is the user's legitimate landlord IBAN (fixed upstream in v1.1.1).</td>
+<td>own measurement, <code>results/agentdojo_clean_oracle_floor/</code></td>
+<td>A zero-cost pre-flight test that any new suite (CarDojo) must pass.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Several load-bearing papers are not peer-reviewed.</strong> The Attacker Moves Second: ICLR 2026 <em>rejected</em> (OpenReview venueid checked); STAC: only at the REALM workshop (ACL Anthology checked); Prompt Infection: rejected ICLR 2025 (agent-reported); CaMeL and Design Patterns: arXiv.</td>
+<td><code>lit/attacks.md</code>, own spot-check</td>
+<td>Supervisor directive 5: cite as T3 motivation; carry core claims with T1/T2 + own measurements.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Our own presentation has an imprecise number.</strong> Slide 7 says AgentPoison "controlled a driving agent more than 80% of the time"; 80.0 is <em>retrieval</em> ASR for Agent-Driver; end-to-end ASR-t is 56.8 (ChatGPT, contrastive retriever; AgentPoison Table 1, checked). The abstract's "63% end-to-end" is an average over three agents.</td>
+<td>AgentPoison PDF Table 1</td>
+<td>Fix before the slides are reused.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>CaMeL's utility collapses outside its own paper</strong> (third-party: 26–53% clean utility vs 63–90% undefended; parameter poisoning: 90.28% → 43.75% benign utility), and it has never faced a white-box, human or long-horizon adaptive attacker.</td>
+<td>D-19 (checked), D-11</td>
+<td>"Provably secure" designs are not yet a solved deployment answer — an opening for the vehicle-state gate.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Defences that look perfect single-turn leak over long horizons.</strong> Replayed AgentLAB cases: Progent 8.7/8.3/15.1% (43.5% on Qwen travel), DRIFT up to 25.4%; ROPE 0.0% (self-evaluated).</td>
+<td>D-09 Table 3 (checked)</td>
+<td>Long-horizon evaluation of defences is genuinely open.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Every approval-count study assumes a perfect approver.</strong> No paper measures confirmations under driving workload; a browser field study found users clicked through 70.2% of Google Chrome SSL warnings.</td>
+<td>D-07, D-20; Akhawe &amp; Porter Felt, USENIX Sec 2013 (N10)</td>
+<td>A car is the setting where confirmation cost is most real — a natural VW contribution.</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>A naive provenance gate breaks the legitimate task.</strong> In the prototype, data-origin taint blocked "navigate to the nearest charger" (benign utility 0.95 → 0.00) because station IDs come from POI search; tracking <em>who influenced the decision</em> fixed it (0.95 / 0.95).</td>
+<td>own prototype, <code>results/prototype/</code></td>
+<td>Decision provenance (implicit flows) is the hard, interesting problem for in-car gates.</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Public facts disagree.</strong> CAR-bench task counts: 240 (paper) vs 254 (README table) vs 248 (README text). MAGE and ShadowMem are the same paper renamed (CCS 2026).</td>
+<td><code>lit/automotive.md</code>, <code>lit/defenses.md</code></td>
+<td>Always cite the version you used.</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>VW's own public roadmap is the strongest motivation</strong>: onboard LLM agent in China H2 2026; CEA 2.0 multi-agent (driving + cockpit + ecosystem) 2027.</td>
+<td>VW press release 21 Apr 2026 (primary)</td>
+<td>Gives the cockpit→driving cascade scenario real industrial relevance.</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Keşif</th>
+<th>Kanıt</th>
+<th>Neden önemli</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>AgentLAB'ın görev enjeksiyonu (task injection) saldırı başarı oranları (attack success rate, ASR) N denemenin en iyisi (best-of-N-attempts).</strong> Repoda saklanan deneme başına sonuçlar makaledeki sayıları birebir veriyor (GPT-4o 79.9%, Llama-3.3-70B 86.8%, Qwen3-235B 93.1%, Claude 0.0%, GPT-5.1+RP 20.8%, +detector 2.8%), ama her çift için 10–17'ye kadar deneme yapılmış. Tek denemede GPT-4o 32.6%, yani makalenin 62.5%'lik tek seferlik (one-shot) temel değerinin altında.</td>
+<td>kendi ölçüm, <code>results/agentlab_ti_budget/</code></td>
+<td>"Uzun ufuklu &gt; tek seferlik" (long-horizon &gt; one-shot) iddiası bütçe eşleştirmesi (budget matching) gerektiriyor. Danışmanın dayanak makalesi için "bu gerçekten bir saldırı mı?" sorusunu doğrudan cevaplıyor.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>AgentLAB'ın niyet ele geçirme (intent hijacking) kodunda hiç tool yok.</strong> Açık kurban (victim) düz bir sohbet modeli; başarı = GPT-5.1 metin-zarar puanı ≥ 4/5; saldırganın TextGrad kaybı (loss) bu aynı hakeme karşı optimize ediliyor; konuşmayı geri sarma (rewind) ile saldırı başına 42'ye kadar hakem çağrısı yapılıyor. Makale bu aileyi zararı "tool çalıştırma yoluyla" (through tool execution) elde eden bir aile olarak tanımlıyor.</td>
+<td><code>lit/codebase_audit.md</code> §1.1–1.2 (commit 36f58e6)</td>
+<td>Ya makaledeki sayıları farklı bir kod üretti, ya da bu aile sohbet tabanlı jailbreak'i ölçüyor. Ajan saldırı başarısı olarak atıf yapmadan önce yazarlara sor.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Hafıza zehirleme PARTIAL (kısmi) sonucu başarı sayıyor</strong>, üstelik temel (baseline) filtre için saldırılı çalıştırmalardan daha katı bir kural uyguluyor.</td>
+<td><code>lit/codebase_audit.md</code> §1.4</td>
+<td>Asimetrik eşikler nedensel etkiyi (causal effect) şişiriyor.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Temiz (saldırısız) araç içi çalıştırmalar gürültülü.</strong> CAR-bench görevlerinin 12–34%'ü özdeş temiz denemeler arasında sonuç değiştiriyor (öncü modeller); istenmemiş, durum değiştiren eylemler temiz çalıştırmaların ~20%'sine kadarında görülüyor (üst sınır / upper bound), kendiliğindenlik (spontaneity) sezgiseline göre ise ~0–4%; öncü modellerde istenmemiş e-posta/arama sıfır.</td>
+<td>kendi ölçüm, <code>results/carbench_noise_floor/</code></td>
+<td>Geniş sapma oracle'ları eşleştirilmiş kontroller (paired controls) gerektirir; dar saldırgan-hedefi oracle'ları neredeyse gürültüsüzdür.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>AgentDojo'nun hedef oracle'ları temiz — tek bir hedef çakışması dışında.</strong> Saklanan 2,709 temiz çalıştırma yeniden oynatıldığında: 17,547 (temiz çalıştırma × saldırı oracle'ı) çiftinden 13'ü saldırı olmadan tetikleniyor, hepsi banking user_task_15'te; burada saldırganın IBAN'ı, kullanıcının meşru ev sahibinin IBAN'ı (upstream'de v1.1.1'de düzeltildi).</td>
+<td>kendi ölçüm, <code>results/agentdojo_clean_oracle_floor/</code></td>
+<td>Her yeni test setinin (CarDojo) geçmesi gereken, sıfır maliyetli bir ön kontrol (pre-flight) testi.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Kilit önemdeki birkaç makale hakemli (peer-reviewed) değil.</strong> The Attacker Moves Second: ICLR 2026'da <em>reddedildi</em> (OpenReview venueid kontrol edildi); STAC: yalnızca REALM workshop'unda (ACL Anthology kontrol edildi); Prompt Infection: ICLR 2025'te reddedildi (ajanın bildirdiği); CaMeL ve Design Patterns: arXiv.</td>
+<td><code>lit/attacks.md</code>, kendi nokta kontrolü</td>
+<td>Danışmanın 5. yönergesi: T3 olarak yalnızca motivasyon için an; temel iddiaları T1/T2 + kendi ölçümlerle taşı.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Kendi sunumumuzda kesin olmayan bir sayı var.</strong> Slayt 7, AgentPoison'ın "bir sürüş ajanını zamanın 80%'inden fazlasında kontrol ettiğini" söylüyor; 80.0, Agent-Driver için <em>erişim (retrieval)</em> ASR'si; uçtan uca ASR-t ise 56.8 (ChatGPT, karşıtlıklı (contrastive) retriever; AgentPoison Tablo 1, kontrol edildi). Özetteki "63% uçtan uca" değeri üç ajanın ortalaması.</td>
+<td>AgentPoison PDF Tablo 1</td>
+<td>Slaytlar yeniden kullanılmadan önce düzelt.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>CaMeL'in faydası (utility) kendi makalesinin dışında çöküyor</strong> (üçüncü taraf: savunmasız 63–90%'a karşı 26–53% temiz fayda; parametre zehirleme: 90.28% → 43.75% iyi huylu (benign) fayda) ve hiçbir zaman beyaz kutu (white-box), insan veya uzun ufuklu uyarlanabilir bir saldırganla karşılaşmadı.</td>
+<td>D-19 (kontrol edildi), D-11</td>
+<td>"Kanıtlanabilir şekilde güvenli" (provably secure) tasarımlar henüz çözülmüş bir dağıtım (deployment) cevabı değil — araç-durumu kapısı (vehicle-state gate) için bir fırsat.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Tek turda kusursuz görünen savunmalar uzun ufukta sızdırıyor.</strong> Yeniden oynatılan AgentLAB vakaları: Progent 8.7/8.3/15.1% (Qwen travel'da 43.5%), DRIFT 25.4%'e kadar; ROPE 0.0% (kendi değerlendirmesi).</td>
+<td>D-09 Tablo 3 (kontrol edildi)</td>
+<td>Savunmaların uzun ufuklu değerlendirilmesi gerçekten açık bir problem.</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Onay sayısı üzerine yapılan her çalışma kusursuz bir onaylayıcı varsayıyor.</strong> Hiçbir makale sürüş yükü altında onayları ölçmüyor; bir tarayıcı saha çalışması, kullanıcıların Google Chrome SSL uyarılarının 70.2%'sini tıklayıp geçtiğini buldu.</td>
+<td>D-07, D-20; Akhawe &amp; Porter Felt, USENIX Sec 2013 (N10)</td>
+<td>Araba, onay maliyetinin en gerçek olduğu ortam — VW için doğal bir katkı.</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Saf (naive) bir köken kapısı (provenance gate) meşru görevi bozuyor.</strong> Prototipte veri kökeni lekesi (data-origin taint) "en yakın şarj istasyonuna git" görevini engelledi (iyi huylu fayda 0.95 → 0.00), çünkü istasyon ID'leri POI aramasından geliyor; <em>kararı kimin etkilediğini</em> takip etmek bunu düzeltti (0.95 / 0.95).</td>
+<td>kendi prototip, <code>results/prototype/</code></td>
+<td>Karar kökeni (decision provenance; örtük akışlar / implicit flows), araç içi kapılar için zor ve ilginç problem.</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Açık kaynaklardaki bilgiler birbiriyle çelişiyor.</strong> CAR-bench görev sayıları: 240 (makale) vs 254 (README tablosu) vs 248 (README metni). MAGE ve ShadowMem, adı değiştirilmiş aynı makale (CCS 2026).</td>
+<td><code>lit/automotive.md</code>, <code>lit/defenses.md</code></td>
+<td>Her zaman kullandığın sürüme atıf yap.</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>VW'nin kendi açık yol haritası en güçlü motivasyon</strong>: Çin'de H2 2026'da araç içi LLM ajanı; 2027'de CEA 2.0 çoklu ajan (sürüş + kokpit + ekosistem).</td>
+<td>VW basın bülteni 21 Nisan 2026 (birincil)</td>
+<td>Kokpit→sürüş zincirleme (cascade) senaryosuna gerçek endüstriyel önem kazandırıyor.</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>B. Challenges to the current framing</h2></div><div class="cell tr" lang="tr"><h2>B. Mevcut çerçeveye itirazlar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ol>
+<li><strong>Measurement before attack.</strong> A thesis that reports "X% ASR on an in-car agent" stands only until its scoring is questioned. Put the validity protocol first (<code>03_thesis_design.md</code> §1).</li>
+<li><strong>"Adversarial-example pipeline" is a misleading phrase for LLM agents.</strong> In ML it means small input perturbations; here it means generating attack <em>scenarios</em> (content, channel, timing, budget). Say "adversarial scenario generation pipeline" or define the term explicitly.</li>
+<li><strong>Architecture comparison is confounded</strong> unless model, tools, tasks and prompts are held fixed; report per attack family (the prototype shows plan-then-execute helps for commands but not for argument tampering or memory).</li>
+<li><strong>Final-state oracles are not enough in a car</strong>: transient unsafe states (window at speed, briefly wrong route) are invisible to them; CAR-bench already checks intermediate states — keep that.</li>
+<li><strong>JEV should be a bounded sub-question</strong>, not a pillar: one vendor model, two months old, mostly preprint evidence, and its main weakness (counterfeit policy) is exactly the threat model of this thesis.</li>
+</ol></div><div class="cell tr" lang="tr"><ol>
+<li><strong>Önce ölçüm, sonra saldırı.</strong> Bir araç içi ajanda "X% ASR" raporlayan bir tez, ancak puanlaması sorgulanana kadar ayakta kalır. Geçerlilik protokolünü öne koy (<code>03_thesis_design.md</code> §1).</li>
+<li><strong>"Adversarial-example pipeline" (çekişmeli örnek hattı) LLM ajanları için yanıltıcı bir ifade.</strong> ML'de küçük girdi bozulmaları (perturbations) anlamına gelir; burada ise saldırı <em>senaryoları</em> (içerik, kanal, zamanlama, bütçe) üretmek anlamına geliyor. Bunun yerine "adversarial scenario generation pipeline" (çekişmeli senaryo üretim hattı) de ya da terimi açıkça tanımla.</li>
+<li><strong>Mimari karşılaştırması karıştırıcı etkilere (confounding) açık</strong>, model, tool'lar, görevler ve istemler sabit tutulmadıkça; sonuçları saldırı ailesi bazında raporla (prototip, plan-then-execute'un komutlarda işe yaradığını ama argüman kurcalama veya hafıza saldırılarında işe yaramadığını gösteriyor).</li>
+<li><strong>Bir arabada nihai durum (final-state) oracle'ları yeterli değil</strong>: geçici güvensiz durumlar (hızdayken açık cam, kısa süreliğine yanlış rota) onlara görünmez; CAR-bench zaten ara durumları kontrol ediyor — bunu koru.</li>
+<li><strong>JEV bir ana sütun değil, sınırlı bir alt soru olmalı</strong>: tek bir vendor modeli, iki aylık, kanıtların çoğu preprint ve ana zayıflığı (sahte politika / counterfeit policy) tam da bu tezin tehdit modeli.</li>
+</ol></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>C. Original ideas (with publishability verdicts)</h2></div><div class="cell tr" lang="tr"><h2>C. Özgün fikirler (yayımlanabilirlik değerlendirmeleriyle)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Verdicts are my judgement (Inference). "Closest" = newest related work found.</p></div><div class="cell tr" lang="tr"><p>Değerlendirmeler benim yargım (Çıkarım). "En yakın" = bulunan en yeni ilgili çalışma.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Idea</th>
+<th>Closest work</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I-1</td>
+<td><strong>"Is it really an attack?" audit of long-horizon agent benchmarks</strong> — apply placebo arms, task contracts, budget matching and judge correction to AgentLAB (and STAC/AgentDojo) using the authors' released artefacts + a small re-run</td>
+<td>ASB re-analysis (E-01); task contracts (E-45); Coin Flip (E-16)</td>
+<td><strong>High</strong> — strong workshop paper (e.g. agent-safety workshops at NeurIPS/ICML), possibly main track with re-runs; partially done already for free</td>
+</tr>
+<tr>
+<td>I-2</td>
+<td><strong>CarDojo</strong>: AgentDojo-format in-car suite from CAR-bench data with goal-specific + snapshot oracles, driving context and speaker roles</td>
+<td>CAR-bench (V-01), From Intent to Action (V-02)</td>
+<td><strong>High</strong> if released (datasets &amp; benchmarks tracks, USENIX VehicleSec)</td>
+</tr>
+<tr>
+<td>I-3</td>
+<td><strong>Instruction-free POI/charging tampering via fabricated hazards</strong> ("station closed after a fire") — no instruction, safety-flavoured, physical route outcome</td>
+<td>Voluntary Servitude (A-31), task tampering (A-29)</td>
+<td><strong>High</strong>, cheap to build on I-2; strong automotive story</td>
+</tr>
+<tr>
+<td>I-4</td>
+<td><strong>Vehicle-state-triggered delayed memory poisoning</strong> — payload planted in drive N fires when a vehicle predicate holds (low battery, highway, night), invisible to text-trigger detectors</td>
+<td>CarryoverBench (A-19), MemGhost (A-21), AgentPoison (A-15)</td>
+<td><strong>High</strong> novelty; needs multi-session harness</td>
+</tr>
+<tr>
+<td>I-5</td>
+<td><strong>Vehicle-state-aware decision-provenance gate (VSG) + confirmation budget</strong> — LLM never last safety authority; policies from STPA; barrier-function-style projection for continuous actuators instead of deny</td>
+<td>CaMeL/ROPE (D-01, D-09), AgentSpec (D-24), CBF (N7), STPA (N8)</td>
+<td><strong>Medium–high</strong>; SaTML/ACSAC/escar if evaluated adaptively and long-horizon</td>
+</tr>
+<tr>
+<td>I-6</td>
+<td><strong>Driver-interaction cost as a first-class security metric</strong> — security–utility–distraction frontier; approval accuracy when one request is malicious</td>
+<td>SPIDES (D-07), autonomy metric (D-20), NHTSA guidance (N10)</td>
+<td><strong>High</strong> novelty; AutomotiveUI / SOUPS / CHI-LBW with a small simulator study</td>
+</tr>
+<tr>
+<td>I-7</td>
+<td><strong>ASR → ISO/SAE 21434 attack-feasibility bridge</strong> — $n_{95}=\lceil\ln 0.05/\ln(1-p)\rceil$ attempts → elapsed time; turns-to-compromise → window of opportunity</td>
+<td>Breier &amp; Hou 2026 (V-15), Nassi et al. (V-08)</td>
+<td><strong>Medium</strong> alone; valuable for VW and for an escar talk</td>
+</tr>
+<tr>
+<td>I-8</td>
+<td><strong>Rental/shared-car memory carry-over</strong> — one occupant poisons preferences that the next driver inherits</td>
+<td>CarMem (V-03), ATLAS AML.T0080.000</td>
+<td><strong>Medium–high</strong>; clear OEM product question (profile separation)</td>
+</tr>
+<tr>
+<td>I-9</td>
+<td><strong>Judge-targeted payloads in agent traces</strong> — attacks that both cause harm and fool the scoring judge/guard (incl. JEV counterfeit policies); measure judge-vs-oracle divergence under attack</td>
+<td>E-41, E-46, A-19</td>
+<td><strong>Medium–high</strong>; links Attack and Evaluate chapters</td>
+</tr>
+<tr>
+<td>I-10</td>
+<td><strong>Clean-run oracle replay as a benchmark linter</strong> — release <code>tools/agentdojo_clean_oracle_floor.py</code>-style checks (goal collision, oracle firing without attack, attacker ids in user tasks) for any suite</td>
+<td>own result (#5)</td>
+<td><strong>Medium</strong> as a short tool paper; high practical value</td>
+</tr>
+<tr>
+<td>I-11</td>
+<td><strong>Connectivity-downgrade attack on hybrid edge/cloud in-car agents</strong> — force fallback from a guarded cloud model to a weaker onboard model</td>
+<td>supplier statements (Cerence, NVIDIA; V snippets)</td>
+<td><strong>Medium</strong>; speculative, needs a hybrid testbed</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Fikir</th>
+<th>En yakın çalışma</th>
+<th>Değerlendirme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I-1</td>
+<td><strong>Uzun ufuklu ajan benchmark'larının "Bu gerçekten bir saldırı mı?" denetimi</strong> — yazarların yayımladığı artefaktlar + küçük bir yeniden çalıştırma ile AgentLAB'a (ve STAC/AgentDojo'ya) plasebo kolları (placebo arms), görev sözleşmeleri (task contracts), bütçe eşleştirme ve hakem düzeltmesi uygula</td>
+<td>ASB yeniden analizi (E-01); görev sözleşmeleri (E-45); Coin Flip (E-16)</td>
+<td><strong>Yüksek</strong> — güçlü bir workshop makalesi (örn. NeurIPS/ICML'deki ajan güvenliği workshop'ları), yeniden çalıştırmalarla belki ana konferans (main track); bir kısmı zaten ücretsiz olarak yapıldı</td>
+</tr>
+<tr>
+<td>I-2</td>
+<td><strong>CarDojo</strong>: CAR-bench verisinden; hedefe özgü + anlık görüntü (snapshot) oracle'ları, sürüş bağlamı ve konuşmacı rolleri içeren, AgentDojo formatında araç içi test seti</td>
+<td>CAR-bench (V-01), From Intent to Action (V-02)</td>
+<td>Yayımlanırsa <strong>Yüksek</strong> (datasets &amp; benchmarks track'leri, USENIX VehicleSec)</td>
+</tr>
+<tr>
+<td>I-3</td>
+<td><strong>Uydurma tehlikelerle talimatsız POI/şarj kurcalama</strong> ("istasyon bir yangından sonra kapandı") — talimat yok, güvenlik temalı, sonucu fiziksel rota</td>
+<td>Voluntary Servitude (A-31), görev kurcalama (A-29)</td>
+<td><strong>Yüksek</strong>, I-2'nin üzerine ucuza kurulur; güçlü bir otomotiv hikâyesi</td>
+</tr>
+<tr>
+<td>I-4</td>
+<td><strong>Araç durumuyla tetiklenen gecikmeli hafıza zehirleme</strong> — N. sürüşte yerleştirilen yük, bir araç koşulu sağlandığında (düşük batarya, otoyol, gece) devreye girer; metin tetikleyici dedektörlerine görünmez</td>
+<td>CarryoverBench (A-19), MemGhost (A-21), AgentPoison (A-15)</td>
+<td><strong>Yüksek</strong> yenilik; çok oturumlu bir test düzeneği (harness) gerektirir</td>
+</tr>
+<tr>
+<td>I-5</td>
+<td><strong>Araç durumunu dikkate alan karar-kökeni kapısı (VSG) + onay bütçesi</strong> — LLM asla son güvenlik otoritesi değil; politikalar STPA'dan; sürekli eyleyiciler için reddetmek yerine bariyer fonksiyonu tarzı izdüşüm (projection)</td>
+<td>CaMeL/ROPE (D-01, D-09), AgentSpec (D-24), CBF (N7), STPA (N8)</td>
+<td><strong>Orta–yüksek</strong>; uyarlanabilir ve uzun ufuklu olarak değerlendirilirse SaTML/ACSAC/escar</td>
+</tr>
+<tr>
+<td>I-6</td>
+<td><strong>Sürücü etkileşim maliyeti, birinci sınıf bir güvenlik metriği olarak</strong> — güvenlik–fayda–dikkat dağınıklığı sınırı (frontier); isteklerden biri kötü niyetliyken onay doğruluğu</td>
+<td>SPIDES (D-07), otonomi metriği (D-20), NHTSA kılavuzu (N10)</td>
+<td><strong>Yüksek</strong> yenilik; küçük bir simülatör çalışmasıyla AutomotiveUI / SOUPS / CHI-LBW</td>
+</tr>
+<tr>
+<td>I-7</td>
+<td><strong>ASR → ISO/SAE 21434 saldırı fizibilitesi köprüsü</strong> — $n_{95}=\lceil\ln 0.05/\ln(1-p)\rceil$ deneme → geçen süre; ele geçirmeye kadar tur sayısı → fırsat penceresi</td>
+<td>Breier &amp; Hou 2026 (V-15), Nassi et al. (V-08)</td>
+<td>Tek başına <strong>Orta</strong>; VW için ve bir escar konuşması için değerli</td>
+</tr>
+<tr>
+<td>I-8</td>
+<td><strong>Kiralık/paylaşımlı araçta hafıza devralma</strong> — bir yolcu, sonraki sürücünün devraldığı tercihleri zehirler</td>
+<td>CarMem (V-03), ATLAS AML.T0080.000</td>
+<td><strong>Orta–yüksek</strong>; net bir OEM ürün sorusu (profil ayrımı)</td>
+</tr>
+<tr>
+<td>I-9</td>
+<td><strong>Ajan izlerinde hakemi hedefleyen yükler (payloads)</strong> — hem zarar veren hem de puanlayan hakemi/koruyucuyu kandıran saldırılar (JEV sahte politikaları dahil); saldırı altında hakem ile oracle arasındaki ayrışmayı ölç</td>
+<td>E-41, E-46, A-19</td>
+<td><strong>Orta–yüksek</strong>; Saldırı ve Değerlendirme bölümlerini birbirine bağlar</td>
+</tr>
+<tr>
+<td>I-10</td>
+<td><strong>Benchmark linter'ı olarak temiz çalıştırma oracle replay'i</strong> — herhangi bir test seti için <code>tools/agentdojo_clean_oracle_floor.py</code> tarzı kontroller (hedef çakışması, saldırı olmadan tetiklenen oracle, kullanıcı görevlerinde saldırgan id'leri) yayımla</td>
+<td>kendi sonuç (#5)</td>
+<td>Kısa bir tool makalesi olarak <strong>Orta</strong>; pratik değeri yüksek</td>
+</tr>
+<tr>
+<td>I-11</td>
+<td><strong>Hibrit edge/bulut araç içi ajanlara bağlantı düşürme (connectivity-downgrade) saldırısı</strong> — korunan bir bulut modelinden daha zayıf bir araç içi modele geri düşmeye zorla</td>
+<td>tedarikçi açıklamaları (Cerence, NVIDIA; V snippet'leri)</td>
+<td><strong>Orta</strong>; spekülatif, hibrit bir test ortamı gerektirir</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>D. Small actions worth doing this week</h2></div><div class="cell tr" lang="tr"><h2>D. Bu hafta yapmaya değer küçük işler</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>Fix slide 7's AgentPoison sentence (see A-7).</li>
+<li>Email the AgentLAB authors with the three code questions (A-1 to A-3), politely, after the supervisor agrees.</li>
+<li>Re-run the free analyses yourself once (commands in each <code>results/*/README.md</code>) so you can defend them.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>Slayt 7'deki AgentPoison cümlesini düzelt (bkz. A-7).</li>
+<li>Danışman onayladıktan sonra AgentLAB yazarlarına üç kod sorusuyla (A-1 ila A-3) kibarca e-posta at.</li>
+<li>Ücretsiz analizleri bir kez kendin yeniden çalıştır (komutlar her <code>results/*/README.md</code> içinde), böylece onları savunabilirsin.</li>
+</ul></div></div></main></body></html>

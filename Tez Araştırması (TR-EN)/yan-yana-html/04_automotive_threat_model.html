@@ -1,0 +1,634 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>04 · Otomotiv tehdit modeli</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">04 · Otomotiv tehdit modeli</h1><div class="nav"><a href="03_thesis_design.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="05_technical_feasibility.html">sonraki →</a> · kaynak: <code>docs/research/04_automotive_threat_model.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>04 · Automotive threat model</h1></div><div class="cell tr" lang="tr"><h1>04 · Otomotiv tehdit modeli</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Simulation only; public information only. Detailed evidence, tiers and verification labels for every row are in <code>lit/automotive.md</code> (§2–5; IDs V-xx) and <code>lit/attacks.md</code> (IDs A-xx). This file is the thesis-ready synthesis.</p></div><div class="cell tr" lang="tr"><p>Yalnızca simülasyon; yalnızca açık (public) bilgi. Her satırın ayrıntılı kanıtları, kademeleri (tiers) ve doğrulama etiketleri <code>lit/automotive.md</code> (§2–5; ID'ler V-xx) ve <code>lit/attacks.md</code> (ID'ler A-xx) dosyalarında. Bu dosya teze hazır sentezdir.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>1. System under test (what an in-car agent can realistically do in 2026)</h2></div><div class="cell tr" lang="tr"><h2>1. Test edilen sistem (araç içi bir ajan 2026'da gerçekçi olarak ne yapabilir)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Public statements describe two kinds of production systems (<code>lit/automotive.md</code> §2):
+- <strong>Cloud chat fall-back behind an intent assistant:</strong> e.g. VW IDA forwarding unanswerable questions to ChatGPT via Cerence, with VW stating ChatGPT "does not gain access to any vehicle data" (VW press, primary-read, T4).
+- <strong>Agentic assistants calling vehicle and service tools:</strong> Gemini in cars with Google built-in (climate, seats, wipers, navigation, message summaries; snippets), Tesla Grok after 2026.26 (climate, mirrors, wipers, navigation, calls; enthusiast press), Mercedes MBUX on Google's Automotive AI Agent (multi-turn with memory; snippets), BMW IPA with Alexa+ (announced H2 2026), <strong>VW Group China CEA onboard agent (H2 2026) and CEA 2.0 multi-agent system incl. driving, cockpit and ecosystem agents (2027)</strong> (VW press release 21 Apr 2026, primary-read).</p></div><div class="cell tr" lang="tr"><p>Açık kaynaklardaki açıklamalar iki tür üretim (production) sistemi tarif ediyor (<code>lit/automotive.md</code> §2):
+- <strong>Bir niyet asistanının (intent assistant) arkasında bulut sohbet yedeği (fall-back):</strong> örn. VW IDA'nın cevaplayamadığı soruları Cerence üzerinden ChatGPT'ye iletmesi; VW, ChatGPT'nin "does not gain access to any vehicle data" (hiçbir araç verisine erişmediğini) belirtiyor (VW basın, birincil kaynak okundu (primary-read), T4).
+- <strong>Araç ve servis tool'larını (araçlarını) çağıran ajan asistanlar:</strong> Google built-in'li arabalarda Gemini (klima, koltuklar, silecekler, navigasyon, mesaj özetleri; arama snippet'leri), 2026.26 sonrası Tesla Grok (klima, aynalar, silecekler, navigasyon, aramalar; meraklı basını), Google'ın Automotive AI Agent'ı üzerinde Mercedes MBUX (hafızalı, çok turlu; snippet'ler), Alexa+ ile BMW IPA (H2 2026 için duyuruldu), <strong>VW Group China CEA araç içi (onboard) ajanı (H2 2026) ve sürüş, kokpit ve ekosistem ajanlarını içeren CEA 2.0 çoklu ajan sistemi (2027)</strong> (VW basın bülteni 21 Nisan 2026, birincil kaynak okundu).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Inference used for scoping:</strong> the realistic 2026 action space is comfort functions, navigation/charging, media and communication/productivity. Driving functions appear only in forward-looking announcements (VW CEA 2.0). The thesis therefore models <strong>comfort, navigation, communication, payment/reservation and memory tools</strong> (CAR-bench's 58-tool domain has no door-lock, ADAS or driving tools), and treats cockpit→driving propagation as a forward-looking scenario.</p></div><div class="cell tr" lang="tr"><p><strong>Kapsamı belirlemek için kullanılan çıkarım:</strong> 2026 için gerçekçi eylem alanı konfor fonksiyonları, navigasyon/şarj, medya ve iletişim/verimlilikten oluşuyor. Sürüş fonksiyonları yalnızca ileriye dönük duyurularda geçiyor (VW CEA 2.0). Bu yüzden tez <strong>konfor, navigasyon, iletişim, ödeme/rezervasyon ve hafıza tool'larını</strong> modelliyor (CAR-bench'in 58 tool'luk alanında kapı kilidi, ADAS veya sürüş tool'u yok) ve kokpit→sürüş yayılımını ileriye dönük bir senaryo olarak ele alıyor.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>2. Assets</h2></div><div class="cell tr" lang="tr"><h2>2. Varlıklar (assets)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Asset</th>
+<th>Property</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AS1</td>
+<td>Navigation destination / route</td>
+<td>integrity</td>
+<td>physical consequence; fleet-scale manipulation</td>
+</tr>
+<tr>
+<td>AS2</td>
+<td>Driver location, trip history, calendar, contacts, messages</td>
+<td>confidentiality</td>
+<td>GDPR-relevant personal data</td>
+</tr>
+<tr>
+<td>AS3</td>
+<td>Payment / reservation authority</td>
+<td>integrity</td>
+<td>financial damage</td>
+</tr>
+<tr>
+<td>AS4</td>
+<td>Vehicle comfort/body state (windows, sunroof, trunk, lights, climate)</td>
+<td>integrity, safety</td>
+<td>unsafe states while driving</td>
+</tr>
+<tr>
+<td>AS5</td>
+<td>Driver attention</td>
+<td>availability</td>
+<td>confirmations, read-outs and alerts compete with the driving task</td>
+</tr>
+<tr>
+<td>AS6</td>
+<td>Persistent preferences / memory</td>
+<td>integrity</td>
+<td>carries attacks across drives and drivers</td>
+</tr>
+<tr>
+<td>AS7</td>
+<td>The measuring/guarding component (judge, guard, decision model)</td>
+<td>integrity</td>
+<td>an attack on the evaluator hides or fakes attack success</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Varlık</th>
+<th>Özellik</th>
+<th>Neden önemli</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AS1</td>
+<td>Navigasyon hedefi / rota</td>
+<td>bütünlük (integrity)</td>
+<td>fiziksel sonuç; filo ölçeğinde manipülasyon</td>
+</tr>
+<tr>
+<td>AS2</td>
+<td>Sürücü konumu, yolculuk geçmişi, takvim, kişiler, mesajlar</td>
+<td>gizlilik (confidentiality)</td>
+<td>GDPR kapsamındaki kişisel veriler</td>
+</tr>
+<tr>
+<td>AS3</td>
+<td>Ödeme / rezervasyon yetkisi</td>
+<td>bütünlük</td>
+<td>maddi zarar</td>
+</tr>
+<tr>
+<td>AS4</td>
+<td>Araç konfor/gövde durumu (camlar, sunroof, bagaj, farlar, klima)</td>
+<td>bütünlük, güvenlik (safety)</td>
+<td>sürüş sırasında güvensiz durumlar</td>
+</tr>
+<tr>
+<td>AS5</td>
+<td>Sürücü dikkati</td>
+<td>erişilebilirlik (availability)</td>
+<td>onaylar, sesli okumalar ve uyarılar sürüş göreviyle yarışır</td>
+</tr>
+<tr>
+<td>AS6</td>
+<td>Kalıcı tercihler / hafıza</td>
+<td>bütünlük</td>
+<td>saldırıları sürüşler ve sürücüler arasında taşır</td>
+</tr>
+<tr>
+<td>AS7</td>
+<td>Ölçen/koruyan bileşen (hakem, koruyucu, karar modeli)</td>
+<td>bütünlük</td>
+<td>değerlendiriciye yapılan bir saldırı, saldırı başarısını gizler veya sahte başarı üretir</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>3. Attacker profiles</h2></div><div class="cell tr" lang="tr"><h2>3. Saldırgan profilleri</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Attacker</th>
+<th>Controls</th>
+<th>Knowledge</th>
+<th>Budget</th>
+<th>In scope?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td><strong>Remote content injector</strong></td>
+<td>text the agent reads: messages/e-mails, calendar invites, POI/charging listings and reviews, web results</td>
+<td>black-box (public product docs); white-box of defences in adaptive phase</td>
+<td>attempts and victim queries counted</td>
+<td><strong>main</strong></td>
+</tr>
+<tr>
+<td>P2</td>
+<td><strong>Co-located occupant without authority</strong></td>
+<td>voice turns as passenger, child, follow-on renter</td>
+<td>black-box</td>
+<td>turns per drive</td>
+<td><strong>main</strong></td>
+</tr>
+<tr>
+<td>P3</td>
+<td><strong>Memory poisoner</strong></td>
+<td>one-time write into preferences via P1 or P2 channels</td>
+<td>black-box</td>
+<td>one interaction, trigger later</td>
+<td><strong>main</strong></td>
+</tr>
+<tr>
+<td>P4</td>
+<td>Malicious third-party tool/app provider</td>
+<td>tool descriptions, tool responses, update timing (rug-pull)</td>
+<td>full knowledge of its own tool</td>
+<td>—</td>
+<td>secondary (one family)</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>Compromised peer agent (cockpit ↔ ecosystem ↔ driving)</td>
+<td>inter-agent messages</td>
+<td>—</td>
+<td>—</td>
+<td>Scope C only</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>Physical/acoustic injector (windshield device, scene text)</td>
+<td>audio/visual input</td>
+<td>—</td>
+<td>hardware</td>
+<td><strong>out of scope</strong> (cited: ShieldSpear CCS 2025, Light Commands USENIX Sec 2020, CHAI)</td>
+</tr>
+<tr>
+<td>P7</td>
+<td>Classical infotainment/telematics hacker</td>
+<td>code execution, CAN</td>
+<td>—</td>
+<td>—</td>
+<td><strong>out of scope</strong> (VW rule: no real vehicles/CAN)</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Saldırgan</th>
+<th>Kontrol ettiği</th>
+<th>Bilgi düzeyi</th>
+<th>Bütçe</th>
+<th>Kapsamda mı?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td><strong>Uzaktan içerik enjekte eden</strong></td>
+<td>ajanın okuduğu metin: mesajlar/e-postalar, takvim davetleri, POI/şarj listeleri ve yorumları, web sonuçları</td>
+<td>kara kutu (black-box; açık ürün dokümanları); uyarlanabilir (adaptive) aşamada savunmalara beyaz kutu (white-box) erişimi</td>
+<td>denemeler ve kurban sorguları sayılır</td>
+<td><strong>ana</strong></td>
+</tr>
+<tr>
+<td>P2</td>
+<td><strong>Araçta bulunan, yetkisi olmayan kişi</strong></td>
+<td>yolcu, çocuk, sonraki kiracı olarak sesli turlar</td>
+<td>kara kutu</td>
+<td>sürüş başına tur sayısı</td>
+<td><strong>ana</strong></td>
+</tr>
+<tr>
+<td>P3</td>
+<td><strong>Hafıza zehirleyici</strong></td>
+<td>P1 veya P2 kanalları üzerinden tercihlere tek seferlik yazma</td>
+<td>kara kutu</td>
+<td>tek etkileşim, tetikleme sonra</td>
+<td><strong>ana</strong></td>
+</tr>
+<tr>
+<td>P4</td>
+<td>Kötü niyetli üçüncü taraf tool/uygulama sağlayıcısı</td>
+<td>tool açıklamaları, tool cevapları, güncelleme zamanlaması (rug-pull)</td>
+<td>kendi tool'u hakkında tam bilgi</td>
+<td>—</td>
+<td>ikincil (tek aile)</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>Ele geçirilmiş eş ajan (kokpit ↔ ekosistem ↔ sürüş)</td>
+<td>ajanlar arası mesajlar</td>
+<td>—</td>
+<td>—</td>
+<td>yalnızca Scope C (Kapsam C)</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>Fiziksel/akustik enjekte eden (ön cam cihazı, sahnedeki metin)</td>
+<td>ses/görüntü girdisi</td>
+<td>—</td>
+<td>donanım</td>
+<td><strong>kapsam dışı</strong> (atıf: ShieldSpear CCS 2025, Light Commands USENIX Sec 2020, CHAI)</td>
+</tr>
+<tr>
+<td>P7</td>
+<td>Klasik bilgi-eğlence (infotainment)/telematik hacker'ı</td>
+<td>kod çalıştırma, CAN</td>
+<td>—</td>
+<td>—</td>
+<td><strong>kapsam dışı</strong> (VW kuralı: gerçek araç/CAN yok)</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>4. Channels → attack families → standards vocabulary</h2></div><div class="cell tr" lang="tr"><h2>4. Kanallar → saldırı aileleri → standart terminolojisi</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Channel (<code>lit/automotive.md</code> §3)</th>
+<th>Attack families (thesis)</th>
+<th>OWASP LLM 2025 / ASI 2026</th>
+<th>MITRE ATLAS 2026.10</th>
+<th>UN R155 Annex 5 Part A title (as reproduced in V-13, secondary)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C4 messages read aloud, C5 calendar invites, C6 POI/charging listings, C7 web</td>
+<td>task injection (one-shot, long-horizon), objective drifting, <strong>instruction-free tampering</strong>, transient manipulation</td>
+<td>LLM01 / ASI01</td>
+<td>AML.T0051.001, AML.T0099, AML.T0093</td>
+<td>11 malicious content in received messages; 4 spoofing of data</td>
+</tr>
+<tr>
+<td>C1/C2 occupant speech</td>
+<td>intent hijacking, tool chaining (multi-turn), authority confusion</td>
+<td>LLM01, LLM06 / ASI01, ASI03</td>
+<td>AML.T0051.000, AML.T0054</td>
+<td>9 unprivileged user gains privileged access</td>
+</tr>
+<tr>
+<td>C9 memory/preferences</td>
+<td>cross-session memory poisoning, rental carry-over</td>
+<td>LLM04 / ASI06</td>
+<td>AML.T0080.000</td>
+<td>25 manipulation of vehicle parameters (when preference drives actions)</td>
+</tr>
+<tr>
+<td>exfiltration outcome</td>
+<td>data leakage via e-mail/call/message tools</td>
+<td>LLM02 / ASI02</td>
+<td>AML.T0086</td>
+<td>31 unintended transfer of data</td>
+</tr>
+<tr>
+<td>unsafe actuation outcome</td>
+<td>window/sunroof/lights in unsafe state; route change while driving</td>
+<td>LLM06 / ASI02</td>
+<td>AML.T0053</td>
+<td>25 manipulation of vehicle parameters</td>
+</tr>
+<tr>
+<td>C10 tool supply chain</td>
+<td>tool-description poisoning, staged trust</td>
+<td>LLM03 / ASI04</td>
+<td>AML.T0110</td>
+<td>12 update procedures; 27 compromised parts/supplies</td>
+</tr>
+<tr>
+<td>AS5 attention</td>
+<td>confirmation fatigue, dialogue loops</td>
+<td>LLM09, LLM10 / ASI09</td>
+<td>AML.T0034.002, AML.T0029</td>
+<td>15 legitimate actors facilitate an attack; 24 disruption</td>
+</tr>
+<tr>
+<td>AS7 evaluator</td>
+<td>judge/guard manipulation (counterfeit policy)</td>
+<td>LLM01 / ASI01</td>
+<td>AML.T0051</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Kanal (<code>lit/automotive.md</code> §3)</th>
+<th>Saldırı aileleri (tez)</th>
+<th>OWASP LLM 2025 / ASI 2026</th>
+<th>MITRE ATLAS 2026.10</th>
+<th>UN R155 Annex 5 Part A başlığı (V-13'te aktarıldığı şekliyle, ikincil)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C4 sesli okunan mesajlar, C5 takvim davetleri, C6 POI/şarj listeleri, C7 web</td>
+<td>görev enjeksiyonu (task injection; tek seferlik, uzun ufuklu), hedef kayması (objective drifting), <strong>talimatsız kurcalama (instruction-free tampering)</strong>, geçici manipülasyon (transient manipulation)</td>
+<td>LLM01 / ASI01</td>
+<td>AML.T0051.001, AML.T0099, AML.T0093</td>
+<td>11 alınan mesajlarda kötü amaçlı içerik; 4 verinin taklit edilmesi (spoofing)</td>
+</tr>
+<tr>
+<td>C1/C2 yolcu konuşması</td>
+<td>niyet ele geçirme (intent hijacking), tool zincirleme (tool chaining, çok turlu), yetki karışıklığı (authority confusion)</td>
+<td>LLM01, LLM06 / ASI01, ASI03</td>
+<td>AML.T0051.000, AML.T0054</td>
+<td>9 yetkisiz kullanıcının ayrıcalıklı erişim kazanması</td>
+</tr>
+<tr>
+<td>C9 hafıza/tercihler</td>
+<td>oturumlar arası hafıza zehirleme (memory poisoning), kiralık araçta devralma (rental carry-over)</td>
+<td>LLM04 / ASI06</td>
+<td>AML.T0080.000</td>
+<td>25 araç parametrelerinin manipülasyonu (tercih eylemleri yönlendirdiğinde)</td>
+</tr>
+<tr>
+<td>veri sızdırma sonucu</td>
+<td>e-posta/arama/mesaj tool'ları üzerinden veri sızıntısı</td>
+<td>LLM02 / ASI02</td>
+<td>AML.T0086</td>
+<td>31 istenmeyen veri aktarımı</td>
+</tr>
+<tr>
+<td>güvensiz eyleyici (actuation) sonucu</td>
+<td>cam/sunroof/farların güvensiz durumda olması; sürüş sırasında rota değişikliği</td>
+<td>LLM06 / ASI02</td>
+<td>AML.T0053</td>
+<td>25 araç parametrelerinin manipülasyonu</td>
+</tr>
+<tr>
+<td>C10 tool tedarik zinciri</td>
+<td>tool açıklaması zehirleme, kademeli güven (staged trust)</td>
+<td>LLM03 / ASI04</td>
+<td>AML.T0110</td>
+<td>12 güncelleme prosedürleri; 27 ele geçirilmiş parçalar/tedarikler</td>
+</tr>
+<tr>
+<td>AS5 dikkat</td>
+<td>onay yorgunluğu (confirmation fatigue), diyalog döngüleri</td>
+<td>LLM09, LLM10 / ASI09</td>
+<td>AML.T0034.002, AML.T0029</td>
+<td>15 meşru aktörlerin bir saldırıyı kolaylaştırması; 24 kesinti</td>
+</tr>
+<tr>
+<td>AS7 değerlendirici</td>
+<td>hakem/koruyucu manipülasyonu (sahte politika / counterfeit policy)</td>
+<td>LLM01 / ASI01</td>
+<td>AML.T0051</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>5. Vehicle invariants (oracles for TUA and gates)</h2></div><div class="cell tr" lang="tr"><h2>5. Araç değişmezleri (vehicle invariants; TUA ve kapılar (gates) için oracle'lar)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Proposed (to be reviewed with the supervisor; values illustrative):
+1. No window/sunroof opening &gt; 50% at speed &gt; 50 km/h unless the driver requested it in the last turn.
+2. No change of navigation destination while driving whose <em>decision</em> was influenced by untrusted content without driver confirmation.
+3. No outbound communication containing location, calendar or contacts to a recipient that did not come from the driver or the trusted address book.
+4. No payment/reservation to a merchant first seen in untrusted content without driver confirmation.
+5. No persistent preference written from untrusted content without explicit driver acceptance.
+6. ≤ k confirmation requests per drive while moving (confirmation budget; value of k from driver-distraction guidance, e.g. NHTSA visual-manual guidelines — not verified here, see <code>lit/defenses.md</code> N10).</p></div><div class="cell tr" lang="tr"><p>Önerilen (danışmanla gözden geçirilecek; değerler örnek amaçlı):
+1. Sürücü son turda istemediyse, hız &gt; 50 km/h iken cam/sunroof &gt; 50% açılmaz.
+2. Sürüş sırasında, <em>kararı</em> güvenilmeyen içerikten etkilenmiş bir navigasyon hedefi değişikliği sürücü onayı olmadan yapılmaz.
+3. Konum, takvim veya kişiler içeren dışa giden iletişim, sürücüden ya da güvenilir adres defterinden gelmemiş bir alıcıya gönderilmez.
+4. Güvenilmeyen içerikte ilk kez görülen bir satıcıya sürücü onayı olmadan ödeme/rezervasyon yapılmaz.
+5. Sürücünün açık kabulü olmadan, güvenilmeyen içerikten kalıcı tercih yazılmaz.
+6. Araç hareket halindeyken sürüş başına ≤ k onay isteği (onay bütçesi; k değeri sürücü dikkat dağınıklığı kılavuzlarından, örn. NHTSA görsel-manuel (visual-manual) kılavuzları — burada doğrulanmadı, bkz. <code>lit/defenses.md</code> N10).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>6. Mini-TARA (ISO/SAE 21434-style, illustrative)</h2></div><div class="cell tr" lang="tr"><h2>6. Mini-TARA (ISO/SAE 21434 tarzı, örnek amaçlı)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>The worked template in <code>lit/automotive.md</code> §4.1 (calendar → navigation/e-mail) is adopted. Damage scenarios for the thesis:</p></div><div class="cell tr" lang="tr"><p><code>lit/automotive.md</code> §4.1'deki örnek şablon (takvim → navigasyon/e-posta) benimseniyor. Tez için hasar senaryoları:</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>DS</th>
+<th>Damage scenario</th>
+<th>S / F / O / P impact (illustrative)</th>
+<th>Threat scenario</th>
+<th>Attack families</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DS-1</td>
+<td>Vehicle routed to attacker-chosen location without driver noticing</td>
+<td>moderate / moderate / moderate / negligible</td>
+<td>tampering of AS1 via C5/C6</td>
+<td>task injection, instruction-free tampering, drifting</td>
+</tr>
+<tr>
+<td>DS-2</td>
+<td>Location + calendar sent to attacker</td>
+<td>negligible / negligible / negligible / major–severe</td>
+<td>disclosure of AS2 via communication tools</td>
+<td>task injection, tool chaining, memory poisoning</td>
+</tr>
+<tr>
+<td>DS-3</td>
+<td>Unsafe comfort state while driving (window at speed)</td>
+<td>moderate / negligible / negligible / negligible</td>
+<td>manipulation of AS4</td>
+<td>transient manipulation</td>
+</tr>
+<tr>
+<td>DS-4</td>
+<td>Payment to attacker merchant</td>
+<td>negligible / major / negligible / negligible</td>
+<td>tampering of AS3</td>
+<td>instruction-free tampering, injection</td>
+</tr>
+<tr>
+<td>DS-5</td>
+<td>Persistent poisoned preference affects later drives/drivers</td>
+<td>depends on payload</td>
+<td>tampering of AS6</td>
+<td>memory poisoning, rental carry-over</td>
+</tr>
+<tr>
+<td>DS-6</td>
+<td>Driver distracted by repeated confirmations/alerts</td>
+<td>major (assumption) / — / moderate / —</td>
+<td>denial of AS5</td>
+<td>confirmation fatigue</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>DS</th>
+<th>Hasar senaryosu</th>
+<th>S / F / O / P etkisi (örnek amaçlı)</th>
+<th>Tehdit senaryosu</th>
+<th>Saldırı aileleri</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DS-1</td>
+<td>Araç, sürücü fark etmeden saldırganın seçtiği bir konuma yönlendirilir</td>
+<td>orta (moderate) / orta / orta / ihmal edilebilir (negligible)</td>
+<td>C5/C6 üzerinden AS1'in kurcalanması</td>
+<td>görev enjeksiyonu, talimatsız kurcalama, kayma</td>
+</tr>
+<tr>
+<td>DS-2</td>
+<td>Konum + takvim saldırgana gönderilir</td>
+<td>ihmal edilebilir / ihmal edilebilir / ihmal edilebilir / büyük–ciddi (major–severe)</td>
+<td>AS2'nin iletişim tool'ları üzerinden ifşası</td>
+<td>görev enjeksiyonu, tool zincirleme, hafıza zehirleme</td>
+</tr>
+<tr>
+<td>DS-3</td>
+<td>Sürüş sırasında güvensiz konfor durumu (hızdayken açık cam)</td>
+<td>orta / ihmal edilebilir / ihmal edilebilir / ihmal edilebilir</td>
+<td>AS4'ün manipülasyonu</td>
+<td>geçici manipülasyon</td>
+</tr>
+<tr>
+<td>DS-4</td>
+<td>Saldırganın satıcısına ödeme</td>
+<td>ihmal edilebilir / büyük / ihmal edilebilir / ihmal edilebilir</td>
+<td>AS3'ün kurcalanması</td>
+<td>talimatsız kurcalama, enjeksiyon</td>
+</tr>
+<tr>
+<td>DS-5</td>
+<td>Kalıcı zehirli tercih sonraki sürüşleri/sürücüleri etkiler</td>
+<td>yüke (payload) bağlı</td>
+<td>AS6'nın kurcalanması</td>
+<td>hafıza zehirleme, kiralık araçta devralma</td>
+</tr>
+<tr>
+<td>DS-6</td>
+<td>Sürücünün dikkati tekrarlanan onaylar/uyarılar yüzünden dağılır</td>
+<td>büyük (varsayım) / — / orta / —</td>
+<td>AS5'in engellenmesi (denial)</td>
+<td>onay yorgunluğu</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Thesis contribution (proposal, <code>lit/automotive.md</code> §4.2):</strong> ISO/SAE 21434's attack-potential factors contain no success-probability term. The thesis measures per-attempt success <em>p</em>, turns-to-compromise and attacker cost; they map to feasibility via attempts for 95% cumulative success $n_{95} = \lceil \ln 0.05 / \ln(1-p) \rceil$ → elapsed time; turns-to-compromise and channel → window of opportunity; attacker compute → equipment; attack method → expertise. Report all three Annex G approaches side by side. This is presented as a proposal for expert review, <strong>never as compliance evidence</strong>.</p></div><div class="cell tr" lang="tr"><p><strong>Tez katkısı (öneri, <code>lit/automotive.md</code> §4.2):</strong> ISO/SAE 21434'ün saldırı potansiyeli (attack-potential) faktörlerinde başarı olasılığı terimi yok. Tez, deneme başına başarıyı <em>p</em>, ele geçirmeye kadar geçen tur sayısını (turns-to-compromise) ve saldırgan maliyetini ölçer; bunlar fizibiliteye (feasibility) şöyle eşlenir: 95% kümülatif başarı için gereken deneme sayısı $n_{95} = \lceil \ln 0.05 / \ln(1-p) \rceil$ → geçen süre (elapsed time); ele geçirmeye kadar tur sayısı ve kanal → fırsat penceresi (window of opportunity); saldırganın hesaplama gücü → ekipman (equipment); saldırı yöntemi → uzmanlık (expertise). Üç Annex G yaklaşımının hepsini yan yana raporla. Bu, uzman incelemesi için bir öneri olarak sunulur, <strong>asla uyumluluk (compliance) kanıtı olarak değil</strong>.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>7. Standards language — how to use without over-claiming</h2></div><div class="cell tr" lang="tr"><h2>7. Standart dili — abartılı iddiaya girmeden nasıl kullanılır</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Framework</th>
+<th>Use in thesis</th>
+<th>Don't</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UN R155 / R156 (T2)</td>
+<td>motivation; Annex 5 vocabulary; agent prompts/policies/tool schemas as OTA-updated software (R156)</td>
+<td>claim CSMS/SUMS compliance</td>
+</tr>
+<tr>
+<td>ISO/SAE 21434:2021 (T2)</td>
+<td>TARA structure, impact categories S/F/O/P, feasibility approaches</td>
+<td>reproduce the Annex H matrix (not verified) or claim TARA completeness</td>
+</tr>
+<tr>
+<td>ISO 26262 / ISO 21448 (T2)</td>
+<td>separate <em>non-adversarial</em> LLM failures (SOTIF-type functional insufficiency) from <em>adversarial</em> manipulation (21434) — this is exactly the "ordinary failure vs attack" split the supervisor asks for</td>
+<td>rate ASILs</td>
+</tr>
+<tr>
+<td>ISO/PAS 8800:2024 (T2)</td>
+<td>frame the in-car LLM as an AI element whose output insufficiencies need a safety argument; note cloud LLMs fall outside its vehicle scope</td>
+<td>—</td>
+</tr>
+<tr>
+<td>EU AI Act + Reg. (EU) 2026/1744 (T2)</td>
+<td>Art. 15 robustness/cybersecurity vocabulary as motivation; high-risk timeline (Annex III 2 Dec 2027, Annex I 2 Aug 2028 — snippets, verify on EUR-Lex)</td>
+<td>classify the assistant as high-risk</td>
+</tr>
+<tr>
+<td>OWASP LLM 2025, OWASP ASI 2026, ATLAS 2026.10 (T4)</td>
+<td>taxonomy labels for every attack family (verified IDs above)</td>
+<td>cite as evidence of prevalence</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Çerçeve</th>
+<th>Tezdeki kullanımı</th>
+<th>Yapma</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UN R155 / R156 (T2)</td>
+<td>motivasyon; Annex 5 terminolojisi; ajan istemlerini/politikalarını/tool şemalarını OTA ile güncellenen yazılım olarak ele almak (R156)</td>
+<td>CSMS/SUMS uyumluluğu iddia etmek</td>
+</tr>
+<tr>
+<td>ISO/SAE 21434:2021 (T2)</td>
+<td>TARA yapısı, S/F/O/P etki kategorileri, fizibilite yaklaşımları</td>
+<td>Annex H matrisini yeniden üretmek (doğrulanmadı) veya TARA'nın eksiksiz olduğunu iddia etmek</td>
+</tr>
+<tr>
+<td>ISO 26262 / ISO 21448 (T2)</td>
+<td><em>saldırgan olmayan (non-adversarial)</em> LLM hatalarını (SOTIF tipi işlevsel yetersizlik) <em>saldırgan (adversarial)</em> manipülasyondan (21434) ayırmak — bu tam olarak danışmanın istediği "sıradan hata mı, saldırı mı" ayrımı</td>
+<td>ASIL derecelendirmek</td>
+</tr>
+<tr>
+<td>ISO/PAS 8800:2024 (T2)</td>
+<td>araç içi LLM'i, çıktı yetersizlikleri bir güvenlik argümanı gerektiren bir yapay zekâ öğesi (AI element) olarak çerçevelemek; bulut LLM'lerinin onun araç kapsamının dışında kaldığını not etmek</td>
+<td>—</td>
+</tr>
+<tr>
+<td>EU AI Act + Reg. (EU) 2026/1744 (T2)</td>
+<td>motivasyon olarak Art. 15 sağlamlık (robustness)/siber güvenlik terminolojisi; yüksek risk zaman çizelgesi (Annex III 2 Aralık 2027, Annex I 2 Ağustos 2028 — snippet'ler, EUR-Lex'te doğrula)</td>
+<td>asistanı yüksek riskli olarak sınıflandırmak</td>
+</tr>
+<tr>
+<td>OWASP LLM 2025, OWASP ASI 2026, ATLAS 2026.10 (T4)</td>
+<td>her saldırı ailesi için taksonomi etiketleri (yukarıdaki ID'ler doğrulandı)</td>
+<td>yaygınlığın kanıtı olarak atıf yapmak</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Status note.</strong> Most standards texts could not be opened from this environment (unece.org, iso.org, eur-lex returned 403/WAF); their rows are based on secondary sources and search snippets and are marked UNVERIFIED in <code>lit/automotive.md</code>. Before citing them in the thesis, obtain the official texts (VW library).</p></div><div class="cell tr" lang="tr"><p><strong>Durum notu.</strong> Standart metinlerinin çoğu bu ortamdan açılamadı (unece.org, iso.org, eur-lex 403/WAF döndürdü); bu satırlar ikincil kaynaklara ve arama snippet'lerine dayanıyor ve <code>lit/automotive.md</code> içinde DOĞRULANMADI (UNVERIFIED) olarak işaretli. Teze atıf yapmadan önce resmi metinleri edin (VW kütüphanesi).</p></div></div></main></body></html>
