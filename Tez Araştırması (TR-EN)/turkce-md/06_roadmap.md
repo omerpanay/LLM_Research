@@ -66,7 +66,7 @@ Pazartesi: hafta için 3 hedef. Cuma: danışmana kayıt (yapıldı / takıldı 
 | Saldırgan modele (abliterated) izin verilmiyor | Danışman W3'te hayır diyor | Kırmızı takım (red-teaming) sistem promptuyla onaylı bir talimat ayarlı (instruction-tuned) model kullan; farkı raporla | aynı plan, daha zayıf saldırgan sınırlılık olarak not edilir |
 | CarDojo 4 haftadan uzun sürüyor | `check_suites` W11'e kadar geçmiyor | 12 araç / 10 görev / 6 enjeksiyon görevine indir | **Kapsam B (varsayılan):** küçük CarDojo + 4 aile + 2 mimari |
 | Maliyetler tahminden yüksek | 1. hafta ölçümü > 2× tahmin | Keşif hücrelerinde K'yi 2'ye düşür; ana hücreleri yalnızca açık modelde çalıştır | daha az hücre, aynı RQ'lar |
-| LLM kullanıcı simülatöründe kayma (drift) | temiz çalıştırmaların > %10'u kayma için işaretlendi | Saldırı aileleri için senaryolu (scripted) kullanıcı turları; LLM kullanıcı yalnızca E5'te | — |
+| LLM kullanıcı simülatöründe kayma (drift) | temiz çalıştırmaların > 10%'u kayma için işaretlendi | Saldırı aileleri için senaryolu (scripted) kullanıcı turları; LLM kullanıcı yalnızca E5'te | — |
 | Alan ilerliyor (CarDojo benzeri bir makale çıkıyor) | iki haftalık tazeleme bunu buluyor | Replikasyon + ölçüm denetimi olarak konumla; katkı 1, 2, 5 yeni kalır | — |
 | Yazma gecikiyor | W25'e kadar bölüm taslağı yok | ilgili çalışmaları W32'de `lit/` dosyalarından yaz | — |
 | Nisan'da planın önündeyiz | P2/P3 kapıları erken geçildi | **Kapsam C:** çok ajanlı kokpit↔servis devri (multi-CaMeL bulgusu) veya koruma olarak açık model gizli durum sondaları (hidden-state probes) | workshop makalesi |
