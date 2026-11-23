@@ -4,7 +4,7 @@ Bu klasör, tez araştırmasının (araç içi LLM ajanlarının uzun soluklu sa
 
 ## Nereden başlamalı?
 1. **`Tez Araştırması - Yan Yana TR-EN.pdf`** → hepsi tek dosyada. Solda İngilizce orijinal, sağda Türkçe çeviri, paragraf paragraf.
-2. Telefonda okuyacaksan **`yan-yana-html/index.html`** daha rahat. Dar ekranda İngilizce ve Türkçe alt alta gelir.
+2. Telefonda okuyacaksan **`yan-yana-html/index.html`** daha rahat (her belge ayrı sayfa; dar ekranda İngilizce ve Türkçe alt alta gelir). Hepsi tek sayfada: `yan-yana-html/hepsi-tek-sayfada.html`.
 3. Sadece Türkçe okumak istersen **`turkce-md/`** klasörüne bak.
 
 ## Okuma sırası (önerilen)
@@ -29,4 +29,4 @@ Bu klasör, tez araştırmasının (araç içi LLM ajanlarının uzun soluklu sa
 - **Bir çelişki görürsen İngilizce orijinal geçerlidir.** Sayılar, kaynak kimlikleri (A-15, D-09 …) ve kod çeviride aynen korundu.
 - **Prototip (R4) sayıları sentetik.** Metriklerin doğru çalıştığını gösteriyorlar; tezin kanıtı değiller.
 - **Literatür notları (`docs/research/lit/attacks.md` vb.) sadece İngilizce.** Çok uzunlar (yaklaşık 52 bin kelime) ve başvuru amaçlılar. İstersen onları da çevirebilirim.
-- Bu klasör `tools/build_bilingual.py` ile otomatik üretildi. İngilizce belge değişirse çeviri de güncellenmeli.
+- Bu klasör `tools/build_bilingual.py` (HTML) ve `tools/print_pdf.js` (PDF) ile otomatik üretildi. İngilizce belge değişirse çeviri de güncellenmeli.

@@ -1,0 +1,381 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>05 · Teknik fizibilite</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">05 · Teknik fizibilite</h1><div class="nav"><a href="04_automotive_threat_model.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="06_roadmap.html">sonraki →</a> · kaynak: <code>docs/research/05_technical_feasibility.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>05 · Technical feasibility</h1></div><div class="cell tr" lang="tr"><h1>05 · Teknik yapılabilirlik</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Everything here was checked in this environment on 18 Nov 2026 unless marked <em>estimate</em>. Detailed code-level notes: <code>lit/codebase_audit.md</code>.</p></div><div class="cell tr" lang="tr"><p>Burada yazılanların hepsi, <em>tahmin</em> olarak işaretlenmedikçe, 18 Kas 2026'da bu ortamda kontrol edildi. Kod düzeyindeki ayrıntılı notlar: <code>lit/codebase_audit.md</code>.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>1. Codebases to build on</h2></div><div class="cell tr" lang="tr"><h2>1. Üzerine inşa edilecek kod tabanları</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Codebase</th>
+<th>Licence</th>
+<th>Role in thesis</th>
+<th>Verified here</th>
+<th>Extension points</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgentDojo (<code>ethz-spylab/agentdojo</code>)</td>
+<td>MIT</td>
+<td><strong>Integration hub</strong>: suite format, state oracles, built-in attacks/defences</td>
+<td>Installed in a venv; <code>check_suites -s banking --no-check-injectable</code> passes for 16 user + 9 injection tasks <strong>without any LLM</strong> (the injectability check fails in this setup; to investigate)</td>
+<td><code>default_suites/v1/&lt;suite&gt;/{task_suite,user_tasks,injection_tasks}.py</code>, <code>data/suites/&lt;suite&gt;/{environment,injection_vectors}.yaml</code>; <code>BaseInjectionTask.security()</code> (<code>base_tasks.py</code> l. 97–125)</td>
+</tr>
+<tr>
+<td>CAR-bench (<code>CAR-bench/car-bench</code>)</td>
+<td>MIT</td>
+<td>Source of the in-car domain (tools, JSONL data, tasks, policies) and published trajectories</td>
+<td>Cloned; trajectories re-analysed for free (<code>results/carbench_noise_floor/</code>)</td>
+<td><code>car_bench/envs/base.py</code> (step loop, state hashes), <code>envs/car_voice_assistant/tools/*/set_apis</code>, <code>mock_data/data_manager.py</code>, <code>policy_evaluator.py</code></td>
+</tr>
+<tr>
+<td>AgentLAB (<code>TanqiuJiang/AgentLAB</code>)</td>
+<td>MIT</td>
+<td>Attack families and planner/attacker/judge prompts; stored task-injection results</td>
+<td>Cloned; stored results re-analysed (<code>results/agentlab_ti_budget/</code>); success criteria audited</td>
+<td>Family runners at repo root; <code>Task-Injection/agentdojo/src/agentdojo/attacks/long_horizon_attack.py</code>; <code>prompts/*.md</code></td>
+</tr>
+<tr>
+<td>CaMeL (<code>google-research/camel-prompt-injection</code>)</td>
+<td>Apache-2.0</td>
+<td>System-level defence baseline; policy engine for the own gate</td>
+<td>Cloned; policy files read</td>
+<td><code>src/camel/pipeline_elements/security_policies/&lt;suite&gt;.py</code> (100–270 lines per suite), <code>capabilities/</code>, <code>interpreter/</code></td>
+</tr>
+<tr>
+<td>carlab_mini (this repo)</td>
+<td>—</td>
+<td>Free prototype of the measurement pipeline</td>
+<td>14 tests pass; full matrix runs in &lt; 1 min on CPU</td>
+<td><code>code/carlab_mini/</code></td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Kod tabanı</th>
+<th>Lisans</th>
+<th>Tezdeki rolü</th>
+<th>Burada doğrulanan</th>
+<th>Genişletme noktaları</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgentDojo (<code>ethz-spylab/agentdojo</code>)</td>
+<td>MIT</td>
+<td><strong>Entegrasyon merkezi</strong>: suite formatı, durum oracle'ları (state oracles), yerleşik saldırılar/savunmalar</td>
+<td>Bir venv içine kuruldu; <code>check_suites -s banking --no-check-injectable</code> 16 kullanıcı + 9 enjeksiyon görevi için <strong>hiç LLM olmadan</strong> geçiyor (enjekte edilebilirlik kontrolü bu kurulumda başarısız oluyor; araştırılacak)</td>
+<td><code>default_suites/v1/&lt;suite&gt;/{task_suite,user_tasks,injection_tasks}.py</code>, <code>data/suites/&lt;suite&gt;/{environment,injection_vectors}.yaml</code>; <code>BaseInjectionTask.security()</code> (<code>base_tasks.py</code> st. 97–125)</td>
+</tr>
+<tr>
+<td>CAR-bench (<code>CAR-bench/car-bench</code>)</td>
+<td>MIT</td>
+<td>Araç içi alanın kaynağı (araçlar, JSONL verisi, görevler, politikalar) ve yayımlanmış gidişatlar (trajectories)</td>
+<td>Klonlandı; gidişatlar ücretsiz olarak yeniden analiz edildi (<code>results/carbench_noise_floor/</code>)</td>
+<td><code>car_bench/envs/base.py</code> (adım döngüsü, durum hash'leri), <code>envs/car_voice_assistant/tools/*/set_apis</code>, <code>mock_data/data_manager.py</code>, <code>policy_evaluator.py</code></td>
+</tr>
+<tr>
+<td>AgentLAB (<code>TanqiuJiang/AgentLAB</code>)</td>
+<td>MIT</td>
+<td>Saldırı aileleri ve planlayıcı/saldırgan/hakem promptları; saklanan görev enjeksiyonu sonuçları</td>
+<td>Klonlandı; saklanan sonuçlar yeniden analiz edildi (<code>results/agentlab_ti_budget/</code>); başarı kriterleri denetlendi</td>
+<td>Repo kökünde aile çalıştırıcıları; <code>Task-Injection/agentdojo/src/agentdojo/attacks/long_horizon_attack.py</code>; <code>prompts/*.md</code></td>
+</tr>
+<tr>
+<td>CaMeL (<code>google-research/camel-prompt-injection</code>)</td>
+<td>Apache-2.0</td>
+<td>Sistem düzeyinde savunma temel çizgisi (baseline); kendi kapımız için politika motoru</td>
+<td>Klonlandı; politika dosyaları okundu</td>
+<td><code>src/camel/pipeline_elements/security_policies/&lt;suite&gt;.py</code> (suite başına 100–270 satır), <code>capabilities/</code>, <code>interpreter/</code></td>
+</tr>
+<tr>
+<td>carlab_mini (bu repo)</td>
+<td>—</td>
+<td>Ölçüm hattının (pipeline) ücretsiz prototipi</td>
+<td>14 test geçiyor; tüm matris CPU'da &lt; 1 dk'da çalışıyor</td>
+<td><code>code/carlab_mini/</code></td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Recommended architecture.</strong> CarDojo = AgentDojo suite re-implementing ≈20–25 CAR-bench tools on CAR-bench data, plus three additions: driving context + speaker role in the environment, snapshot logging after every state change, and goal-specific injection tasks. This gives AgentDojo defences, CaMeL policies and AgentLAB's long-horizon task injection with no glue code. Size reference: AgentDojo banking ≈ 1,200 lines (tools 178, user tasks 571, injection tasks 418); CaMeL policy set 100–270 lines. <em>Estimate:</em> 3–5 weeks for CarDojo v0, 1 week for CaMeL policies.</p></div><div class="cell tr" lang="tr"><p><strong>Önerilen mimari.</strong> CarDojo = CAR-bench verisi üzerinde ≈20–25 CAR-bench aracını yeniden uygulayan bir AgentDojo suite'i, artı üç ekleme: ortamda sürüş bağlamı + konuşmacı rolü, her durum değişikliğinden sonra anlık görüntü (snapshot) kaydı ve hedefe özgü enjeksiyon görevleri. Bu, hiç yapıştırma kodu (glue code) yazmadan AgentDojo savunmalarını, CaMeL politikalarını ve AgentLAB'in uzun ufuklu (long-horizon) görev enjeksiyonunu kullanmayı sağlar. Boyut referansı: AgentDojo banking ≈ 1,200 satır (araçlar 178, kullanıcı görevleri 571, enjeksiyon görevleri 418); CaMeL politika seti 100–270 satır. <em>Tahmin:</em> CarDojo v0 için 3–5 hafta, CaMeL politikaları için 1 hafta.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>2. What runs where</h2></div><div class="cell tr" lang="tr"><h2>2. Ne nerede çalışır</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Free here (CPU, 4 cores, 15 GB, no GPU)</th>
+<th>Needs VW resources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carlab_mini, metrics, validity filter, statistics</td>
+<td>yes</td>
+<td>—</td>
+</tr>
+<tr>
+<td>AgentDojo / CarDojo with ground-truth pipeline (no LLM)</td>
+<td>yes</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Re-analysis of stored AgentLAB / CAR-bench results</td>
+<td>yes</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Victim agent = open model (e.g. Qwen3-30B-A3B, Llama-3.1-8B, Qwen3-32B)</td>
+<td>no (too slow on CPU)</td>
+<td>GPU with vLLM. <em>Estimate:</em> an 8B model in bf16 needs ~16 GB VRAM plus KV cache; 30B-class models need ~60+ GB in bf16 or ~20 GB quantised</td>
+</tr>
+<tr>
+<td>AgentLAB attacker (Qwen3-14B abliterated, per README)</td>
+<td>no</td>
+<td>GPU (<em>estimate</em> ~30 GB bf16) + policy approval</td>
+</tr>
+<tr>
+<td>Victim = API model (GPT/Claude/Gemini)</td>
+<td>no (paid)</td>
+<td>API budget + data-transfer approval</td>
+</tr>
+<tr>
+<td>LLM judge / LLM user simulator</td>
+<td>no (paid or GPU)</td>
+<td>as above</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Bileşen</th>
+<th>Burada ücretsiz (CPU, 4 çekirdek, 15 GB, GPU yok)</th>
+<th>VW kaynakları gerekir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>carlab_mini, metrikler, geçerlilik filtresi, istatistik</td>
+<td>evet</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Referans doğru (ground-truth) hatlı AgentDojo / CarDojo (LLM yok)</td>
+<td>evet</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Saklanan AgentLAB / CAR-bench sonuçlarının yeniden analizi</td>
+<td>evet</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Kurban ajan = açık model (ör. Qwen3-30B-A3B, Llama-3.1-8B, Qwen3-32B)</td>
+<td>hayır (CPU'da çok yavaş)</td>
+<td>vLLM'li GPU. <em>Tahmin:</em> bf16'da 8B'lik bir model KV önbelleğine ek olarak ~16 GB VRAM ister; 30B sınıfı modeller bf16'da ~60+ GB veya nicemlenmiş (quantised) halde ~20 GB ister</td>
+</tr>
+<tr>
+<td>AgentLAB saldırganı (README'ye göre Qwen3-14B abliterated)</td>
+<td>hayır</td>
+<td>GPU (<em>tahmin</em> ~30 GB bf16) + politika onayı</td>
+</tr>
+<tr>
+<td>Kurban = API modeli (GPT/Claude/Gemini)</td>
+<td>hayır (ücretli)</td>
+<td>API bütçesi + veri aktarımı onayı</td>
+</tr>
+<tr>
+<td>LLM hakem / LLM kullanıcı simülatörü</td>
+<td>hayır (ücretli veya GPU)</td>
+<td>yukarıdaki gibi</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>3. Cost model (no money has been spent)</h2></div><div class="cell tr" lang="tr"><h2>3. Maliyet modeli (hiç para harcanmadı)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Measured inputs (from CAR-bench's published logs, <code>info.total_agent_cost</code> and <code>info.user_cost</code>, clean episodes, prices at the authors' run time):</p></div><div class="cell tr" lang="tr"><p>Ölçülmüş girdiler (CAR-bench'in yayımlanmış loglarından, <code>info.total_agent_cost</code> ve <code>info.user_cost</code>, temiz bölümler (episodes), yazarların çalıştırma zamanındaki fiyatlar):</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Agent model in CAR-bench logs</th>
+<th>Mean agent cost per clean episode</th>
+<th>Median prompt tokens (last call)</th>
+<th>Median LLM latency per episode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>$0.087–0.118</td>
+<td>≈14.5k</td>
+<td>≈18 s</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6 (thinking, medium)</td>
+<td>$0.138–0.171</td>
+<td>≈14.4k</td>
+<td>≈17–25 s</td>
+</tr>
+<tr>
+<td>GPT-5.2 (thinking, medium)</td>
+<td>$0.048–0.067</td>
+<td>≈9.3k</td>
+<td>≈22–29 s</td>
+</tr>
+<tr>
+<td>Gemini 2.5 Flash as user simulator</td>
+<td>≈$0.0007–0.0014</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Open models (Qwen3-32B, gpt-oss-120b, xLAM-2-32b)</td>
+<td>$0 recorded (self-hosted)</td>
+<td>8–14k</td>
+<td>6–340 s (hardware-dependent)</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>CAR-bench loglarındaki ajan modeli</th>
+<th>Temiz bölüm başına ortalama ajan maliyeti</th>
+<th>Medyan prompt token sayısı (son çağrı)</th>
+<th>Bölüm başına medyan LLM gecikmesi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Sonnet 4.6</td>
+<td>$0.087–0.118</td>
+<td>≈14.5k</td>
+<td>≈18 s</td>
+</tr>
+<tr>
+<td>Claude Opus 4.6 (thinking, medium)</td>
+<td>$0.138–0.171</td>
+<td>≈14.4k</td>
+<td>≈17–25 s</td>
+</tr>
+<tr>
+<td>GPT-5.2 (thinking, medium)</td>
+<td>$0.048–0.067</td>
+<td>≈9.3k</td>
+<td>≈22–29 s</td>
+</tr>
+<tr>
+<td>Kullanıcı simülatörü olarak Gemini 2.5 Flash</td>
+<td>≈$0.0007–0.0014</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Açık modeller (Qwen3-32B, gpt-oss-120b, xLAM-2-32b)</td>
+<td>$0 kaydedildi (kendi sunucumuzda)</td>
+<td>8–14k</td>
+<td>6–340 s (donanıma bağlı)</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Formula (<em>estimate</em>): $C = N_{ep} \cdot (c_{agent}\, m + c_{user} + c_{att} + c_{judge})$, where $m$ is the episode-length multiplier for attacked runs (multi-turn attacks; <em>assume</em> 1.5–3×), $c_{att}$ the attacker LLM per episode and $c_{judge}$ the judge.</p></div><div class="cell tr" lang="tr"><p>Formül (<em>tahmin</em>): $C = N_{ep} \cdot (c_{agent}\, m + c_{user} + c_{att} + c_{judge})$; burada $m$ saldırılı çalıştırmalar için bölüm uzunluğu çarpanı (çok turlu saldırılar; 1.5–3× <em>varsayalım</em>), $c_{att}$ bölüm başına saldırgan LLM ve $c_{judge}$ hakemdir.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Worked example for E3 (<em>estimate</em>, to be replaced by a week-1 measurement): 6,480 attacked + 6,480 clean episodes. If one third run on an API model at $0.05–0.17 per clean episode and attacked episodes cost 2× → API agent cost ≈ 2,160 × $0.05–0.17 + 2,160 × 2 × $0.05–0.17 ≈ <strong>$320–1,100</strong>; the open-model two thirds cost GPU time only. Judges/attackers on open models add GPU time; on APIs they add a comparable amount again. <strong>No paid call will be made without your explicit OK and a measured per-episode cost.</strong></p></div><div class="cell tr" lang="tr"><p>E3 için çözümlü örnek (<em>tahmin</em>, 1. hafta ölçümüyle değiştirilecek): 6,480 saldırılı + 6,480 temiz bölüm. Üçte biri temiz bölüm başına $0.05–0.17 maliyetli bir API modelinde çalışırsa ve saldırılı bölümler 2× maliyetliyse → API ajan maliyeti ≈ 2,160 × $0.05–0.17 + 2,160 × 2 × $0.05–0.17 ≈ <strong>$320–1,100</strong>; açık modeldeki üçte ikilik kısım yalnızca GPU zamanına mal olur. Açık modellerdeki hakemler/saldırganlar GPU zamanı ekler; API'lerde ise yine benzer bir miktar eklerler. <strong>Senin açık onayın ve ölçülmüş bölüm başı maliyet olmadan hiçbir ücretli çağrı yapılmayacak.</strong></p></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Cheapest credible configuration: open-model victim + open attacker + state oracles (no LLM judge needed for final scoring) on one VW GPU; one API model only for a 300-pair external check.</p></div><div class="cell tr" lang="tr"><p>En ucuz inandırıcı yapılandırma: tek bir VW GPU'sunda açık model kurban + açık saldırgan + durum oracle'ları (nihai puanlama için LLM hakem gerekmez); 300 çiftlik dış kontrol için yalnızca bir API modeli.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>4. Engineering risks</h2></div><div class="cell tr" lang="tr"><h2>4. Mühendislik riskleri</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Evidence</th>
+<th>Mitigation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgentDojo injectability check fails in a fresh venv</td>
+<td>observed here</td>
+<td>investigate before CarDojo (probably data-path/canary handling); not blocking ground-truth checks</td>
+</tr>
+<tr>
+<td>AgentLAB runners need conda envs, vLLM, GPT-5.1 for planner/judge</td>
+<td>README</td>
+<td>use only the task-injection path (AgentDojo-based) first; replace GPT-5.1 judge with state oracles where possible</td>
+</tr>
+<tr>
+<td>CAR-bench needs an LLM user simulator in every run</td>
+<td>code + logs</td>
+<td>scripted user turns for attack families; LLM user only for external validity</td>
+</tr>
+<tr>
+<td>Python 3.13 here vs repos targeting 3.10–3.11</td>
+<td>READMEs</td>
+<td>pin a 3.11 environment at VW</td>
+</tr>
+<tr>
+<td>Model drift (API versions)</td>
+<td>general</td>
+<td>pin model IDs and dates; keep one open model as the reproducible anchor</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Kanıt</th>
+<th>Önlem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AgentDojo enjekte edilebilirlik kontrolü yeni bir venv'de başarısız oluyor</td>
+<td>burada gözlemlendi</td>
+<td>CarDojo'dan önce araştır (muhtemelen veri yolu/canary işleme); referans doğru kontrollerini engellemiyor</td>
+</tr>
+<tr>
+<td>AgentLAB çalıştırıcıları conda ortamları, vLLM, planlayıcı/hakem için GPT-5.1 istiyor</td>
+<td>README</td>
+<td>önce yalnızca görev enjeksiyonu yolunu (AgentDojo tabanlı) kullan; mümkün olan yerde GPT-5.1 hakemini durum oracle'larıyla değiştir</td>
+</tr>
+<tr>
+<td>CAR-bench her çalıştırmada bir LLM kullanıcı simülatörü istiyor</td>
+<td>kod + loglar</td>
+<td>saldırı aileleri için senaryolu (scripted) kullanıcı turları; LLM kullanıcı yalnızca dış geçerlilik için</td>
+</tr>
+<tr>
+<td>Burada Python 3.13, repolar ise 3.10–3.11'i hedefliyor</td>
+<td>README'ler</td>
+<td>VW'de 3.11 ortamını sabitle</td>
+</tr>
+<tr>
+<td>Model kayması (API sürümleri)</td>
+<td>genel</td>
+<td>model ID'lerini ve tarihlerini sabitle; yeniden üretilebilir çapa olarak bir açık modeli tut</td>
+</tr>
+</tbody>
+</table></div></div></main></body></html>

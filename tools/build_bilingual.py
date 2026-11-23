@@ -45,11 +45,12 @@ h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;m
   position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
 .row.long{break-inside:auto}
-.cell{min-width:0;overflow-wrap:anywhere;padding:2px 8px;border-radius:4px}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
 .cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
 .row.same .cell{grid-column:1/-1;background:transparent}
 table{border-collapse:collapse;width:100%;font-size:11.5px}
-th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
 pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
 code{font-size:0.92em}
 h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
@@ -148,7 +149,7 @@ def main():
              '<p>Sol sütun: İngilizce orijinal. Sağ sütun: Türkçe çeviri. Sayılar, kaynak kimlikleri (A-15, D-09 …) '
              've kod aynen korunmuştur. Bir çelişki görürsen <b>İngilizce orijinal geçerlidir</b>.</p><ol>'
              + "".join(f'<li><a href="#{s}">{html.escape(t)}</a></li>' for s, t, _ in toc) + "</ol></div>")
-    open(os.path.join(ROOT, "_print.html"), "w", encoding="utf-8").write(page("Tez Araştırması TR-EN", cover + "\n".join(sections)))
+    open(os.path.join(OUT_DIR, "hepsi-tek-sayfada.html"), "w", encoding="utf-8").write(page("Tez Araştırması TR-EN", cover + "\n".join(sections)))
     index = ('<div class="cover"><h1>Tez Araştırması — İngilizce | Türkçe yan yana</h1><p>Okuma sırası:</p><ol>'
              + "".join(f'<li><a href="{s}.html">{html.escape(t)}</a></li>' for s, t, _ in toc) + "</ol></div>")
     open(os.path.join(OUT_DIR, "index.html"), "w", encoding="utf-8").write(page("İçindekiler", index))

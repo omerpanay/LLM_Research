@@ -1,0 +1,213 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02 · Sıralanmış araştırma boşlukları</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">02 · Sıralanmış araştırma boşlukları</h1><div class="nav"><a href="01_state_of_the_field.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="03_thesis_design.html">sonraki →</a> · kaynak: <code>docs/research/02_gaps_ranked.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>02 · The strongest gaps the thesis can fill (ranked)</h1></div><div class="cell tr" lang="tr"><h1>02 · Tezin doldurabileceği en güçlü boşluklar (sıralı)</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Scoring: Novelty (N), Feasibility within 8 months on VW resources (F), Fit with VW's automotive focus (V), each 1–5; score = N × F × V (max 125). "Closest work" = newest work found that narrows the gap (checked 18–19 Nov 2026). Every gap must be re-searched every two weeks (<code>06_roadmap.md</code>).</p></div><div class="cell tr" lang="tr"><p>Puanlama: Yenilik (Novelty, N), VW kaynaklarıyla 8 ay içinde yapılabilirlik (Feasibility, F), VW'nin otomotiv odağıyla uyum (Fit, V); her biri 1–5 arası; puan = N × F × V (en fazla 125). "En yakın çalışma" = boşluğu daraltan, bulunan en yeni çalışma (18–19 Kasım 2026'da kontrol edildi). Her boşluk iki haftada bir yeniden araştırılmalı (<code>06_roadmap.md</code>).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Gap</th>
+<th>N</th>
+<th>F</th>
+<th>V</th>
+<th>Score</th>
+<th>Closest existing work (why it does not close the gap)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Long-horizon attacks on an in-vehicle agent with state/snapshot oracles</strong> (CarDojo) — incl. instruction-free POI tampering, cross-session memory, transient unsafe states, passenger authority</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td><strong>100</strong></td>
+<td>CAR-bench (no attacker, V-01); From Intent to Action (single-turn, V-02); AgentLAB (no vehicle, A-01); Gemini calendar attacks (phone/web, V-08). Highest score but depends on CarDojo engineering (P1 gate).</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Validity-first measurement of agent attacks</strong> — a protocol (paired/placebo controls, task contracts, budget matching, judge correction, snapshot oracles) plus an audit showing how much of published long-horizon ASR survives it</td>
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td><strong>80</strong></td>
+<td>ASB re-analysis (E-01, one benchmark, one artifact); executable task contracts (E-45, perturbation tasks); Rogan–Gladen for judges (E-25, ICML 2026, chatbot judgments); Coin Flip (E-16, jailbreak judges). None audits AgentLAB, none combines these controls for multi-turn agent attacks. Own measurements already show the effect (<code>results/</code>).</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Budget-matched comparison of one-shot vs long-horizon attacks</strong> (attempts, turns, queries) and session semantics (fresh vs persistent)</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td><strong>60</strong></td>
+<td>Adaptive Adversaries (A-05: fresh-session defender, 15 rounds); AgentLAB (A-01: turn curves, but N-attempt aggregation). Can be done partly for free from AgentLAB's stored results; full version needs runs.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Vehicle-state-aware provenance gate under adaptive + long-horizon attack, priced in driver interaction</strong></td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+<td><strong>60</strong></td>
+<td>CaMeL/ROPE/Progent (no vehicle state; no strong adaptive long-horizon test, D-01/D-09/D-19); AgentSpec AV rules (D-24, no attacks); SPIDES approvals with ideal approver (D-07). Novel combination: vehicle state + decision provenance + confirmation budget.</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Judge and guard reliability on long agent traces — including decision models (JEV)</strong> and attacks on the judge itself</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+<td><strong>45</strong></td>
+<td>JEV trace study (E-40: retrospective classification, not inside an attacked loop); Datadog counterfeit policy (E-41, vendor); R-Judge/AgentAuditor (short traces). Small, well-bounded sub-question (RQ1a).</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Sıra</th>
+<th>Boşluk</th>
+<th>N</th>
+<th>F</th>
+<th>V</th>
+<th>Puan</th>
+<th>Mevcut en yakın çalışma (boşluğu neden kapatmıyor)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td><strong>Durum/anlık görüntü (state/snapshot) oracle'larıyla araç içi bir ajana uzun ufuklu (long-horizon) saldırılar</strong> (CarDojo) — talimatsız POI kurcalama (instruction-free POI tampering), oturumlar arası bellek, geçici güvensiz durumlar ve yolcu yetkisi dahil</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td><strong>100</strong></td>
+<td>CAR-bench (saldırgan yok, V-01); From Intent to Action (tek turlu, V-02); AgentLAB (araç yok, A-01); Gemini takvim saldırıları (telefon/web, V-08). Puanı en yüksek, ama CarDojo mühendisliğine bağlı (P1 kapısı).</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Ajan saldırılarının geçerlilik öncelikli (validity-first) ölçümü</strong> — bir protokol (eşli/plasebo kontroller, görev sözleşmeleri, bütçe eşleme, yargıç düzeltmesi, anlık görüntü oracle'ları) ve yayımlanmış uzun ufuklu ASR'nin ne kadarının bu protokolden sağ çıktığını gösteren bir denetim</td>
+<td>4</td>
+<td>5</td>
+<td>4</td>
+<td><strong>80</strong></td>
+<td>ASB yeniden analizi (E-01, tek benchmark, tek artefakt); çalıştırılabilir görev sözleşmeleri (E-45, pertürbasyon görevleri); yargıçlar için Rogan–Gladen (E-25, ICML 2026, sohbet botu yargıları); Coin Flip (E-16, jailbreak yargıçları). Hiçbiri AgentLAB'i denetlemiyor; hiçbiri bu kontrolleri çok turlu ajan saldırıları için birleştirmiyor. Kendi ölçümlerimiz etkiyi zaten gösteriyor (<code>results/</code>).</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Tek atışlık (one-shot) ve uzun ufuklu saldırıların bütçe eşlemeli karşılaştırması</strong> (denemeler, turlar, sorgular) ve oturum semantiği (taze ve kalıcı oturum)</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td><strong>60</strong></td>
+<td>Adaptive Adversaries (A-05: taze oturumlu savunucu, 15 tur); AgentLAB (A-01: tur eğrileri var, ama N-denemelik birleştirme). Kısmen AgentLAB'in saklanan sonuçlarından ücretsiz yapılabilir; tam sürümü için çalıştırma gerekir.</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong>Uyarlanabilir (adaptive) + uzun ufuklu saldırı altında, sürücü etkileşimiyle fiyatlandırılmış, araç durumunu bilen köken kapısı (provenance gate)</strong></td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+<td><strong>60</strong></td>
+<td>CaMeL/ROPE/Progent (araç durumu yok; güçlü uyarlanabilir uzun ufuklu test yok, D-01/D-09/D-19); AgentSpec AV kuralları (D-24, saldırı yok); ideal onaylayıcı varsayan SPIDES onayları (D-07). Yeni kombinasyon: araç durumu + karar kökeni + onay bütçesi.</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong>Uzun ajan izlerinde yargıç ve koruyucu (judge/guard) güvenilirliği — karar modelleri (JEV) dahil</strong> ve yargıcın kendisine yönelik saldırılar</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+<td><strong>45</strong></td>
+<td>JEV iz çalışması (E-40: geriye dönük sınıflandırma, saldırı altındaki bir döngünün içinde değil); Datadog sahte politika (E-41, satıcı); R-Judge/AgentAuditor (kısa izler). Küçük, sınırları belli bir alt soru (RQ1a).</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Recommendation</h2></div><div class="cell tr" lang="tr"><h2>Öneri</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Build the thesis on <strong>ranks 1 + 2</strong> as the core (the validity-first measurement protocol applied to a new in-car long-horizon attack suite), with <strong>rank 4</strong> (vehicle-state-aware gate) as the Defense chapter and <strong>ranks 3 and 5</strong> (budget matching; judge/JEV reliability) as bounded sub-questions inside the Evaluate chapter. This is robust to the main risk: if CarDojo slips (rank 1), the measurement protocol (rank 2) and budget matching (rank 3) still deliver a publishable measurement study on existing artefacts (Scope A in <code>06_roadmap.md</code>). Ties are ordered by feasibility.</p></div><div class="cell tr" lang="tr"><p>Tezi çekirdek olarak <strong>sıra 1 + 2</strong> üzerine kur (yeni bir araç içi uzun ufuklu saldırı paketine uygulanan geçerlilik öncelikli ölçüm protokolü). <strong>Sıra 4</strong> (araç durumunu bilen kapı) Savunma (Defense) bölümü olsun. <strong>Sıra 3 ve 5</strong> (bütçe eşleme; yargıç/JEV güvenilirliği) Değerlendirme (Evaluate) bölümünün içinde sınırlı alt sorular olsun. Bu plan ana riske karşı sağlamdır: CarDojo gecikirse (sıra 1), ölçüm protokolü (sıra 2) ve bütçe eşleme (sıra 3) yine de mevcut artefaktlar üzerinde yayımlanabilir bir ölçüm çalışması çıkarır (<code>06_roadmap.md</code> içindeki Scope A). Eşit puanlar yapılabilirliğe göre sıralanır.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Gaps considered and deprioritised</h2></div><div class="cell tr" lang="tr"><h2>Değerlendirilen ama öncelik verilmeyen boşluklar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Why not (now)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Physical/acoustic injection into in-car agents</td>
+<td>out of scope (no real vehicles); simulation would be unconvincing (V-07, A-48 are hardware results)</td>
+</tr>
+<tr>
+<td>Cockpit → driving agent cascades (VW CEA 2.0)</td>
+<td>highly relevant for VW but needs a credible two-domain testbed; Scope C extension</td>
+</tr>
+<tr>
+<td>Model-level training defences (SecAlign-style)</td>
+<td>requires GPU training budget; repeatedly broken adaptively (D-39–D-42)</td>
+</tr>
+<tr>
+<td>New jailbreak techniques</td>
+<td>crowded; not agent-specific</td>
+</tr>
+<tr>
+<td>Hidden-state probes as guards (D-34)</td>
+<td>open models only; good optional extension if GPUs are available</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Boşluk</th>
+<th>Neden (şimdilik) değil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Araç içi ajanlara fiziksel/akustik enjeksiyon</td>
+<td>kapsam dışı (gerçek araç yok); simülasyon ikna edici olmaz (V-07, A-48 donanım sonuçları)</td>
+</tr>
+<tr>
+<td>Kokpit → sürüş ajanı zincirleme etkileri (VW CEA 2.0)</td>
+<td>VW için çok önemli ama inandırıcı, iki alanlı bir test ortamı gerekir; Scope C uzantısı</td>
+</tr>
+<tr>
+<td>Model düzeyinde eğitim savunmaları (SecAlign tarzı)</td>
+<td>GPU eğitim bütçesi gerekir; uyarlanabilir saldırılarla defalarca kırıldı (D-39–D-42)</td>
+</tr>
+<tr>
+<td>Yeni jailbreak teknikleri</td>
+<td>çok kalabalık bir alan; ajana özgü değil</td>
+</tr>
+<tr>
+<td>Koruyucu olarak gizli durum yoklamaları (hidden-state probes) (D-34)</td>
+<td>yalnızca açık modeller; GPU varsa iyi bir isteğe bağlı uzantı</td>
+</tr>
+</tbody>
+</table></div></div></main></body></html>

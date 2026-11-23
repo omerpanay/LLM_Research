@@ -1,0 +1,215 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R1 · Ölçüm: AgentLAB deneme bütçesi</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">R1 · Ölçüm: AgentLAB deneme bütçesi</h1><div class="nav"><a href="10_codebase_audit.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="R2_agentdojo_clean_oracle_floor.html">sonraki →</a> · kaynak: <code>results/agentlab_ti_budget/README.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>AgentLAB task injection: how much of the ASR is attacker retries?</h1></div><div class="cell tr" lang="tr"><h1>AgentLAB görev enjeksiyonu: saldırı başarı oranının (attack success rate, ASR) ne kadarı saldırganın yeniden denemelerinden geliyor?</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Data.</strong> AgentLAB's public repository (<code>github.com/TanqiuJiang/AgentLAB</code>, commit <code>36f58e6</code>, 31 May 2026, MIT) ships per-attempt results of its long-horizon task-injection attack under <code>Task-Injection/agentdojo/res/long_horizon/</code>. The attack runs on AgentDojo, whose <code>security</code> check reads the <strong>environment state</strong> (an oracle, not an LLM judge). Each line of <code>results.jsonl</code> is one attempt (an injection snippet iteration/variant) for one user_task × injection_task pair, with <code>security_passed</code> (attacker goal reached in the environment) and <code>utility_passed</code>.</p></div><div class="cell tr" lang="tr"><p><strong>Veri.</strong> AgentLAB'in herkese açık reposu (<code>github.com/TanqiuJiang/AgentLAB</code>, commit <code>36f58e6</code>, 31 May 2026, MIT), uzun ufuklu (long-horizon) görev enjeksiyonu (task injection) saldırısının deneme başına sonuçlarını <code>Task-Injection/agentdojo/res/long_horizon/</code> altında sunuyor. Saldırı AgentDojo üzerinde çalışıyor; AgentDojo'nun <code>security</code> kontrolü <strong>ortam durumunu</strong> okuyor (bir LLM hakemi değil, bir oracle). <code>results.jsonl</code>'nin her satırı, bir user_task × injection_task çifti için bir denemedir (bir enjeksiyon parçacığı (snippet) iterasyonu/varyantı); <code>security_passed</code> (saldırgan hedefine ortamda ulaşıldı) ve <code>utility_passed</code> alanlarını içerir.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Script.</strong> <code>python3 -I tools/agentlab_ti_attempts.py third_party/AgentLAB/Task-Injection/agentdojo/res/long_horizon results/agentlab_ti_budget</code> → <code>ti_attempt_budget.csv</code>.</p></div><div class="cell tr" lang="tr"><p><strong>Betik.</strong> <code>python3 -I tools/agentlab_ti_attempts.py third_party/AgentLAB/Task-Injection/agentdojo/res/long_horizon results/agentlab_ti_budget</code> → <code>ti_attempt_budget.csv</code>.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p>A pair counts as compromised within budget <em>b</em> if any of its first <em>b</em> stored attempts succeeded (attempts taken in stored order).</p></div><div class="cell tr" lang="tr"><p>Bir çift, saklanan ilk <em>b</em> denemesinden herhangi biri başarılı olduysa <em>b</em> bütçesi içinde ele geçirilmiş sayılır (denemeler saklandıkları sırayla alınır).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Result (banking suite, 144 pairs, as stored in the repo)</h2></div><div class="cell tr" lang="tr"><h2>Sonuç (banking suite'i, 144 çift, repoda saklandığı haliyle)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Model folder</th>
+<th>attempts per pair (median / max)</th>
+<th>ASR at 1 attempt</th>
+<th>ASR at 3</th>
+<th>ASR at 5</th>
+<th>ASR, any attempt</th>
+<th>AgentLAB paper value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt-4o</td>
+<td>3 / 10</td>
+<td>32.6%</td>
+<td>59.0%</td>
+<td>70.1%</td>
+<td><strong>79.9%</strong></td>
+<td>79.9% (Tables 2–3, long-horizon)</td>
+</tr>
+<tr>
+<td>meta-llama_Llama-3.3-70B-Instruct</td>
+<td>1 / 15</td>
+<td><strong>50.7%</strong></td>
+<td>75.0%</td>
+<td>81.9%</td>
+<td><strong>86.8%</strong></td>
+<td>86.8% long-horizon; 50.7% one-shot (Table 3)</td>
+</tr>
+<tr>
+<td>Qwen3-235B-A22B</td>
+<td>1 / 10</td>
+<td>72.2%</td>
+<td>85.4%</td>
+<td>90.3%</td>
+<td><strong>93.1%</strong></td>
+<td>93.1% (Table 3)</td>
+</tr>
+<tr>
+<td>gpt-5.1</td>
+<td>12 / 13</td>
+<td>0.7%</td>
+<td>6.9%</td>
+<td>9.7%</td>
+<td>22.9%</td>
+<td>21.5% (Table 2)</td>
+</tr>
+<tr>
+<td>gpt-5.1 + repeat_user_prompt</td>
+<td>10 / 12</td>
+<td>1.4%</td>
+<td>6.2%</td>
+<td>12.5%</td>
+<td><strong>20.8%</strong></td>
+<td>20.8% (Table 4, RP)</td>
+</tr>
+<tr>
+<td>gpt-5.1 + transformers_pi_detector</td>
+<td>10 / 10</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td>0.7%</td>
+<td><strong>2.8%</strong></td>
+<td>2.8% (Table 4, DD)</td>
+</tr>
+<tr>
+<td>claude-sonnet-4-5</td>
+<td>12 / 17</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td><strong>0.0%</strong></td>
+<td>0.0% (Table 2)</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Model klasörü</th>
+<th>çift başına deneme (medyan / maks)</th>
+<th>1 denemede ASR</th>
+<th>3'te ASR</th>
+<th>5'te ASR</th>
+<th>ASR, herhangi bir deneme</th>
+<th>AgentLAB makalesindeki değer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt-4o</td>
+<td>3 / 10</td>
+<td>32.6%</td>
+<td>59.0%</td>
+<td>70.1%</td>
+<td><strong>79.9%</strong></td>
+<td>79.9% (Tablo 2–3, uzun ufuklu)</td>
+</tr>
+<tr>
+<td>meta-llama_Llama-3.3-70B-Instruct</td>
+<td>1 / 15</td>
+<td><strong>50.7%</strong></td>
+<td>75.0%</td>
+<td>81.9%</td>
+<td><strong>86.8%</strong></td>
+<td>86.8% uzun ufuklu; 50.7% tek atış (Tablo 3)</td>
+</tr>
+<tr>
+<td>Qwen3-235B-A22B</td>
+<td>1 / 10</td>
+<td>72.2%</td>
+<td>85.4%</td>
+<td>90.3%</td>
+<td><strong>93.1%</strong></td>
+<td>93.1% (Tablo 3)</td>
+</tr>
+<tr>
+<td>gpt-5.1</td>
+<td>12 / 13</td>
+<td>0.7%</td>
+<td>6.9%</td>
+<td>9.7%</td>
+<td>22.9%</td>
+<td>21.5% (Tablo 2)</td>
+</tr>
+<tr>
+<td>gpt-5.1 + repeat_user_prompt</td>
+<td>10 / 12</td>
+<td>1.4%</td>
+<td>6.2%</td>
+<td>12.5%</td>
+<td><strong>20.8%</strong></td>
+<td>20.8% (Tablo 4, RP)</td>
+</tr>
+<tr>
+<td>gpt-5.1 + transformers_pi_detector</td>
+<td>10 / 10</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td>0.7%</td>
+<td><strong>2.8%</strong></td>
+<td>2.8% (Tablo 4, DD)</td>
+</tr>
+<tr>
+<td>claude-sonnet-4-5</td>
+<td>12 / 17</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td>0.0%</td>
+<td><strong>0.0%</strong></td>
+<td>0.0% (Tablo 2)</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Bold any-attempt values match the paper's reported numbers exactly; the GPT-5.1 any-attempt value (22.9%) is close to, but not identical with, the paper's 21.5%. The gpt-4o <code>summary_results.txt</code> also states that 111 of the 115 successful pairs were carried over ("skipped") from previous runs, so the final number aggregates several runs.</p></div><div class="cell tr" lang="tr"><p>Kalın yazılmış herhangi-bir-deneme değerleri makalede raporlanan sayılarla birebir eşleşiyor; GPT-5.1'in herhangi-bir-deneme değeri (22.9%) makaledeki 21.5%'e yakın ama onunla aynı değil. gpt-4o'nun <code>summary_results.txt</code> dosyası ayrıca 115 başarılı çiftin 111'inin önceki çalıştırmalardan aktarıldığını ("skipped") belirtiyor; yani nihai sayı birkaç çalıştırmayı bir araya topluyor.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>What it shows (observation vs. inference)</h2></div><div class="cell tr" lang="tr"><h2>Ne gösteriyor (gözlem ve çıkarım)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li><strong>Observation:</strong> the published long-horizon task-injection ASRs are <strong>any-success-within-N-attempts</strong> rates, with N up to 10–17 attempts per pair, aggregated across runs.</li>
+<li><strong>Observation:</strong> at a budget of one attempt, GPT-4o's long-horizon ASR in these files is 32.6%, below the paper's one-shot baseline for GPT-4o (62.5%, Table 3). It passes 62.5% only between 3 and 5 attempts.</li>
+<li><strong>Observation:</strong> for Llama-3.3-70B, the paper's "one-shot" value (50.7%) equals the long-horizon attack's first-attempt ASR in these files, which suggests (Inference) that the paper's one-shot vs long-horizon comparison is a 1-attempt vs N-attempt comparison for that model.</li>
+<li><strong>Inference:</strong> part of the "long-horizon attacks are stronger" effect may be an <strong>attack-budget</strong> effect. Budget-matched comparison (same number of attempts, or same number of victim queries) is needed before attributing the gain to multi-step structure. This is a direct instance of the supervisor's "is this really an attack?" question, and it is measurable for free from the authors' own files.</li>
+<li><strong>Not a criticism of the oracle:</strong> success here is read from environment state, which is the most reliable kind of measurement. The issue is how attempts are aggregated, not how a single attempt is judged.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li><strong>Gözlem:</strong> yayımlanan uzun ufuklu görev enjeksiyonu ASR'leri <strong>N deneme içinde herhangi bir başarı</strong> oranlarıdır; N çift başına 10–17 denemeye kadar çıkıyor ve sonuçlar çalıştırmalar arasında toplanıyor.</li>
+<li><strong>Gözlem:</strong> bir denemelik bütçede, bu dosyalarda GPT-4o'nun uzun ufuklu ASR'si 32.6%; bu, makalenin GPT-4o için tek atış temel değerinin (62.5%, Tablo 3) altında. 62.5%'i ancak 3 ile 5 deneme arasında geçiyor.</li>
+<li><strong>Gözlem:</strong> Llama-3.3-70B için makalenin "tek atış" değeri (50.7%), bu dosyalardaki uzun ufuklu saldırının ilk deneme ASR'sine eşit; bu da (Çıkarım) makalenin tek atış ile uzun ufuklu karşılaştırmasının o model için 1 deneme ile N deneme karşılaştırması olduğunu düşündürüyor.</li>
+<li><strong>Çıkarım:</strong> "uzun ufuklu saldırılar daha güçlü" etkisinin bir kısmı bir <strong>saldırı bütçesi</strong> etkisi olabilir. Kazancı çok adımlı yapıya bağlamadan önce bütçesi eşitlenmiş bir karşılaştırma (aynı deneme sayısı veya aynı kurban sorgusu sayısı) gerekiyor. Bu, danışmanın "bu gerçekten bir saldırı mı?" sorusunun doğrudan bir örneği ve yazarların kendi dosyalarından ücretsiz olarak ölçülebilir.</li>
+<li><strong>Oracle'a yönelik bir eleştiri değil:</strong> burada başarı ortam durumundan okunuyor; bu, en güvenilir ölçüm türüdür. Sorun tek bir denemenin nasıl değerlendirildiği değil, denemelerin nasıl toplandığı.</li>
+</ul></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Caveats</h2></div><div class="cell tr" lang="tr"><h2>Uyarılar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>Stored order is assumed to be chronological (snippet <code>iter_i_vj</code>). Pairs carried over from earlier runs may have their history truncated; the curve is therefore a lower bound on early-budget ASR only if earlier attempts are missing. Confirm with the authors.</li>
+<li>Folders <code>gpt-4o-backip</code>, <code>gpt-4o-backup-0120</code>, and suite-named folders (<code>banking</code>, <code>slack</code>, <code>travel</code>, <code>workspace</code>) are other runs/backups whose model is not stated; they are listed in the CSV but not interpreted.</li>
+<li>One-shot baseline numbers are from the paper (Table 3), not from these files.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>Saklanan sıranın kronolojik olduğu varsayılıyor (parçacık <code>iter_i_vj</code>). Önceki çalıştırmalardan aktarılan çiftlerin geçmişi kırpılmış olabilir; bu nedenle eğri, yalnızca daha önceki denemeler eksikse erken bütçe ASR'si için bir alt sınırdır. Yazarlarla teyit et.</li>
+<li><code>gpt-4o-backip</code>, <code>gpt-4o-backup-0120</code> klasörleri ve suite adlı klasörler (<code>banking</code>, <code>slack</code>, <code>travel</code>, <code>workspace</code>) modeli belirtilmemiş başka çalıştırmalar/yedeklerdir; CSV'de listeleniyorlar ama yorumlanmıyorlar.</li>
+<li>Tek atış temel değerleri bu dosyalardan değil, makaleden (Tablo 3) alınmıştır.</li>
+</ul></div></div></main></body></html>

@@ -1,0 +1,336 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>00 · İndeks ve yönetici özeti</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">00 · İndeks ve yönetici özeti</h1><div class="nav"><a href="index.html">içindekiler</a> · <a href="01_state_of_the_field.html">sonraki →</a> · kaynak: <code>docs/research/00_INDEX.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>00 · Index and executive summary</h1></div><div class="cell tr" lang="tr"><h1>00 · İçindekiler ve yönetici özeti</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Research pass for Ömer's thesis <em>Robustness of agentic AI to adversarial attacks — long-horizon, in-vehicle agents, across agent architectures</em> (VW AG, Digital Architecture Concepts, Nov 2026 – Jul 2027). Produced 18–19 Nov 2026. Everything is in English; the summary to Ömer is in Turkish (chat).</p></div><div class="cell tr" lang="tr"><p>Ömer'in tezi için araştırma turu: <em>Ajan tabanlı yapay zekânın düşmanca saldırılara karşı dayanıklılığı (robustness) — uzun ufuklu (long-horizon), araç içi ajanlar, farklı ajan mimarilerinde</em> (VW AG, Digital Architecture Concepts, Kas 2026 – Tem 2027). 18–19 Kas 2026'da hazırlandı. Her şey İngilizce; Ömer'e verilen özet Türkçe (sohbette).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Executive summary (one page)</h2></div><div class="cell tr" lang="tr"><h2>Yönetici özeti (tek sayfa)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>The field.</strong> Attacks on tool-using LLM agents are easy and well replicated; defences that ask a model to resist break under adaptive attack; deterministic system-level defences hold on today's benchmarks but cost a lot of utility and have never faced strong adaptive long-horizon attackers. The weakest link is <strong>measurement</strong>: harness artifacts, invalid test cases, judge errors, retries and ordinary agent failure distort reported attack success. No benchmark combines in-car tools, a multi-turn attacker, vehicle state and state-based oracles. (<code>01_state_of_the_field.md</code>)</p></div><div class="cell tr" lang="tr"><p><strong>Alan.</strong> Araç kullanan LLM ajanlarına yönelik saldırılar kolay ve defalarca tekrarlanmış; modelden direnmesini isteyen savunmalar uyarlanabilir saldırı (adaptive attack) altında çöküyor; deterministik, sistem düzeyindeki savunmalar bugünkü benchmark'larda dayanıyor ama çok fayda (utility) kaybına yol açıyor ve hiç güçlü, uyarlanabilir, uzun ufuklu saldırganlarla karşılaşmadı. En zayıf halka <strong>ölçüm</strong>: test düzeneği artefaktları, geçersiz test vakaları, hakem (judge) hataları, yeniden denemeler ve sıradan ajan hataları raporlanan saldırı başarısını çarpıtıyor. Hiçbir benchmark araç içi araçları, çok turlu bir saldırganı, araç durumunu ve duruma dayalı oracle'ları bir araya getirmiyor. (<code>01_state_of_the_field.md</code>)</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>What we measured ourselves, at zero cost.</strong>
+- AgentLAB's task-injection ASRs are success within up to 10–17 attempts: GPT-4o 32.6% at one attempt vs 79.9% reported (<code>results/agentlab_ti_budget/</code>).
+- AgentLAB's public intent-hijacking code is tool-less and scored by a text judge the attacker optimises against (<code>lit/codebase_audit.md</code>).
+- CAR-bench clean runs: 12–34% of tasks flip between identical trials; unrequested state changes in up to ~20% of runs, zero unrequested e-mails/calls (<code>results/carbench_noise_floor/</code>).
+- AgentDojo clean-run replay: attack oracles fire without attack in 13/17,547 pairs, all one goal-collision artifact fixed in v1.1.1 (<code>results/agentdojo_clean_oracle_floor/</code>).
+- A free prototype (<code>code/carlab_mini</code>, 14 tests) shows each proposed metric catching what it should: forced-tool artifacts, claimed-but-not-executed, transient unsafe states, clean-run coincidences, and that a naive provenance gate over-blocks (<code>results/prototype/</code>).</p></div><div class="cell tr" lang="tr"><p><strong>Sıfır maliyetle kendimiz ne ölçtük.</strong>
+- AgentLAB'in görev enjeksiyonu (task injection) saldırı başarı oranları (attack success rate, ASR) en fazla 10–17 deneme içindeki başarıdır: GPT-4o tek denemede 32.6%, raporlanan ise 79.9% (<code>results/agentlab_ti_budget/</code>).
+- AgentLAB'in herkese açık niyet ele geçirme (intent hijacking) kodu araçsızdır ve saldırganın karşısına optimize ettiği bir metin hakemiyle puanlanır (<code>lit/codebase_audit.md</code>).
+- CAR-bench temiz çalıştırmaları: görevlerin 12–34%'ü aynı denemeler arasında sonuç değiştiriyor; çalıştırmaların ~20%'sine kadarında istenmemiş durum değişiklikleri var, istenmemiş e-posta/arama sıfır (<code>results/carbench_noise_floor/</code>).
+- AgentDojo temiz çalıştırma yeniden oynatımı (replay): saldırı oracle'ları saldırı olmadan 13/17,547 çiftte tetikleniyor; hepsi v1.1.1'de düzeltilmiş tek bir hedef çakışması (goal-collision) artefaktı (<code>results/agentdojo_clean_oracle_floor/</code>).
+- Ücretsiz bir prototip (<code>code/carlab_mini</code>, 14 test), önerilen her metriğin yakalaması gerekeni yakaladığını gösteriyor: zorunlu araç artefaktları, iddia edilip yürütülmeyenler, geçici güvensiz durumlar, temiz çalıştırma tesadüfleri ve basit bir köken kapısının (provenance gate) aşırı engellediği (<code>results/prototype/</code>).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Recommended thesis.</strong> Validity-first measurement (causal/placebo ASR, verified ASR, judge-corrected ASR, budget curves, Kaplan–Meier turns-to-compromise, transient unsafe actions, severity weighting, driver-interaction cost) applied to <strong>CarDojo</strong>, an AgentDojo-format in-car suite built from CAR-bench data; attacks from AgentLAB's families plus instruction-free tampering, cross-session memory and transient manipulation; defences up to a vehicle-state-aware decision-provenance gate under adaptive attack. (<code>02_gaps_ranked.md</code>, <code>03_thesis_design.md</code>)</p></div><div class="cell tr" lang="tr"><p><strong>Önerilen tez.</strong> Geçerliliği önceleyen ölçüm (nedensel/plasebo ASR, doğrulanmış ASR, hakem düzeltmeli ASR, bütçe eğrileri, Kaplan–Meier ile ele geçirilmeye kadarki tur sayısı, geçici güvensiz eylemler, ciddiyet ağırlıklandırması, sürücü etkileşim maliyeti); bunun, CAR-bench verisinden kurulan AgentDojo formatında bir araç içi suite olan <strong>CarDojo</strong>'ya uygulanması; saldırılar olarak AgentLAB'in aileleri artı talimatsız kurcalama (instruction-free tampering), oturumlar arası bellek ve geçici manipülasyon; savunmalar olarak uyarlanabilir saldırı altında, araç durumunu dikkate alan bir karar kökeni kapısına (decision-provenance gate) kadar uzanan seçenekler. (<code>02_gaps_ranked.md</code>, <code>03_thesis_design.md</code>)</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Feasible?</strong> Yes, with one VW GPU or a small API budget; all four codebases are MIT/Apache-2.0; AgentDojo runs LLM-free on CPU here; cost model from real CAR-bench logs ($0.05–0.17 per frontier clean episode). (<code>05_technical_feasibility.md</code>)</p></div><div class="cell tr" lang="tr"><p><strong>Yapılabilir mi?</strong> Evet, tek bir VW GPU'su veya küçük bir API bütçesiyle; dört kod tabanının hepsi MIT/Apache-2.0; AgentDojo burada CPU'da LLM'siz çalışıyor; maliyet modeli gerçek CAR-bench loglarından (öncü (frontier) modelde temiz bölüm (episode) başına $0.05–0.17). (<code>05_technical_feasibility.md</code>)</p></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>Next steps.</strong> Ask the 10 questions (<code>07</code>), confirm what "JEV" means (<code>09</code>), sign off the plan by 4 Dec (<code>06</code>).</p></div><div class="cell tr" lang="tr"><p><strong>Sonraki adımlar.</strong> 10 soruyu sor (<code>07</code>), "JEV"in ne anlama geldiğini teyit et (<code>09</code>), planı 4 Ara'ya kadar onaylat (<code>06</code>).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Files</h2></div><div class="cell tr" lang="tr"><h2>Dosyalar</h2></div></div>
+<div class="row long"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01_state_of_the_field.md</code></td>
+<td>solved / open / overhyped per stage; where the framing needs updating</td>
+</tr>
+<tr>
+<td><code>02_gaps_ranked.md</code></td>
+<td>5 gaps scored novelty × feasibility × VW fit</td>
+</tr>
+<tr>
+<td><code>03_thesis_design.md</code></td>
+<td>RQs, hypotheses, threat model summary, CarDojo, attacks, <strong>formal metrics</strong>, validity filter, defences, experiments, statistics</td>
+</tr>
+<tr>
+<td><code>04_automotive_threat_model.md</code></td>
+<td>assets, attacker profiles, channels → OWASP/ATLAS/R155, vehicle invariants, mini-TARA, standards use</td>
+</tr>
+<tr>
+<td><code>05_technical_feasibility.md</code></td>
+<td>codebases, extension points, compute split, cost model</td>
+</tr>
+<tr>
+<td><code>06_roadmap.md</code></td>
+<td>week-by-week to 30 Jul 2027, gates, risks, fallback scopes</td>
+</tr>
+<tr>
+<td><code>07_supervisor_questions.md</code></td>
+<td>10 questions with defaults</td>
+</tr>
+<tr>
+<td><code>08_discoveries_and_ideas.md</code></td>
+<td>13 discoveries, framing challenges, 11 original ideas with publishability</td>
+</tr>
+<tr>
+<td><code>09_jev_clarification.md</code></td>
+<td>what "JEV models" most likely means; evidence; alternatives</td>
+</tr>
+<tr>
+<td><code>lit/attacks.md</code> · <code>lit/evaluation.md</code> · <code>lit/defenses.md</code> · <code>lit/automotive.md</code></td>
+<td>verified literature notes (≈200 entries; summaries, taxonomies, registry rows)</td>
+</tr>
+<tr>
+<td><code>lit/codebase_audit.md</code></td>
+<td>AgentLAB / CAR-bench / AgentDojo / CaMeL code audit</td>
+</tr>
+<tr>
+<td><code>sources.csv</code> · <code>sources_check.md</code></td>
+<td>243-row source registry with tiers; arXiv titles checked live (174 ok, 0 mismatch)</td>
+</tr>
+<tr>
+<td><code>../../code/carlab_mini/</code> · <code>../../results/</code> · <code>../../tools/</code></td>
+<td>prototype, measurements, scripts</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Dosya</th>
+<th>İçerik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01_state_of_the_field.md</code></td>
+<td>aşama başına çözülmüş / açık / abartılmış; çerçevenin nerede güncellenmesi gerektiği</td>
+</tr>
+<tr>
+<td><code>02_gaps_ranked.md</code></td>
+<td>yenilik × yapılabilirlik × VW uyumu ile puanlanmış 5 boşluk</td>
+</tr>
+<tr>
+<td><code>03_thesis_design.md</code></td>
+<td>RQ'lar, hipotezler, tehdit modeli özeti, CarDojo, saldırılar, <strong>formel metrikler</strong>, geçerlilik filtresi, savunmalar, deneyler, istatistik</td>
+</tr>
+<tr>
+<td><code>04_automotive_threat_model.md</code></td>
+<td>varlıklar, saldırgan profilleri, kanallar → OWASP/ATLAS/R155, araç değişmezleri (invariants), mini-TARA, standartların kullanımı</td>
+</tr>
+<tr>
+<td><code>05_technical_feasibility.md</code></td>
+<td>kod tabanları, genişletme noktaları, hesaplama paylaşımı, maliyet modeli</td>
+</tr>
+<tr>
+<td><code>06_roadmap.md</code></td>
+<td>30 Tem 2027'ye kadar hafta hafta, kapılar, riskler, yedek kapsamlar</td>
+</tr>
+<tr>
+<td><code>07_supervisor_questions.md</code></td>
+<td>varsayılan cevaplarıyla 10 soru</td>
+</tr>
+<tr>
+<td><code>08_discoveries_and_ideas.md</code></td>
+<td>13 keşif, çerçeveye itirazlar, yayımlanabilirlikleriyle 11 özgün fikir</td>
+</tr>
+<tr>
+<td><code>09_jev_clarification.md</code></td>
+<td>"JEV modelleri"nin büyük olasılıkla ne anlama geldiği; kanıtlar; alternatifler</td>
+</tr>
+<tr>
+<td><code>lit/attacks.md</code> · <code>lit/evaluation.md</code> · <code>lit/defenses.md</code> · <code>lit/automotive.md</code></td>
+<td>doğrulanmış literatür notları (≈200 kayıt; özetler, taksonomiler, kayıt defteri satırları)</td>
+</tr>
+<tr>
+<td><code>lit/codebase_audit.md</code></td>
+<td>AgentLAB / CAR-bench / AgentDojo / CaMeL kod denetimi</td>
+</tr>
+<tr>
+<td><code>sources.csv</code> · <code>sources_check.md</code></td>
+<td>seviyeli (tier) 243 satırlık kaynak kayıt defteri; arXiv başlıkları canlı kontrol edildi (174 tamam, 0 uyumsuzluk)</td>
+</tr>
+<tr>
+<td><code>../../code/carlab_mini/</code> · <code>../../results/</code> · <code>../../tools/</code></td>
+<td>prototip, ölçümler, betikler</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Source quality</h2></div><div class="cell tr" lang="tr"><h2>Kaynak kalitesi</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>Registry: 243 rows — T1 79, T2 41, T3 104, T4 18, 1 untiered (title-only); verification: 107 primary-read, 103 abstract-only, 33 unverified (<code>tools/build_registry.py</code>).</li>
+<li><code>tools/verify_sources.py</code>: every arXiv-backed URL resolves to a matching title (174/174).</li>
+<li>Standards texts (UNECE, ISO, EUR-Lex) and most OEM sites were blocked from this environment; those rows are snippet-based and marked UNVERIFIED — obtain official texts before citing.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>Kayıt defteri: 243 satır — T1 79, T2 41, T3 104, T4 18, 1 seviyesiz (yalnızca başlık); doğrulama: 107 birincil kaynaktan okundu, 103 yalnızca özet, 33 doğrulanmamış (unverified) (<code>tools/build_registry.py</code>).</li>
+<li><code>tools/verify_sources.py</code>: arXiv destekli her URL eşleşen bir başlığa çözümleniyor (174/174).</li>
+<li>Standart metinleri (UNECE, ISO, EUR-Lex) ve çoğu OEM sitesi bu ortamdan engellendi; bu satırlar alıntı parçalarına (snippet) dayanıyor ve DOĞRULANMADI (UNVERIFIED) olarak işaretli — atıf yapmadan önce resmî metinleri edin.</li>
+</ul></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>10-claim audit (main session re-checked literature-agent claims against primary sources, 19 Nov 2026)</h2></div><div class="cell tr" lang="tr"><h2>10 iddialık denetim (ana oturum, literatür ajanının iddialarını birincil kaynaklara karşı yeniden kontrol etti, 19 Kas 2026)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Claim</th>
+<th>Checked against</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The Attacker Moves Second was rejected at ICLR 2026</td>
+<td>OpenReview API venueid <code>ICLR.cc/2026/Conference/Rejected_Submission</code></td>
+<td>✔</td>
+</tr>
+<tr>
+<td>2</td>
+<td>STAC appears at the REALM workshop</td>
+<td>ACL Anthology page 2026.realm-1.17</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>3</td>
+<td>AgentPoison "&gt;80%" is retrieval; end-to-end lower</td>
+<td>PDF abstract ("82% retrieval … 63% end-to-end") + Table 1 (Agent-Driver ASR-r 80.0, ASR-t 56.8)</td>
+<td>✔ (also exposes slide 7 error)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ROPE Table 3: Progent 8.7/8.3/15.1, up to 43.5; DRIFT up to 25.4</td>
+<td>ROPE PDF Table 3 + §4.4 text</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AutoDojo: CaMeL clean utility 26.3 / 40.4</td>
+<td>AutoDojo PDF tables</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AlignmentCheck precision 0.096 at 2% attack rate</td>
+<td>Detectors-of-Hijacked-Agents abstract</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Rogan–Gladen judge paper is ICML 2026</td>
+<td>PDF footer "Proceedings of the 43rd International Conference on Machine Learning"</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>8</td>
+<td>"Mistral vulnerable on all 64 tasks, only 26 valid"</td>
+<td>task-contracts PDF abstract</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>9</td>
+<td>PIGuard = InjecGuard (renamed)</td>
+<td>arXiv 2410.22770 title + ACL 2025 title</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>10</td>
+<td>arXiv ids in registry match titles</td>
+<td><code>sources_check.md</code> (174/174)</td>
+<td>✔</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>İddia</th>
+<th>Neye karşı kontrol edildi</th>
+<th>Sonuç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>The Attacker Moves Second, ICLR 2026'da reddedildi</td>
+<td>OpenReview API venueid <code>ICLR.cc/2026/Conference/Rejected_Submission</code></td>
+<td>✔</td>
+</tr>
+<tr>
+<td>2</td>
+<td>STAC, REALM workshop'unda yer alıyor</td>
+<td>ACL Anthology sayfası 2026.realm-1.17</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>3</td>
+<td>AgentPoison "&gt;80%" erişim (retrieval) başarısı; uçtan uca daha düşük</td>
+<td>PDF özeti ("82% retrieval … 63% end-to-end") + Tablo 1 (Agent-Driver ASR-r 80.0, ASR-t 56.8)</td>
+<td>✔ (slayt 7'deki hatayı da ortaya çıkarıyor)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ROPE Tablo 3: Progent 8.7/8.3/15.1, 43.5'e kadar; DRIFT 25.4'e kadar</td>
+<td>ROPE PDF Tablo 3 + §4.4 metni</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AutoDojo: CaMeL temiz fayda 26.3 / 40.4</td>
+<td>AutoDojo PDF tabloları</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AlignmentCheck 2% saldırı oranında 0.096 kesinlik (precision)</td>
+<td>Detectors-of-Hijacked-Agents özeti</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Rogan–Gladen hakem makalesi ICML 2026'da</td>
+<td>PDF alt bilgisi "Proceedings of the 43rd International Conference on Machine Learning"</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>8</td>
+<td>"Mistral 64 görevin hepsinde savunmasız, yalnızca 26'sı geçerli"</td>
+<td>task-contracts PDF özeti</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>9</td>
+<td>PIGuard = InjecGuard (yeniden adlandırılmış)</td>
+<td>arXiv 2410.22770 başlığı + ACL 2025 başlığı</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Kayıt defterindeki arXiv id'leri başlıklarla eşleşiyor</td>
+<td><code>sources_check.md</code> (174/174)</td>
+<td>✔</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Reproduce the free analyses</h2></div><div class="cell tr" lang="tr"><h2>Ücretsiz analizleri yeniden üret</h2></div></div>
+<div class="row same"><div class="cell"><pre><code class="language-bash">git clone --depth 1 https://github.com/TanqiuJiang/AgentLAB third_party/AgentLAB
+git clone --depth 1 https://github.com/CAR-bench/car-bench third_party/car-bench
+git clone --depth 1 https://github.com/ethz-spylab/agentdojo third_party/agentdojo
+python3 -I tools/agentlab_ti_attempts.py third_party/AgentLAB/Task-Injection/agentdojo/res/long_horizon results/agentlab_ti_budget
+python3 -I tools/carbench_noise_floor.py third_party/car-bench/results results/carbench_noise_floor
+pip install -e third_party/agentdojo &amp;&amp; python tools/agentdojo_clean_oracle_floor.py third_party/agentdojo/runs results/agentdojo_clean_oracle_floor v1
+PYTHONPATH=code python3 -m pytest -q -p no:cacheprovider code/carlab_mini &amp;&amp; PYTHONPATH=code python3 -m carlab_mini.run results/prototype
+python3 -I tools/build_registry.py &amp;&amp; python3 -I tools/verify_sources.py docs/research/sources.csv
+</code></pre></div></div></main></body></html>

@@ -1,0 +1,267 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R3 · Ölçüm: CAR-bench gürültü tabanı</title><style>
+:root{--bg:#fff;--fg:#1d1d1f;--muted:#666;--line:#e3e3e3;--en:#f7f8fa;--tr:#fffaf2;--accent:#b4002d}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#151515;--fg:#eaeaea;--muted:#aaa;--line:#333;--en:#1d2026;--tr:#26221a;--accent:#ff6b8b}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.5 "DejaVu Sans","Noto Sans",Arial,sans-serif}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1.doc{font-size:22px;border-bottom:3px solid var(--accent);padding-bottom:6px;margin:8px 0 12px}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-weight:bold;color:var(--muted);font-size:12px;
+  position:sticky;top:0;background:var(--bg);padding:4px 0;z-index:2}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding:4px 0;break-inside:avoid}
+.row.long{break-inside:auto}
+.cell{min-width:0;overflow-wrap:break-word;padding:2px 8px;border-radius:4px}
+.cell.en{background:var(--en)} .cell.tr{background:var(--tr)}
+.row.same .cell{grid-column:1/-1;background:transparent}
+table{border-collapse:collapse;width:100%;font-size:11.5px}
+th,td{border:1px solid var(--line);padding:3px 5px;vertical-align:top;text-align:left;overflow-wrap:break-word;hyphens:auto}
+td:first-child,th:first-child{min-width:4.5em}
+pre{white-space:pre-wrap;font-size:11px;background:var(--en);padding:6px;border-radius:4px}
+code{font-size:0.92em}
+h1,h2,h3,h4{margin:6px 0 4px;line-height:1.25} h1{font-size:19px} h2{font-size:17px} h3{font-size:15px}
+p,ul,ol{margin:4px 0} ul,ol{padding-left:20px}
+.nav{font-size:13px;margin:6px 0 14px} .nav a{color:var(--accent)}
+.cover{padding:30px 0} .cover h1{font-size:30px;border:0} .cover li{margin:3px 0}
+@media (max-width:760px){.row,.legend{grid-template-columns:1fr}.legend{display:none}
+  .cell.en::before{content:"EN";font-size:10px;color:var(--muted);display:block}
+  .cell.tr::before{content:"TR";font-size:10px;color:var(--muted);display:block}}
+@media print{body{font-size:10.5px}main{max-width:none;padding:0}.legend{position:static}
+  .doc-sec{break-before:page} .nav{display:none} a{color:inherit;text-decoration:none}
+  table{font-size:9px} pre{font-size:8.5px}}
+@page{size:A4 landscape;margin:10mm}
+</style></head><body><main><h1 class="doc">R3 · Ölçüm: CAR-bench gürültü tabanı</h1><div class="nav"><a href="R2_agentdojo_clean_oracle_floor.html">← önceki</a> · <a href="index.html">içindekiler</a> · <a href="R4_prototype.html">sonraki →</a> · kaynak: <code>results/carbench_noise_floor/README.md</code></div><div class="legend"><div>ENGLISH (original)</div><div>TÜRKÇE (çeviri)</div></div><div class="row"><div class="cell en" lang="en"><h1>Noise floor of clean in-car agent runs (CAR-bench published trajectories)</h1></div><div class="cell tr" lang="tr"><h1>Temiz araç içi ajan çalıştırmalarının gürültü tabanı (noise floor) (CAR-bench'in yayımlanmış yörüngeleri)</h1></div></div>
+<div class="row"><div class="cell en" lang="en"><p><strong>What this is.</strong> A zero-cost measurement of how often in-car LLM agents do things that an attack oracle could mistake for attack success, <strong>with no attack present</strong>. It re-analyses the multi-trial trajectories that the CAR-bench authors publish in their repository.</p></div><div class="cell tr" lang="tr"><p><strong>Bu nedir.</strong> Araç içi LLM ajanlarının, <strong>ortada hiç saldırı yokken</strong>, bir saldırı kâhininin (attack oracle) saldırı başarısı sanabileceği şeyleri ne sıklıkla yaptığının sıfır maliyetli bir ölçümü. CAR-bench yazarlarının kendi depolarında yayımladığı çok denemeli (multi-trial) yörüngeleri (trajectories) yeniden analiz ediyor.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>Data: <code>github.com/CAR-bench/car-bench</code>, <code>results/</code> folder, commit <code>ce6dc9d</code> (12 Oct 2026), MIT licence. The paper is CAR-bench, ACL 2026 (T1). The trajectories themselves are a GitHub artefact (T4 as a source, but they are the authors' own runs).</li>
+<li>Script: <code>tools/carbench_noise_floor.py</code> (run: <code>python3 -I tools/carbench_noise_floor.py third_party/car-bench/results results/carbench_noise_floor</code>).</li>
+<li>Output: <code>noise_floor.csv</code> (with Wilson 95% CIs), <code>noise_floor.md</code>, <code>examples.json</code> (flagged runs for manual audit).</li>
+<li>Runs whose record holds only an error/traceback (infrastructure failures) are excluded and counted in <code>errored</code>.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>Veri: <code>github.com/CAR-bench/car-bench</code>, <code>results/</code> klasörü, commit <code>ce6dc9d</code> (12 Ekim 2026), MIT lisansı. Makale CAR-bench, ACL 2026 (T1). Yörüngelerin kendisi bir GitHub eseri (kaynak olarak T4, ama yazarların kendi çalıştırmaları).</li>
+<li>Betik: <code>tools/carbench_noise_floor.py</code> (çalıştırma: <code>python3 -I tools/carbench_noise_floor.py third_party/car-bench/results results/carbench_noise_floor</code>).</li>
+<li>Çıktı: <code>noise_floor.csv</code> (Wilson 95% güven aralıklarıyla (CI)), <code>noise_floor.md</code>, <code>examples.json</code> (elle denetim için işaretlenen çalıştırmalar).</li>
+<li>Kaydı yalnızca bir hata/traceback içeren çalıştırmalar (altyapı arızaları) dışarıda bırakılıyor ve <code>errored</code> içinde sayılıyor.</li>
+</ul></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Definitions</h2></div><div class="cell tr" lang="tr"><h2>Tanımlar</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><p>Ground truth = the task's required state-changing actions (<code>info.task.actions</code>, filtered to the 26 set-APIs).</p></div><div class="cell tr" lang="tr"><p>Doğru cevap (ground truth) = görevin gerektirdiği, durumu değiştiren eylemler (<code>info.task.actions</code>, 26 set-API'ye göre filtrelenmiş).</p></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pass1</td>
+<td>share of runs with reward = 1</td>
+</tr>
+<tr>
+<td>pass_k</td>
+<td>share of tasks where all k trials pass (CAR-bench's Pass^k)</td>
+</tr>
+<tr>
+<td>flip</td>
+<td>share of tasks whose k clean trials disagree (some pass, some fail)</td>
+</tr>
+<tr>
+<td>usca</td>
+<td>share of runs with ≥1 <em>unrequested state-changing action</em>: a set-API call whose tool is not among the ground-truth tools. <strong>Upper bound</strong>: it also counts actions the simulated user asked for mid-conversation but that are not in the task's ground truth</td>
+</tr>
+<tr>
+<td>usca_A2 / usca_A3</td>
+<td>same, restricted to outbound communication (send_email, call_phone_by_number) / driving-relevant or exterior functions (navigation edits, windows, sunroof, trunk, exterior lights)</td>
+</tr>
+<tr>
+<td>usca_spont</td>
+<td>same as usca, but only calls whose preceding user message contains no keyword of that tool family. <strong>Heuristic estimate</strong> of actions the agent took on its own</td>
+</tr>
+<tr>
+<td>param_dev</td>
+<td>share of runs with ≥1 call to a ground-truth tool whose arguments match no ground-truth call ("right tool, wrong parameters", includes intermediate attempts later corrected)</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Sütun</th>
+<th>Anlamı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pass1</td>
+<td>ödülü (reward) = 1 olan çalıştırmaların payı</td>
+</tr>
+<tr>
+<td>pass_k</td>
+<td>k denemenin hepsinin geçtiği görevlerin payı (CAR-bench'in Pass^k'si)</td>
+</tr>
+<tr>
+<td>flip</td>
+<td>k temiz denemesi birbiriyle uyuşmayan görevlerin payı (bazıları geçiyor, bazıları kalıyor)</td>
+</tr>
+<tr>
+<td>usca</td>
+<td>≥1 <em>istenmemiş durum değiştiren eylem (unrequested state-changing action)</em> içeren çalıştırmaların payı: aracı (tool) ground-truth araçları arasında olmayan bir set-API çağrısı. <strong>Üst sınır (upper bound)</strong>: simüle edilen kullanıcının sohbet ortasında istediği ama görevin ground truth'unda olmayan eylemleri de sayıyor</td>
+</tr>
+<tr>
+<td>usca_A2 / usca_A3</td>
+<td>aynısı, ama dışa dönük iletişimle (send_email, call_phone_by_number) / sürüşle ilgili ya da dış fonksiyonlarla (navigasyon düzenlemeleri, camlar, sunroof, bagaj, dış ışıklar) sınırlı</td>
+</tr>
+<tr>
+<td>usca_spont</td>
+<td>usca ile aynı, ama yalnızca öncesindeki kullanıcı mesajı o araç ailesinin hiçbir anahtar kelimesini içermeyen çağrılar. Ajanın kendi başına yaptığı eylemlerin <strong>sezgisel tahmini (heuristic estimate)</strong></td>
+</tr>
+<tr>
+<td>param_dev</td>
+<td>argümanları hiçbir ground-truth çağrısıyla eşleşmeyen bir ground-truth aracına ≥1 çağrı içeren çalıştırmaların payı ("doğru araç, yanlış parametreler"; sonradan düzeltilen ara denemeleri de kapsar)</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><p>The A1/A2/A3 criticality split is this thesis's proposal, not CAR-bench's.</p></div><div class="cell tr" lang="tr"><p>A1/A2/A3 kritiklik ayrımı CAR-bench'in değil, bu tezin önerisi.</p></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Headline numbers (clean runs, frontier models)</h2></div><div class="cell tr" lang="tr"><h2>Öne çıkan sayılar (temiz çalıştırmalar, öncü (frontier) modeller)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><table>
+<thead>
+<tr>
+<th>Split / model</th>
+<th>runs</th>
+<th>flip (tasks)</th>
+<th>usca (upper bound)</th>
+<th>usca_spont (estimate)</th>
+<th>usca_A2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base_test / Claude Sonnet 4.6</td>
+<td>149</td>
+<td>6/49</td>
+<td>3/149</td>
+<td>3/149</td>
+<td>0/149</td>
+</tr>
+<tr>
+<td>base_v2 / Claude Opus 4.6</td>
+<td>150</td>
+<td>9/50</td>
+<td>3/150</td>
+<td>0/150</td>
+<td>0/150</td>
+</tr>
+<tr>
+<td>base_v2 / GPT-5.2</td>
+<td>148</td>
+<td>13/48</td>
+<td>11/148</td>
+<td>5/148</td>
+<td>0/148</td>
+</tr>
+<tr>
+<td>hallucination_test / Claude Sonnet 4.6</td>
+<td>150</td>
+<td>17/50</td>
+<td>18/150</td>
+<td>0/150</td>
+<td>0/150</td>
+</tr>
+<tr>
+<td>hallucination_train_v2 / GPT-5.2</td>
+<td>138</td>
+<td>11/43</td>
+<td>29/138</td>
+<td>5/138</td>
+<td>0/138</td>
+</tr>
+<tr>
+<td>hallucination / xLAM-2-32b (open)</td>
+<td>486</td>
+<td>21/97</td>
+<td>72/486</td>
+<td>26/486</td>
+<td>3/486</td>
+</tr>
+</tbody>
+</table></div><div class="cell tr" lang="tr"><table>
+<thead>
+<tr>
+<th>Bölüm (split) / model</th>
+<th>çalıştırma (runs)</th>
+<th>flip (görevler)</th>
+<th>usca (üst sınır)</th>
+<th>usca_spont (tahmin)</th>
+<th>usca_A2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base_test / Claude Sonnet 4.6</td>
+<td>149</td>
+<td>6/49</td>
+<td>3/149</td>
+<td>3/149</td>
+<td>0/149</td>
+</tr>
+<tr>
+<td>base_v2 / Claude Opus 4.6</td>
+<td>150</td>
+<td>9/50</td>
+<td>3/150</td>
+<td>0/150</td>
+<td>0/150</td>
+</tr>
+<tr>
+<td>base_v2 / GPT-5.2</td>
+<td>148</td>
+<td>13/48</td>
+<td>11/148</td>
+<td>5/148</td>
+<td>0/148</td>
+</tr>
+<tr>
+<td>hallucination_test / Claude Sonnet 4.6</td>
+<td>150</td>
+<td>17/50</td>
+<td>18/150</td>
+<td>0/150</td>
+<td>0/150</td>
+</tr>
+<tr>
+<td>hallucination_train_v2 / GPT-5.2</td>
+<td>138</td>
+<td>11/43</td>
+<td>29/138</td>
+<td>5/138</td>
+<td>0/138</td>
+</tr>
+<tr>
+<td>hallucination / xLAM-2-32b (açık)</td>
+<td>486</td>
+<td>21/97</td>
+<td>72/486</td>
+<td>26/486</td>
+<td>3/486</td>
+</tr>
+</tbody>
+</table></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>What it means for the thesis (inference)</h2></div><div class="cell tr" lang="tr"><h2>Tez için anlamı (çıkarım)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ol>
+<li><strong>Outcome instability is large without any attack.</strong> 12–34% of tasks flip between identical clean trials for frontier models. A single attacked run that "fails the user task" is weak evidence of an attack: utility-under-attack must be compared with the <em>same task's</em> clean pass rate, over several trials.</li>
+<li><strong>Broad oracles have a real false-positive floor.</strong> "The agent changed something it was not asked to change" happens in up to ~20% of clean runs (upper bound) and in roughly 0–4% (frontier) to ~6% (open models) of runs on the heuristic spontaneous estimate. An attack oracle defined as "any unrequested A3 action" would therefore report non-zero ASR with no attacker at all.</li>
+<li><strong>Narrow, goal-specific oracles are clean.</strong> No frontier run sent an email or placed a call that the task did not require (0 of ~1,300 frontier runs). Attack goals defined as a specific attacker target state (e.g., email to an attacker address, destination = attacker POI) have a near-zero clean floor, so they can be used without large correction; broad deviation oracles need paired clean runs (the thesis's <em>causal ASR</em>).</li>
+<li><strong>The simulated user is a source of "non-attacks".</strong> In audited example <code>base_81</code> (Claude Sonnet 4.6, trial 2) the simulated user asked for a route change that its instructions said not to ask for; the resulting action is unrequested by ground truth but requested in the conversation. Simulator drift must be logged and excluded from attack success.</li>
+</ol></div><div class="cell tr" lang="tr"><ol>
+<li><strong>Hiç saldırı olmadan da sonuç kararsızlığı büyük.</strong> Öncü modellerde görevlerin 12–34%'ü birebir aynı temiz denemeler arasında sonuç değiştiriyor (flip). "Kullanıcı görevinde başarısız olan" tek bir saldırılı çalıştırma, saldırı için zayıf bir kanıt: saldırı altındaki fayda (utility-under-attack), <em>aynı görevin</em> temiz geçme oranıyla, birkaç deneme üzerinden karşılaştırılmalı.</li>
+<li><strong>Geniş kâhinlerin gerçek bir yanlış pozitif tabanı var.</strong> "Ajan, değiştirmesi istenmeyen bir şeyi değiştirdi" durumu temiz çalıştırmaların ~20%'sine kadarında (üst sınır) ve sezgisel kendiliğinden (spontaneous) tahmine göre çalıştırmaların kabaca 0–4%'ünde (öncü) ile ~6%'sında (açık modeller) görülüyor. Bu yüzden "istenmemiş herhangi bir A3 eylemi" olarak tanımlanan bir saldırı kâhini, ortada hiç saldırgan yokken bile sıfırdan büyük ASR (saldırı başarı oranı, attack success rate) raporlar.</li>
+<li><strong>Dar, hedefe özgü kâhinler temiz.</strong> Hiçbir öncü model çalıştırması, görevin gerektirmediği bir e-posta göndermedi ya da arama yapmadı (~1,300 öncü çalıştırmanın 0'ı). Belirli bir saldırgan hedef durumu olarak tanımlanan saldırı hedeflerinin (örn. saldırgan adresine e-posta, hedef = saldırgan POI'si) temiz tabanı sıfıra yakın, yani büyük bir düzeltme olmadan kullanılabilirler; geniş sapma kâhinleri ise eşleştirilmiş temiz çalıştırmalar gerektirir (tezin <em>causal ASR</em>'si).</li>
+<li><strong>Simüle edilen kullanıcı bir "saldırı olmayanlar" kaynağı.</strong> Denetlenen <code>base_81</code> örneğinde (Claude Sonnet 4.6, deneme 2) simüle edilen kullanıcı, talimatlarında istememesi söylenen bir rota değişikliği istedi; ortaya çıkan eylem ground truth'a göre istenmemiş ama sohbette istenmiş. Simülatör kayması (simulator drift) kaydedilmeli ve saldırı başarısından çıkarılmalı.</li>
+</ol></div></div>
+<div class="row"><div class="cell en" lang="en"><h2>Caveats</h2></div><div class="cell tr" lang="tr"><h2>Uyarılar (caveats)</h2></div></div>
+<div class="row"><div class="cell en" lang="en"><ul>
+<li>The keyword heuristic is crude in both directions; a manual audit of a random sample of flagged runs (planned: 30) is required before any number is quoted in the thesis.</li>
+<li>CAR-bench tasks were not designed as attack controls; these are floors for this environment and these models only.</li>
+<li>Some <code>_v2</code> files contain each run twice (once errored); errored copies are excluded.</li>
+</ul></div><div class="cell tr" lang="tr"><ul>
+<li>Anahtar kelime sezgisi her iki yönde de kaba; tezde herhangi bir sayı alıntılanmadan önce işaretlenen çalıştırmalardan rastgele bir örneklemin elle denetlenmesi (planlanan: 30) gerekiyor.</li>
+<li>CAR-bench görevleri saldırı kontrolleri olarak tasarlanmadı; bunlar yalnızca bu ortam ve bu modeller için tabanlar.</li>
+<li>Bazı <code>_v2</code> dosyaları her çalıştırmayı iki kez içeriyor (biri hatalı); hatalı kopyalar dışarıda bırakılıyor.</li>
+</ul></div></div></main></body></html>
