@@ -43,7 +43,7 @@ Research pass for Ömer's thesis *Robustness of agentic AI to adversarial attack
 ## 10-claim audit (main session re-checked literature-agent claims against primary sources, 19 Nov 2026)
 | # | Claim | Checked against | Result |
 |---|---|---|---|
-| 1 | The Attacker Moves Second was rejected at ICLR 2026 | OpenReview API venueid `ICLR.cc/2026/Conference/Rejected_Submission` | ✔ |
+| 1 | The Attacker Moves Second was rejected at ICLR 2026 (update 24 Nov: later accepted at USENIX Security 2026, usenix.org checked) | OpenReview API venueid `ICLR.cc/2026/Conference/Rejected_Submission` | ✔ |
 | 2 | STAC appears at the REALM workshop | ACL Anthology page 2026.realm-1.17 | ✔ |
 | 3 | AgentPoison ">80%" is retrieval; end-to-end lower | PDF abstract ("82% retrieval … 63% end-to-end") + Table 1 (Agent-Driver ASR-r 80.0, ASR-t 56.8) | ✔ (also exposes slide 7 error) |
 | 4 | ROPE Table 3: Progent 8.7/8.3/15.1, up to 43.5; DRIFT up to 25.4 | ROPE PDF Table 3 + §4.4 text | ✔ |
