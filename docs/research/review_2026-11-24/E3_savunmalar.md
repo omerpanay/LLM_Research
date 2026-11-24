@@ -250,3 +250,82 @@ Ortak kısaltmalar: BU/CU = temiz (saldırısız) fayda, UA = saldırı altında
 - Çıkarım: Tezde onay sayısını metrik olarak kullanmanın T1 dayanağı bu; sürüş iş yüküyle ağırlıklandırma bizim katkımız (O3).
 
 ---
+## 3. Daha yeni / daha iyi 2026 çalışmaları (hakemliler önce)
+
+| Çalışma | Mekan / kademe (nasıl doğrulandı) | Ne getiriyor | Bizim için |
+|---|---|---|---|
+| ShadowMem | ACM CCS 2026, T1 (PDF ACM bloğu + DOI) | Uzun-ufuk + adaptif değerlendirilmiş tek T1 yörünge savunması | D5'in ana referansı (§1c) |
+| FIDES | NeurIPS 2026 poster, T1 (OpenReview) | Etiket tabanlı IFC planlayıcı, açık kod (MIT) | D4'ün etiket kafesi için hakemli dayanak |
+| PRUDENTIA / autonomy metric | ICLR 2026 poster, T1 (OpenReview) | HITL yükü ve TCR@k metrikleri | Onay bütçesi metriğimiz (O3) |
+| AgentLAB | ICML 2026, T1 (OpenReview) | Uzun-ufuk saldırı benchmark'ı; yalnız prompt/dedektör savunmaları denenmiş | Saldırı kaynağı; sistem savunması boşluğu = katkı alanımız |
+| Adaptive Adversaries | NeurIPS 2026 E&D poster, T1 (OpenReview) | Oturum durumu (taze/kalıcı) protokol değişkeni | Değerlendirme protokolü (§1a) |
+| AgentSentry (arXiv 2602.22724) | "Accepted at NDSS 2027" — **yalnız arXiv yorumu, mekan sitesi kontrol edilmedi** (T1 claimed) | Araç-dönüş sınırlarında karşı-olgusal yeniden çalıştırma; çok turlu IPI'yi "zamansal nedensel ele geçirme" olarak modelliyor, kirli içeriği temizleyip devam ediyor | MELON'un çok turlu, "durdurmak yerine temizle" versiyonu; sadece özet okundu, AgentDojo'da değerlendirilmiş |
+| SecOPD | EMNLP 2026, T1 (ACL Anthology, önceki oturum) | Adaptif saldırıya ≈%9 ASR'de kalan ilk model düzeyi savunma | İç katman (açık ağırlıklı araç modeli varsa); son otorite değil |
+| AgentSpec | ICSE 2026, T1 | Çalışma anı kural DSL'i, AV alanı | Kural sözdizimi emsali |
+| ROPE, AuthorityFlow, SPIDES, AutoDojo, PAA, LeanGuard (D-22), NOMOS (D-23) | T3 (ICLR 2027 başvurusu veya yalnız arXiv) | Köken/parametre düzeyi kontrol, sınır denetimi, formal geçmiş-zaman kuralları | Fikir kaynağı; hakemli dayanak olarak tek başına kullanılmamalı |
+| ProjGuard (arXiv 2605.13631) | T3 | Ajanın yanıt geçmişinden doğrusal projeksiyonla skaler risk sinyali; alarmda yardımcı VLM devreye giriyor; OS-Harm'da güvensiz oran %16→%3 | Ucuz, sürekli "durum bazlı" monitör fikri; sadece özet okundu |
+
+Arama sonucu (Çıkarım): **AgentLAB üzerinde değerlendirilmiş hakemli bir sistem/yörünge savunması bulamadım.** AgentLAB'da sistem savunması deneyen tek kaynak ROPE (T3, replay, yazarlar AutoDojo ile aynı). ShadowMem AgentLAB'ı değil, PI2 ve STAC'ı kullanıyor (aynı grup). Bu, tezin "araç içi + uzun-ufuk + adaptif" kesişiminin hâlâ boş olduğunu teyit ediyor.
+
+---
+
+## 4. D0–D5 merdiveni için öneri
+
+**Baseline'lar (neden):**
+- **D0** savunmasız; **oturum semantiğini sabitle** ve iki protokolü raporla: taze oturum (her saldırı denemesi yeni sürüş) ve kalıcı oturum (tek sürüş boyunca geçmiş). A-05 farkın 57,4 → 31,5 olabildiğini gösterdi.
+- **D1** prompt düzeyi: spotlighting + **A-05'in provenance paragrafı** (ucuz; seçici etki — "yetki uydurma" türünde 13/45→0/45, gizli sızdırmada etkisiz).
+- **D2** dedektör: PIGuard (ACL 2025, T1; AMS adaptifte %71) — "dedektörler kırılır" kontrol noktası. Raporu AUROC değil, **%1–2 saldırı oranında precision ve yanlış alarm/sürüş** olarak ver (D-32).
+- **D3** plan-then-execute: **CaMeL (SaTML 2026, Apache-2.0)** = güvenlik tavanı / fayda tabanı referansı. Ek olarak, kaynak yeterse **Progent (MIT)** = politika-proxy baseline'ı ve uzun-ufukta sızdığı bilinen sistem (ROPE T3'te %8–15). Zaman kısıtlıysa: CaMeL + Progent, ikisi de AgentDojo'da hazır.
+- MELON/DRIFT/IPIGuard'ı ayrı baseline yapmaya gerek yok; parametre zehirlemede başarısız oldukları (AuthorityFlow T1: %79/%40/%48) zaten literatürde var — tezde atıfla geçilir.
+
+**D4 (araç durumu farkındalıklı köken kapısı) — alınacak fikirler:**
+1. **Değer düzeyi köken + parametre bazlı yetki** (CaMeL capability, ROPE origin, AuthorityFlow "hangi alan hangi parametreyi belirleyebilir"): `navigate.dest`, `call.number`, `pay.iban`, `message.recipient` için yetkili kaynaklar = sürücü sesi, rehber, OEM POI DB, sürücünün kayıtlı adresleri; serbest mesaj metni **asla**.
+2. **Tipli alan tabanı** (SPILLWAY): hedef değer yalnız salt-okunur aracın tipli alanından gelebilir → "[OEM-SERVICE] 0850…" gibi sahte üstveri (ADI, D-46) metin olarak kalır.
+3. **Görev bazlı yönlendirici (router) yalnız güvenilir isteği okur** (ROPE): "mesajdaki adrese götür" gibi delegasyonlarda hangi kaynağın yetkili olduğuna router karar verir; CaMeL'in "veri eylem gerektirir" körlüğünü azaltır. Router hatasına karşı denetlenmiş varsayılana "clamp" (ROPE Tablo 5).
+4. **Araç durumu politika girdisi** (bizim katkı): hız/vites/sürüş modu ile izin → onay → ret basamakları; onay bütçesi PRUDENTIA'nın HITL yükü + SPIDES TCR@k ile ölçülür, sürüşte görsel onay yok.
+5. **Kural yazımı**: AgentSpec DSL biçimi (tetik/koşul/yaptırım) + LeanGuard'ın geçmiş-zaman operatörleri ("son N turda gelen bir mesaj bu numarayı içeriyorsa ve sürücü numarayı söylemediyse → onay").
+6. **Değerlendirme**: AutoDojo tarzı kara kutu adaptif + AgentLAB tarzı aşamalı saldırı **yeniden optimize edilerek** (ROPE'un yaptığı gibi sadece replay değil) + parametre zehirleme vakaları (FactAuthBench tarzı).
+
+**D5 (yörünge monitörü) — stateful guard eklenmeli mi?**
+- **Evet, ama ShadowMem tarzı "güvenlik defteri" olarak ve yalnız sıkılaştırıcı (monotone) ikinci katman.** Ham konuşma hafızası (A-05'teki "stateful defender") ayrı savunma değildir; zaten D0'da protokol olarak var.
+- Defterin kritik alanları (alıcı rehberde mi, kaynak hangi kanal, araç hızı, sürücü ne dedi) **LLM özetinden değil, D4'ün köken etiketlerinden ve araç API'sinden** dolsun — ShadowMem'in tek atlatma yolu (kanıtın çelişemeyeceği sahte bağlam, %25) böylece daralır.
+- Öğrenen yargıç (küçük model, ör. 4B) sadece **ret veya onay isteği ekleyebilir**, D4'ün reddettiğini açamaz (defenses.md O4).
+- Raporlama: Block recall + yanlış-blok oranı (PAA biçimi) **%1–2 saldırı oranında precision** (D-32), gecikme (ShadowMem ≈6 s/görev — araç için yüksek; tetiklemeli çalıştırma düşünülmeli).
+- Eğitim maliyeti gerçek (4–6K yörünge + GRPO). Zaman yoksa: D5 = önceden eğitilmiş ShadowMem checkpoint'i (HF'de var, lisans belirsiz) veya istemli küçük-model defter + yargıç, açıkça "eğitimsiz varyant" diye etiketli (ShadowMem Tablo 1: eğitimsiz varyant her şeyi reddediyor, BU %0 — bunu kontrol et).
+
+**CaMeL kararı (özet):** Reddedilmedi (SaTML 2026). **Baseline olarak kullan, politika motoru olarak kullanma, fikirlerini D4'e al.**
+
+---
+
+## 5. Doğrulanan / düzeltilen sayılar (kapanış tablosu)
+
+| İddia (notlardan) | Sonuç | Kaynak yeri / not |
+|---|---|---|
+| CaMeL 77% vs 84% | **KISMEN** | v2 özet; Tablo 2'de yalnız o3-high (77,3 vs 84,5); diğer modellerde −3 ile −32 puan; v1 özeti %67 |
+| AutoDojo CaMeL temiz fayda 26–53 vs 63–90; 66,7→26,3; 70,2→40,4; ASR ≤1,8 | DOĞRULANDI | AutoDojo Tablo 5 (AgentDojo banking/slack/travel); yazarlar = ROPE yazarları |
+| AuthorityFlow BU 90,28→CaMeL 43,75 / AF 82,64; MELON 79, IPIGuard 48, DRIFT 40 | DOĞRULANDI | Tablo 1, Qwen3.6-27B, 144 vaka (79,17 / 47,92 / 39,58) |
+| ROPE T3 Progent 8,7/8,3/15,1, max 43,5; ROPE 0,0 | DOĞRULANDI | Tablo 3 (AgentLAB Task-Injection replay) |
+| DRIFT "up to 25,4" | **KISMEN** | 25,4 = overall max (Qwen); suite bazında max 30,6 (Qwen banking) |
+| SPIDES 1,84 onay/görev | DOĞRULANDI | §6; ideal onaylayıcı varsayımı |
+| PRUDENTIA HITL 48,2→18,8 | DOĞRULANDI | §4, o3-mini (ara değer Basic-IFC 32,4) |
+| D-32 precision 0,076–0,096, AUROC 0,88–0,93 | DOĞRULANDI | Özet + s.324: 0,879/0,076 (LR-C, %80 recall eşiği), 0,930/0,096 (AlignmentCheck); %2 prevalans |
+| D-44 PIGuard 71, MELON 95, Meta-SecAlign 96 | DOĞRULANDI | AMS §5; MELON bilgisiz aramada 76 |
+| SecPO/SecOPD ≈%9 | DOĞRULANDI | SecPO 8,8 (ASR@800, AgentDojo); SecOPD 9,0 (PISmith) |
+| A-05 stateful 57,4→31,5 | DOĞRULANDI (bağlam eklenmeli) | §5.4 + Ek B.5; 31/54 vs 17/54; araçsız, 3 senaryo; "savunma" değil protokol |
+| MELON PI2 Llama 42,1 / Qwen 20,7 (D-30) | **YANLIŞ etiket** | Bunlar 5 saldırının ortalaması; PI2'de MELON Llama 78,6, Qwen 58,9 (ShadowMem Tablo 5) |
+| ShadowMem PI2 0,0; BU kaybı <3; adaptif ≤25 | DOĞRULANDI | Tablo 1, 3, 4, 5; test kümeleri küçük (≈24 STAC saldırısı, ≈37 benign görev — Çıkarım) |
+| Mekan: FIDES T3, AgentLAB T3, A-05 T2, SPILLWAY T2 | **YANLIŞ (güncel değil)** | FIDES NeurIPS 2026 (T1), AgentLAB ICML 2026 (T1), A-05 NeurIPS 2026 E&D (T1), SPILLWAY ICLR 2027 geri çekildi (T3) |
+| Task Shield UA 69,79 / ASR 2,07 | DOĞRULANDI | Tablo 1, GPT-4o |
+
+---
+
+## 6. Kullanıcıdan istenecek kaynaklar (tam metnini açamadıklarım; T1 önce)
+
+1. **CaMeL — IEEE Xplore kaydı** (mekan sitesinden kesin teyit için): "Defeating Prompt Injections by Design", SaTML 2026 — https://doi.org/10.1109/SaTML68715.2026.00040 (ve satml.org kabul listesi).
+2. **IPIGuard** (EMNLP 2025, T1): "IPIGuard: A Novel Tool Dependency Graph-Based Defense Against Indirect Prompt Injection in LLM Agents" — https://aclanthology.org/2025.emnlp-main.53/ (kendi sayıları okunmadı).
+3. **AgentSentry** (NDSS 2027 iddiası): "AgentSentry: Mitigating Indirect Prompt Injection in LLM Agents via Temporal Causal Diagnostics and Context Purification" — https://arxiv.org/abs/2602.22724 (yalnız özet; NDSS kabul listesi kontrol edilmeli).
+4. **ShadowMem ACM DL sayfası** (mekan teyidi): https://doi.org/10.1145/3830454.3846601 ; ve repo lisansı: https://github.com/ZJUWYH/ShadowMem (LICENSE yok — yazarlara sorulmalı).
+5. **LlamaFirewall / AlignmentCheck** (T3): "LlamaFirewall: An open source guardrail system for building secure AI agents" — https://arxiv.org/abs/2505.03574 (kendi metni açılmadı).
+6. **AgentDyn** (CaMeL'in tüm metriklerde 0 iddiası için birincil kaynak): AutoDojo'nun atıfladığı Li et al. 2026a — arXiv numarası AutoDojo kaynakçasından alınmalı.
+7. **SPIDES kodu**: https://github.com/microsoft/SPIDES (404; yayımlanmamış olabilir).
+8. **SPILLWAY Tablo 2** bu oturumda satır satır yeniden kontrol edilmedi: https://arxiv.org/abs/2611.07222.

@@ -282,3 +282,179 @@
 **Çıkarım (araç seçimi için).** PPV = TPR·π / (TPR·π + FPR·(1−π)).
 - Örnek: TPR %70, FPR %5, enjeksiyon oranı π = %1 için PPV ≈ %12.
 - Yani alarmların çoğu yanlış olur. Bu temel oran yanılgısının (E-29) somut hali.
+
+## 10. Rogan–Gladen düzeltmesi (E-25) ve alternatifleri (E-26) — **DOĞRULANDI, bir uyarıyla**
+
+**Kaynaklar.**
+- **E-25:** Lee, Zeng, Jeong, Sohn, Lee, *How to Correctly Report LLM-as-a-Judge Evaluations*, arXiv 2511.21140. OpenReview: "ICML 2026 regular", **T1**.
+- **E-26:** Chen, Lu et al., *Efficient Inference for Noisy LLM-as-a-Judge Evaluation*, arXiv 2601.05420. OpenReview: "ICML 2026 regular", **T1**. `sources.csv`'deki "T3, arXiv" bilgisini düzeltin.
+
+**Yöntem ne yapıyor? (E-25 §4)**
+- Hakemin iki hata oranı var:
+  - Duyarlılık q1 = P(hakem "başarılı" der | gerçekten başarılı).
+  - Özgüllük q0 = P(hakem "başarısız" der | gerçekten başarısız).
+- Ham oran yanlıdır: E[p̂] = (q0+q1−1)·θ + (1−q0) (denklem 9).
+- Düzeltilmiş tahmin: **θ̂ = (p̂ + q̂0 − 1) / (q̂0 + q̂1 − 1)** (denklem 5).
+- q̂0 ve q̂1, insan etiketli küçük bir **kalibrasyon setinden** tahmin ediliyor. m0 tane gerçek-negatif ve m1 tane gerçek-pozitif örnek.
+- Güven aralığı denklem 6–8 ile hesaplanıyor. Hem test setinin varyansını (n) hem kalibrasyon setinin varyansını (m0, m1) içeriyor. "Add two successes and two failures" düzeltmesi kullanılıyor (adjusted Wald).
+- Algoritma 1: Önce etiket türü başına yaklaşık 10 örnekle bir pilot yapılıyor. Sonra kalan etiketler m0 ile m1 arasında aralığı en kısa yapacak şekilde paylaştırılıyor.
+
+**Dağılım kayması (E-25 §8, Table 2).**
+- RG yalnızca P(hakem kararı | gerçek etiket) değişmez kalırsa yansız kalır. Gerçek ASR'nin kendisi kalibrasyon ile test arasında değişse bile yansızdır.
+- PPI'nin fark tahmincisi ve koşullu kalibrasyon ise P(Z), yani prevalans aynı kalırsa yansızdır.
+- E-26, PPI ve EIF tahmincilerinin RG'den daha az sonlu örnek yanlılığı ve daha dar aralık verdiğini gösteriyor. PPI'nin asimptotik varyansı RG'den "strictly smaller" (§1). Ama bu sonuç **MCAR varsayımına** dayanıyor: etiketli alt küme aynı havuzdan rastgele çekilmiş olmalı (§2). Kovaryat ve etiket kayması "future work" olarak bırakılmış (§7).
+
+**Uyarı: "m ≈ 200 yeter" cümlesi (E-25 §4.2).**
+- Yazarların örneği: q̂0 = 0.7, q̂1 = 0.9, p̂ = 0.3. Bu durumda θ̂ = (0.3+0.7−1)/0.6 = **0** çıkar.
+- Aralık 0'da kesildiği için yarısı atılıyor. Kısa görünmesinin bir nedeni bu.
+- **Hesap:** Formülü (denklem 6–7) kendim uyguladım, simetrik paylaşım ve n → ∞ ile.
+  - p̂ = 0.3 için m = 200'de aralık genişliği ≈ 0.15.
+  - p̂ = 0.5 için (θ = 1/3) m = 200'de genişlik ≈ 0.21. Genişliğin 0.1'e inmesi için m ≈ 1000 gerekiyor.
+  - Figure 3'teki p̂ = 0.5, 0.7, 0.9 eğrileri benim hesabımla tutuyor.
+- **Sonuç:** "200 etiket yeter" genel bir kural değil. Gereken sayı hakemin kalitesine ve θ'ya bağlı. Bkz. §12'deki tablo.
+
+## 11. "Plasebo kolu" nedir, hangi kaynaklar destekliyor?
+
+**Ne demek?** İlaç denemesindeki şeker hap gibi. Her senaryo **iki kez** çalıştırılıyor:
+- (1) Enjeksiyon yuvasında saldırı metniyle.
+- (2) **Aynı yuvada, aynı uzunlukta zararsız bir metinle.** Örneğin "Not: Bu şarj istasyonu 22:00'de kapanır".
+- İki kolda da **aynı** saldırgan-hedef kontrolü ve aynı utility kontrolü çalıştırılıyor.
+- Saldırıya atfedilebilen etki = G(saldırılı) − G(plasebo). Bu, evaluation.md'deki M1'in (CASR) tanımı.
+
+**Neyi yakalıyor? (Çıkarım)**
+- **N2:** Enjeksiyon görev verisini silerse, plasebo da siler. Utility düşüşü iki kolda da görülür, yani "saldırı" diye sayılmaz.
+- **N5:** Saldırı olmadan da olan sıradan başarısızlıklar iki kolda da görülür.
+- **N23:** Hedef çakışmasında, yani kullanıcı isteği zaten saldırgan IBAN'ını içeriyorsa, plasebo kolunda da "saldırı başarılı" çıkar. Bu durumda vaka hemen fark edilir.
+- **Dikkat dağılması:** Araç çıktısına herhangi bir ek metin konmasının ajanı bozup bozmadığı ayrı ölçülür.
+
+**Literatürde bu adla bulunamadı.**
+- Yerel korpusta "placebo" aradım, sonuç çıkmadı.
+- Semantic Scholar'da ilgili bir sonuç çıkmadı.
+- arXiv API'si bu ortamdan erişilemedi.
+- Bu yüzden kavram **tezin kendi önerisi** olarak sunulmalı. Onu motive eden ve en yakın kaynaklar şunlar:
+
+| Kaynak | Ne yapıyor | Plaseboyla ilişkisi |
+|---|---|---|
+| E-01 §7.1, Ek D.1.1 (T2) | Enjeksiyonun görev verisinin üzerine yazdığını gösteriyor | Plasebonun neden gerektiğinin doğrudan motivasyonu |
+| E-45 §4.1 (T3) | Her görevde aynı not alanında **13 zararsız düzenleme** ve bir "benign note" adayı var (toplam 832). Eşiği kalibre etmekte ve WorstU/Joint utility hesaplamakta kullanılıyor. | Pratikte plasebonun ta kendisi. Ama ASR'den çıkarılan bir fark olarak kullanılmıyor. |
+| E-18 §3.4 (T1) | Δflip = P_flip − P_jitter. Aynı prompt'u tekrar çalıştırarak "değişiklik yokken" ne kadar çevrilme olduğunu ölçüyor ve çıkarıyor. | Hakem tarafında plasebo-çıkarmalı tahmin. |
+| E-46 §3 (T3) | İçeriği koruyan, yalnızca çerçeveyi değiştiren sarmalayıcılar | Hakem için plasebo testi |
+| E-12 §4 (T3) | Temiz ortama karşı diferansiyel replay | Temiz kontrol. Plasebo değil, ama aynı eşleştirme mantığı. |
+| E-22 (T2, özet) | Eşleştirilmiş ΔHCR ve McNemar. Mutlak oranlar hakemden hakeme 0.17 oynarken farkın **işareti** dört hakemde de aynı. | Eşleştirilmiş fark tasarımının hakem seçimine karşı sağlam olduğunun kanıtı |
+| E-02 §3.4 (T1) | Saldırgan hedefini meşru görev olarak da çalıştırıyor | Yetenek kontrolü (ASR'nin tavanı) |
+| N23 (ana oturum ölçümü) | Temiz koşularda tüm saldırgan oracle'larını çalıştırma | Plasebo kolunun yakalayacağı hatanın gerçek bir örneği |
+
+## 12. Süpervizörün sorusu: "İnsan etiketlemesi çok zaman alıyor. Az etiketle güvenilir, hakem-düzeltmeli sayıyı nasıl alırız?"
+
+**Ana fikir.** İnsan etiketi her izi etiketlemek için değil, **ölçüm aletini (hakemi) ölçmek** için gerekiyor. E-44 bunu açıkça söylüyor: "The human labels validate the judge rather than replace it: labeling all 33,000 multi-turn trajectories by hand was not feasible". Bu cümle deneyle destekli: 150 etiket, κ = 0.835 (§6).
+
+### (a) Önce durum oracle'ı: hakem hiç gerekmesin
+
+**Ne zaman mümkün?** Saldırganın hedefi bir **durum değişikliği** ise.
+- Araç örnekleri: navigasyon hedefinin X'e çevrilmesi, mesajın Y'ye gitmesi, kapı kilidinin açılması, şarj limitinin değişmesi, verinin dışarı sızdırılması.
+- AgentDojo bunu "deterministic binary function" ile yapıyor (E-03).
+- WASP uçtan uca ASR'yi kural tabanlı ölçüyor (E-02).
+- Oracle olan yerde hakem pek bir şey eklemiyor. E-44'te LLM hakemi programatik kararlarla %96.7 ve %98.5 örtüşüyor.
+
+**Maliyeti.** Etiketleme iz başına değil, **görev başına** yapılıyor.
+- Oracle bir kez yazılır.
+- Temiz koşularda ve elle kurulmuş "geçmeli" ve "kalmalı" izlerde test edilir. Bu, E-01'in brittle oracle örneğine karşı önlem.
+- Ayrıca temiz koşu taraması yapılır (N23).
+
+**Ne zaman mümkün değil?**
+- Ajan saldırıyı reddetti mi, görmezden mi geldi (E-44)?
+- Ajan yoldan saptı mı, yani ara ASR (E-02)?
+- Metin olarak zararlı içerik.
+- Ciddiyet derecesi.
+- Ajan bir şeyi yaptığını söylüyor ama gerçekte yapmamış.
+
+Bunlar için hakem gerekiyor. Ama tezin **birincil** ASR'si oracle ile ölçülebilir.
+
+**Çıkarım:** Bir alt soruyu hem oracle hem hakem cevaplayabiliyorsa, oracle kalibrasyon setindeki "insan" etiketi yerine geçer. Bu da etiketlemenin maliyetini sıfıra indirir.
+
+### (b) Küçük, katmanlı bir kalibrasyon seti
+
+**Kaynak.** E-25. Hakemin hata oranları her katmanda (saldırı ailesi × mimari) ayrı ayrı ölçülür. Ayrı ölçmek gerekiyor, çünkü E-16 hata oranlarının kurban modele ve saldırıya göre değiştiğini gösteriyor. Düzeltme RG ile yapılır.
+
+**Hesap.** `calc.py` ve `cond.py` ile. Varsayımlar:
+- Hakemin duyarlılığı 0.90, özgüllüğü 0.95. Bu değerler bir varsayım, kendi pilotunuzda ölçün.
+- Kolda n tane hakem etiketli iz var.
+- m insan etiketi var.
+- Tablodaki sayılar %95 güven aralığının **yarı genişliği**.
+
+| Gerçek ASR | n | m | RG (rastgele kalibrasyon) | PPI (aynı koldan rastgele) | Sadece insan (m etiket) | Hakem etiketine göre katmanlı (m/2 + m/2) |
+|---|---|---|---|---|---|---|
+| 0.20 | 2000 | 100 | ±6.7 puan | ±5.1 | ±7.8 | ±4.4 |
+| 0.20 | 2000 | 200 | ±4.7 | ±3.8 | ±5.5 | ±3.3 |
+| 0.20 | 500 | 200 | ±6.1 | ±5.0 | ±5.5 | ±4.1 |
+| 0.05 | 2000 | 100 | ±6.7 | ±4.6 | ±4.3 | ±2.3 |
+| 0.05 | 2000 | 200 | ±4.5 | ±3.4 | ±3.0 | ±1.7 |
+
+- Bu hakemin ham ASR'si gerçek değeri şişiriyor:
+  - Gerçek ASR 0.20 iken ham oran 0.22.
+  - Gerçek ASR 0.05 iken ham oran 0.093. Yani ham ASR gerçeğin neredeyse **iki katı**.
+- **Yorum.** E-25 Önerme 6.1 ile tutarlı: Hakemin avantajı θ ≈ 0.5 civarında en büyük. ASR %5 gibi düşükken, aynı sayıda etiketle "sadece insan" tahmini bile RG ve PPI'den iyi olabiliyor.
+- Hedef ±5 puan, ASR ≈ 0.20, n = 2000 ise:
+  - PPI için yaklaşık **106** etiket yeter.
+  - Sadece insan etiketiyle yaklaşık **246** etiket gerekir.
+- Katman sayısı arttıkça etiket ihtiyacı katman sayısıyla çarpılır. Bu yüzden katmanları az tutun (2–4).
+
+### (c) Prediction-powered inference (PPI)
+
+**Formül.** θ̂ = ortalama(hakem, N izin tamamı) + ortalama(insan − hakem, m etiketli iz).
+- E-26'ya göre asimptotik varyansı RG'den küçük.
+- **Şart:** Etiketli izler **o kolun kendisinden rastgele** seçilmeli (MCAR; E-26 §2). E-25'in Table 2'sine göre PPI, prevalans kalibrasyon ile test arasında farklıysa yanlı olur.
+- Tezde ASR her savunma kolunda farklı olacak. Bu yüzden ya **her koldan ayrı** küçük rastgele örnek alın, ya da RG kullanıp hakemin hata oranlarının kollar arasında değişmediğini varsayın ve bu varsayımı açıkça yazın.
+- Kod: github.com/yiqunchen/debias-llm-as-a-judge (E-26).
+
+### (d) Birden fazla hakem veya "LLM jürisi"
+
+Literatür burada **olumsuz**. Hakemler aynı yerlerde yanılıyor, bu yüzden oy çokluğu yanlışı düzeltmiyor:
+- **E-36 §5.2 (T3):** Jev'in en emin olduğu hatalarda, LLM hakemlerinin 252 kararının 242'si (**%96.0**) aynı yanlışı tekrarlıyor. Bağımsız hatalarda beklenen oran %50.3. Kaskadlar, oracle eşiklerle bile en iyi tek hakeme göre en fazla **2.7 puan** kazandırıyor.
+- **E-16 §4.4 (T1):** Hakemlerin ortalaması insan puanlarıyla net bir ilişki göstermiyor. Uyum doğruluk anlamına gelmiyor.
+- **E-23 (T2, özet):** Hakemler birbirleriyle, kendi kendileriyle olduğundan daha çok anlaşmazlığa düşüyor (oran 1.8–10.9×).
+- **E-22 (T2, özet):** Mutlak oranlar hakemden hakeme 0.17 oynuyor. Ama **eşleştirilmiş farkın yönü** dört hakemde de aynı.
+
+**Kullanım (Çıkarım).** Jüri doğruyu vermez. Şu iki iş için kullanılır:
+- Ayrıştırma (triage) sinyali: Hakemlerin anlaşamadığı izleri insana gönderin.
+- Sağlamlık kontrolü: Farkın yönü hakem değişince değişiyor mu?
+
+### (e) Ucuz modelle ön-etiketleme, insan yalnızca anlaşmazlıklara baksın
+
+- **Kanıt (olumlu):** E-44, hakemin kararlarını benchmark'ın programatik kararlarıyla karşılaştırıyor. Uyuşmayan izleri ayrı bir kategori olarak raporluyor ("judge–benchmark disagreements").
+- **Kanıt (uyarı):** E-16 bütçe yüzünden **yalnızca hakemin pozitif dediği örnekleri** etiketlemiş. Bu yüzden recall'u ve yanlış negatifleri ölçemiyor. E-36 ve E-16 ise iki hakemin **birlikte yanıldığı** yerlerin "anlaşma" görüneceğini gösteriyor. Sadece anlaşmazlıklara bakan bir insan bu hataları hiç görmez.
+- **Düzeltme (Çıkarım, E-25 Table 2 (iv) ve E-26 denklem 20'ye dayanarak):**
+  - Anlaşmalardan da küçük bir **rastgele** örnek alın.
+  - Her katmanın seçilme olasılığını kaydedin.
+  - Tahmini ters olasılıkla ağırlıklandırın.
+  - En basit hali: Her kolda hakem-pozitiften k₊, hakem-negatiften k₋ iz etiketleyin. Sonra θ̂ = P̂(hakem+)·PPV̂ + P̂(hakem−)·(1−NPV̂).
+  - Tablodaki son sütun bunu gösteriyor: ASR 0.20 için 50 + 50 etiketle yaklaşık ±4.4 puan.
+
+**Etiketsiz ucuz kontroller.**
+- Jitter: aynı izi 3 kez tekrar puanlayın (E-18).
+- İçeriği koruyan sarmalayıcılarla hakemi kendi başına test edin (E-46).
+- Oracle ile hakem arasındaki uyumu ölçün (E-44).
+
+### Önerilen pratik protokol (Çıkarım)
+
+1. **Birincil sonuç = durum oracle'ı.** Bunun için insan etiketi gerekmez. Oracle bir kez denetlenir.
+2. **Hakem gerektiren ikincil sonuçlar** (ret ya da görmezden gelme, sapma, ciddiyet): Her kolda ve her katmanda hakem etiketine göre katmanlanmış yaklaşık **50 + 50** insan etiketi toplayın.
+   - Bu sayılar varsayılan hakem için ±4–5 puan verir (yukarıdaki tablo).
+   - Önce 10 + 10'luk bir pilot yapın. Pilotta hakem kötü çıkarsa (q0+q1−1 sıfıra yakınsa), o katmanda hakemi değiştirin.
+3. **İkinci bir etiketçi** etiketlerin yaklaşık %20'sini etiketlesin. κ değerini raporlayın.
+4. Her hakem için bir **Judge Card** raporlayın: jitter, sarmalayıcıyla çevrilme oranı, her katmanda q0/q1.
+5. Ana bulguyu **eşleştirilmiş fark** olarak raporlayın: saldırılı eksi plasebo, savunmalı eksi savunmasız (E-22, M1).
+
+### Hâlâ açık olanlar
+
+- Hiçbir kaynak sıfır insan etiketiyle geçerlilik göstermiyor. E-22 de şöyle diyor: "a human gold set remains the needed calibration".
+- Hakemin hata oranının kayması: Saldırı ailesi değişince q0/q1 de değişebilir (E-16). E-26 bu kaymayı "future work" olarak bırakıyor. Katmanlama ancak kısmi bir çözüm.
+- Uzun ajan izinde bir etiketin kaç dakika süreceği **ölçülmedi**. Bunu pilotta ölçün; bütçeyi ona göre hesaplayın.
+
+## 13. Kullanıcıdan istenecek kaynaklar (tam metnine ulaşamadıklarım)
+
+- **Your Judge Is a Confound: Evaluator and Attack Choice Distort Jailbreak-Safety Measurement for Fine-Tuned LLMs** (E-21): https://openreview.net/forum?id=IsMm0VavVP. PDF, OpenReview'un "challenge" doğrulaması yüzünden inmedi. Yalnızca özeti okudum.
+- **Audit the Difference, Not the Score: Detecting Safety Regressions in Localized LLMs Despite Unreliable Judges** (E-22): https://openreview.net/forum?id=ud8sKdplQQ. Yalnızca özet.
+- **Measuring the Measurer: Reliability of LLM Judge Scoring in Petri** (E-23): https://openreview.net/forum?id=DeTd5gGgWx. Yalnızca özet.
+- **Estimating prevalence from the results of a screening test** (Rogan & Gladen 1978, American Journal of Epidemiology 107(1):71–76; E-28): orijinal makale açılmadı.
+- "Plasebo kolu" terimini kullanan bir ajan güvenliği makalesi bulamadım. Bildiğiniz bir makale varsa başlığını iletin.
