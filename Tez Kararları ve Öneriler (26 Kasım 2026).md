@@ -30,7 +30,7 @@ Kaynaklar: Tam Rehber Bölüm A (senin kararların), senin düzelttiğin D (Tab 
 
 ## 3. Yeni kaynaklar: ne buldum, ne öneriyorum
 
-Hepsinin tam metnini okudum. Yayın yerleri PDF'lerden kontrol edildi.
+Hepsinin tam metnini okudum. Yayın yerleri PDF'lerden kontrol edildi. Son yüklediğin 7 PDF için 3b'ye bak.
 
 | Kaynak | Yayın | Bizim için ne var? | Öneri |
 |---|---|---|---|
@@ -44,6 +44,26 @@ Hepsinin tam metnini okudum. Yayın yerleri PDF'lerden kontrol edildi.
 | **The Attacker Moves Second** (yüklediğin) | USENIX Security 2026, T1 | Arama tabanlı saldırgan: öner → puanla → seç → güncelle döngüsü. Savunmaya özel değil ve ucuz. Önemli tavsiye: "Bütçe kısıtlıysa büyük test setinde zayıf saldırı yerine **küçük test setinde güçlü saldırı**." Başarılı örnek tetikleyicilerden biri sahte bir politika metni ("ACCESS_POLICY_ENFORCED … prerequisite workflow"). | **Uyum sağlayan saldırganımız bu döngü olsun.** Az görevde, güçlü saldırıyla; ASR'yi sorgu sayısına göre eğri olarak raporla. Sahte politika/yetki metnini ayrı bir saldırı varyantı yap (JEV'e karşı Datadog'un bulduğu şeyle aynı desen). |
 | **AuthorityFlow** (yüklediğin) | arXiv, ICLR 2027'ye gönderilmiş, T3. Kod yok | Parametre zehirleme: doğru araç, yanlış parametre (alıcı, hesap). Görev başına "hangi bilgi alanı hangi parametreyi belirleyebilir" diye bir yetki tablosunu **bir LLM kuruyor**. 144 eşli vaka. Adaptif test yok. | **Fikri al, LLM kısmını alma.** Arabada alan dar olduğu için bu tabloyu **sabit kodla** yazabiliriz: `navigate.hedef` ← sürücünün sesi, kayıtlı adresler, OEM POI veritabanı; yorum metni asla. Bu D4'ün çekirdeği. 144 eşli vaka düzeni talimatsız POI vakalarımız için şablon. |
 | **Agent-Driver** (yüklediğin) | COLM 2024, hakemli | AgentPoison'un saldırdığı sürüş ajanı: araç kütüphanesi + hafıza (kurallar ve geçmiş senaryolar) + akıl yürütme + öz-düzeltme. Öz-düzeltme deterministik bir `collision_check` ile yapılıyor: LLM'in rotası kodla kontrol edilip düzeltiliyor. | Kokpit asistanı değil, hareket planlayıcı; doğrudan kullanmayalım. Ama **D'deki "başka mimari" notuna cevap:** dördüncü mimari olarak **"hafızalı ajan + deterministik son kontrol"** eklenebilir. Hafıza zehirleme ailesini zaten test ediyoruz. |
+
+### 3b. Son yüklenen PDF'ler
+
+AgentSentry ve ShadowMem dosyaları daha önce okuduklarımla aynı; yeni bir şey yok.
+
+| Kaynak | Yayın | Bizim için ne var? | Öneri |
+|---|---|---|---|
+| **CaMeL** (IEEE sürümü) | IEEE SaTML 2026, s. 587; DOI PDF'te var. **Yayın yeri artık birincil kaynaktan doğrulandı** | 77% vs 84% aynı (o3 modeli). | Künye kesinleşti. |
+| **AgentDyn** | arXiv, T3. ROPE ve AutoDojo ile aynı grup (Vorobeychik, Xiao). Kod: github.com/leolee99/AgentDyn | 60 açık uçlu görev, 560 saldırı vakası. **CaMeL her modelde fayda 0, ASR 0** (Tablo 3). Planlamaya dayalı savunmalar (Tool Filter, CaMeL, DRIFT) dinamik görevde çöküyor. PIGuard ve ProtectAI, dış veride **yardımcı talimat** varken faydayı neredeyse sıfıra indiriyor. Benchmark'ların çoğu bu yüzden savunmaları olduğundan iyi gösteriyor: dış veride hiç meşru talimat yok, "talimatı gördün mü engelle" demek yetiyor. | **Ortama yardımcı talimatlı meşru görevler ekle.** Arabada bunlar çok: "Bu istasyonda önce uygulamadan rezervasyon yapın", "Beni geri arayın" SMS'i. Bunlar olmadan dedektörler sahte başarılı görünür. CaMeL'i kendi ortamımızda koşturmak büyük ihtimalle 0 fayda verir; sadece literatür sayısı olarak geçir. |
+| **SPILLWAY** | arXiv, ICLR 2027 başvurusu geri çekilmiş, T3. Kod Apache-2.0 | Hedef (alıcı, hesap) kullanıcının görevinde yoksa, **sadece salt-okunur bir aracın tipli alanından** gelebilir. Sabit kurallı temizleyici var; LLM yok. 12 AgentDojo hücresinde BU .522, UAU .474 (en yüksek), ASR .000 (Tablo 2). Epizot başına 1'den az ek çağrı ve 0,5 saniyeden kısa ek süre (MELON, Progent ve DRIFT 2,2–13,6 çağrı ve 22,7 saniyeye kadar ek süre). Kendi sınırı: sadece serbest metin alanına yazan saldırgana karşı kanıtlı. | **D4'ün asıl rakibi (baseline) bu olsun, CaMeL değil.** Deterministik, ucuz, açık kodlu ve AgentDojo formatında. Ama **bizim POI saldırımızı durduramaz** (Çıkarım): saldırganın yönlendirdiği istasyon B zaten arama aracının tipli sonucunda var; saldırgan sadece seçimi etkiliyor. D4'ün farkı burada ölçülür. |
+| **LlamaFirewall** | arXiv, Meta teknik raporu, T3 | **PromptGuard 2:** 22M parametreli küçük model, 19,3 ms; %1 yanlış alarmda İngilizce recall %88,7 (86M sürüm %97,5). **AlignmentCheck:** LLM ile ajanın düşüncesini denetliyor; AgentDojo ASR 0,18 → 0,03, ama yavaş ve fayda düşüyor. İkisi birlikte ASR %1,75, fayda %42,7. Yazarların kendi uyarısı: AgentDojo sadece dar bir saldırı türünü test ediyor. | **D2 dedektörü: PromptGuard 2 (22M)**, çünkü araçta çalışacak kadar hızlı. Lisansı (Llama) VW'ye sorulmalı. AlignmentCheck'i kullanma: hem LLM hem yavaş, ve %2 saldırı oranında precision 0,096 (D-32). |
+| **IPIGuard** | EMNLP 2025, T1. Kod GitHub'da | Dış veriyi okumadan önce bir araç bağımlılık grafiği planlıyor; çalışırken bu grafiğin dışına çıkılmıyor. Kendi sınırları: güçlü bir planlayıcı model gerekiyor; sadece metni manipüle eden saldırılar kapsam dışı. Üçüncü taraf: parametre zehirlemesinde ASR %47,9 (Qwen) ve %67,4 (GPT-4o; savunmasızdan bile kötü, AuthorityFlow Tablo 1). | **D3 (plan-then-execute) için hazır uygulama** olarak kullanılabilir. Bizim saldırımızı durdurmadığı zaten biliniyor; bu, D4'ün gerekliliğini gösteren bir kontrol noktası. |
+
+**Ortak ders (Çıkarım):** Şimdiye kadar okuduğum en güçlü 4 savunma, **talimat içermeyen karar çarpıtmaya** karşı ya kendileri başarısız olduğunu söylüyor ya da tasarımları gereği bunu kapsamıyor:
+- AgentSentry: adaptif testte atlatan 2 vakanın ikisi de bu tür.
+- SPILLWAY: hedef tipli alandan geldiği için geçiyor.
+- IPIGuard: parametre zehirlemesinde %48–67 ASR.
+- AuthorityFlow: kendi yetki tablosunu bir LLM kuruyor.
+
+Tezin savunma tarafındaki boşluk tam burası.
 
 ---
 
@@ -61,14 +81,27 @@ Hepsinin tam metnini okudum. Yayın yerleri PDF'lerden kontrol edildi.
 
 **Ö5. Slayt 19'dan kural: tek başına engelleyen LLM denetleyici yok.** MELON tablosunda LLM denetleyici ASR'yi %0'a indiriyor ama görev başarısı da %0 oluyor. Bu yüzden JEV ya da herhangi bir LLM bekçi **sadece "sürücüye sor / ertele" yaptırımını tetikleyebilsin; tek başına engelleyemesin.** Engelleme kararı D4'teki kodda kalsın. Yanlış alarmı gerçekçi saldırı sıklığında (%1–2) ver. *Neden:* Bu sıklıkta dedektör alarmlarının %90'dan fazlası yanlış (D-32); JEV'in ajan izlerinde yanlış alarm oranı %7,5–25,1.
 
-**Ö6. Slayt 16'daki dört katmanı D-merdivenine bağla, ama sadeleştir.** D0 savunma yok → D1 prompt → D2 dedektör/JEV (sadece "sor" tetikler) → D3 plan-then-execute → D4 bizim kapı. D5 ve CaMeL şimdilik referans; sayılarını literatürden ver (CaMeL SaTML 2026 ve AutoDojo). *Neden:* Seçtiğin Ş'ler bunu karşılıyor; kod yükünü D4'te topluyor.
+**Ö6. Slayt 16'daki dört katmanı D-merdivenine bağla, ama sadeleştir.**
+- D0: savunma yok.
+- D1: prompt.
+- D2: PromptGuard 2 (22M) ve JEV; ikisi de sadece "sürücüye sor" yaptırımını tetikleyebilir.
+- D3: plan-then-execute (IPIGuard kodu hazır).
+- **SPILLWAY:** deterministik rakip (baseline).
+- D4: bizim kapı.
+
+D5 ve CaMeL şimdilik sadece referans. CaMeL'in sayıları literatürden verilir: SaTML 2026, AutoDojo'da fayda %26–53, AgentDyn'de fayda 0.
+
+*Neden:* Seçtiğin Ş'leri karşılıyor. Kodu hazır olanları kullanıyor ve kendi kod yükümüzü D4'te topluyor. D4'ün değerini en güçlü ucuz rakibe (SPILLWAY) karşı gösteriyor.
+
+**Ö8. Ortama "yardımcı talimatlı" meşru görevler ekle.** AgentDyn'in dersi bu. Dış veride meşru talimat yoksa, "talimat görürsen engelle" diyen her savunma iyi görünür. Bu görevler aracın gerçek hayatında zaten var (şarj istasyonunun rezervasyon notu, "beni geri ara" SMS'i). Bunlar faydayı ve aşırı savunmayı ölçer. Ek maliyeti az: aynı görev şablonlarına meşru not eklemek yetiyor.
 
 **Ö7. Mimariler: 3 + 1.** ReAct, plan-then-execute, Dual-LLM (CaMeL tarzı) ve dördüncü olarak "hafızalı ajan + deterministik son kontrol" (Agent-Driver deseni). *Neden:* Hafıza zehirleme ailemiz bu mimaride en anlamlı. Sonuçları saldırı ailesi bazında ver; model, araçlar ve promptlar sabit kalsın.
 
 ---
 
-## 5. Senden karar bekleyen 3 şey
+## 5. Senden karar bekleyen 4 şey
 
 1. **Niyet kaçırma ailesi:** İnsan etiketi olmadan sadece kodla ölçülebilir hedeflerle mi tutalım (ör. "yolcu kapı kilidini açtırdı mı?"), yoksa tezden çıkaralım mı? Önerim: kodla ölçülebilir hedeflerle tutalım.
 2. **POI/şarj aracı:** VehicleWorld'e kendimiz mi ekleyelim, yoksa CAR-bench'in POI verisini mi alalım? Önerim: CAR-bench verisini kullanalım (MIT), değerlendirmesini kullanmayalım.
-3. **Saldırgan modeli:** Uyum sağlayan saldırgan için hangi model (açık mı, API mi)? Bu bir maliyet kararı. Seçince tahmini maliyeti çıkarıp sana getiririm.
+3. **D4'ün rakibi:** CaMeL yerine SPILLWAY olsun mu? Önerim evet. Ucuz, deterministik ve açık kodlu; CaMeL ise dinamik görevlerde 0 fayda veriyor.
+4. **Saldırgan modeli:** Uyum sağlayan saldırgan için hangi model (açık mı, API mi)? Bu bir maliyet kararı. Seçince tahmini maliyeti çıkarıp sana getiririm.
