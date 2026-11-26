@@ -1,0 +1,394 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>References — &quot;Agent Security and JEV&quot;</title><style>
+@page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+* { box-sizing: border-box; }
+body { font-family: "DejaVu Sans", Arial, sans-serif; font-size: 10.3pt; line-height: 1.55; color: #1d1d1f; margin: 0; }
+main { max-width: 820px; margin: 0 auto; padding: 0 4px; }
+h1, h2, h3, h4, h5 { line-height: 1.25; color: #10243e; break-after: avoid; }
+h2 { font-size: 19pt; border-bottom: 3px solid #b4002d; padding-bottom: 6px; margin: 0 0 14px; break-before: page; }
+h3 { font-size: 14pt; margin: 22px 0 8px; color: #b4002d; }
+h4 { font-size: 12pt; margin: 18px 0 6px; }
+h5, h6 { font-size: 10.8pt; margin: 14px 0 4px; }
+p { margin: 6px 0; }
+ul, ol { margin: 6px 0 6px 0; padding-left: 22px; }
+li { margin: 2px 0; }
+table { border-collapse: collapse; width: 100%; margin: 10px 0 14px; font-size: 8.8pt; line-height: 1.4; }
+th, td { border: 1px solid #c9ced6; padding: 5px 6px; vertical-align: top; text-align: left; overflow-wrap: break-word; hyphens: auto; }
+th { background: #eef1f6; font-weight: 600; }
+tr { break-inside: avoid; }
+tbody tr:nth-child(even) td { background: #fafbfc; }
+code { font-family: "DejaVu Sans Mono", monospace; font-size: 8.6pt; background: #f2f3f5; padding: 1px 3px; border-radius: 3px; overflow-wrap: anywhere; }
+pre { background: #f2f3f5; padding: 8px 10px; border-radius: 4px; white-space: pre-wrap; font-size: 8.4pt; break-inside: avoid; }
+pre code { background: none; padding: 0; }
+blockquote { margin: 8px 0; padding: 6px 12px; border-left: 4px solid #b4002d; background: #fff6f8; }
+hr { border: 0; border-top: 1px solid #d9dde3; margin: 18px 0; }
+strong { color: #0d1b2e; }
+a { color: #10243e; text-decoration: none; }
+.cover { height: 250mm; display: flex; flex-direction: column; justify-content: center; }
+.cover .kicker { font-size: 11pt; letter-spacing: .12em; text-transform: uppercase; color: #b4002d; font-weight: 600; }
+.cover h1 { font-size: 30pt; margin: 10px 0 8px; border: 0; }
+.cover .sub { font-size: 13pt; color: #3c4858; max-width: 150mm; }
+.cover .meta { margin-top: 26px; font-size: 10.5pt; color: #5a6472; }
+.cover .box { margin-top: 30px; border: 1px solid #d9dde3; border-radius: 6px; padding: 12px 16px; font-size: 10pt; max-width: 160mm; }
+.toc { break-before: page; }
+.toc h2 { break-before: avoid; }
+.toc ul { list-style: none; padding-left: 0; }
+.toc > ul > li { margin: 8px 0 2px; font-weight: 600; }
+.toc ul ul { padding-left: 16px; font-weight: 400; }
+.toc ul ul li { margin: 1px 0; font-size: 9.6pt; }
+.toc ul ul ul { display: none; }
+
+h2 { break-before: auto; font-size: 15pt; margin-top: 22px; }
+table { font-size: 8.4pt; } td:first-child, th:first-child { width: 4%; } td:last-child, th:last-child { width: 9%; }
+a { color: #0b5cad; text-decoration: underline; }
+.head { border-bottom: 3px solid #b4002d; margin-bottom: 10px; } .head h1 { font-size: 22pt; margin: 0 0 4px; }
+.head .meta { color: #5a6472; font-size: 10pt; margin-bottom: 8px; }
+</style></head><body><main><div class="head"><h1>References — &quot;Agent Security and JEV&quot;</h1><div class="meta">Ömer · Volkswagen AG, Digital Architecture Concepts · November 2026</div></div><p>Sources used in the presentation, grouped as in the deck. For each source: title, first author, venue, peer-review status, link, and the slides where it is used. Venues were checked on 24–26 November 2026 (OpenReview, ACL Anthology, USENIX, proceedings pages or citing papers).</p>
+<p><strong>Peer-review status:</strong> <em>Peer-reviewed</em> = published at a reviewed conference or journal. <em>Workshop</em> = peer-reviewed workshop. <em>Preprint</em> = arXiv only, not (yet) peer-reviewed. <em>Vendor / blog</em> = company documentation or blog post.</p>
+<h2>1. Attacks and benchmarks</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Venue · status</th>
+<th>Link</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>AgentLAB: Benchmarking LLM Agents against Long-Horizon Attacks.</strong> T. Jiang et al.</td>
+<td>ICML 2026 (PMLR 306) · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2602.16901">arXiv 2602.16901</a> · <a href="https://github.com/TanqiuJiang/AgentLAB">code</a></td>
+<td>5, 7, 10, 11, 21, 29</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents.</strong> E. Debenedetti et al.</td>
+<td>NeurIPS 2024 Datasets &amp; Benchmarks · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2406.13352">arXiv 2406.13352</a> · <a href="https://github.com/ethz-spylab/agentdojo">code</a></td>
+<td>3, 6, 10, 13</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>InjecAgent: Benchmarking Indirect Prompt Injections in Tool-Integrated Large Language Model Agents.</strong> Q. Zhan et al.</td>
+<td>Findings of ACL 2024 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2403.02691">arXiv 2403.02691</a></td>
+<td>9, 10</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>AgentHarm: A Benchmark for Measuring Harmfulness of LLM Agents.</strong> M. Andriushchenko et al.</td>
+<td>ICLR 2025 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2410.09024">arXiv 2410.09024</a></td>
+<td>3, 9, 10</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Agent Security Bench (ASB): Formalizing and Benchmarking Attacks and Defenses in LLM-based Agents.</strong> H. Zhang et al.</td>
+<td>ICLR 2025 (poster) · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2410.02644">arXiv 2410.02644</a></td>
+<td>8</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Indirect Prompt Injections: Are Firewalls All You Need, or Stronger Benchmarks?</strong> (ASB re-analysis). R. Bhagwatkar et al.</td>
+<td>NeurIPS 2025 Lock-LLM Workshop · Workshop</td>
+<td><a href="https://arxiv.org/abs/2510.05244">arXiv 2510.05244</a></td>
+<td>8</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>AgentPoison: Red-teaming LLM Agents via Poisoning Memory or Knowledge Bases.</strong> Z. Chen et al.</td>
+<td>NeurIPS 2024 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2407.12784">arXiv 2407.12784</a> · <a href="https://github.com/BillChan226/AgentPoison">code</a></td>
+<td>3, 7</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>MCPTox: A Benchmark for Tool Poisoning on Real-World MCP Servers.</strong> Z. Wang et al.</td>
+<td>AAAI 2026 (Proc. AAAI 40(42), 35811–35819) · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2508.14925">arXiv 2508.14925</a></td>
+<td>3</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>WASP: Benchmarking Web Agent Security Against Prompt Injection Attacks.</strong> I. Evtimov et al.</td>
+<td>NeurIPS 2025 Datasets &amp; Benchmarks · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2504.18575">arXiv 2504.18575</a></td>
+<td>13</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>CAR-bench: Evaluating the Consistency and Limit-Awareness of LLM Agents under Real-World Uncertainty.</strong> J. Kirmayr et al.</td>
+<td>ACL 2026 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2601.22027">arXiv 2601.22027</a> · <a href="https://github.com/CAR-bench/car-bench">code</a></td>
+<td>10, 29, 31</td>
+</tr>
+</tbody>
+</table>
+<h2>2. Judges and evaluation</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Venue · status</th>
+<th>Link</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td><strong>R-Judge: Benchmarking Safety Risk Awareness for LLM Agents.</strong> T. Yuan et al.</td>
+<td>Findings of EMNLP 2024 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2401.10019">arXiv 2401.10019</a></td>
+<td>12</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>AgentAuditor: Human-Level Safety and Security Evaluation for LLM Agents.</strong> H. Luo et al.</td>
+<td>NeurIPS 2025 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2506.00641">arXiv 2506.00641</a></td>
+<td>12</td>
+</tr>
+<tr>
+<td>13</td>
+<td><strong>A Coin Flip for Safety: LLM Judges Fail to Reliably Measure Adversarial Robustness.</strong> L. Schwinn et al.</td>
+<td>ICML 2026 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2603.06594">arXiv 2603.06594</a></td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<h2>3. Defences</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Venue · status</th>
+<th>Link</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>14</td>
+<td><strong>The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections.</strong> M. Nasr, N. Carlini et al.</td>
+<td>USENIX Security 2026 · Peer-reviewed (an earlier version was rejected at ICLR 2026)</td>
+<td><a href="https://arxiv.org/abs/2510.09023">arXiv 2510.09023</a> · <a href="https://www.usenix.org/conference/usenixsecurity26/presentation/nasr">USENIX page</a></td>
+<td>6, 16, 18</td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>Defeating Prompt Injections by Design</strong> (CaMeL). E. Debenedetti et al.</td>
+<td>IEEE SaTML 2026, pp. 587–618, DOI 10.1109/SaTML68715.2026.00040 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2503.18813">arXiv 2503.18813</a> · <a href="https://github.com/google-research/camel-prompt-injection">code</a></td>
+<td>17, 18</td>
+</tr>
+<tr>
+<td>16</td>
+<td><strong>MELON: Provable Defense Against Indirect Prompt Injection Attacks in AI Agents.</strong> K. Zhu et al.</td>
+<td>ICML 2025 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2502.05174">arXiv 2502.05174</a></td>
+<td>16, 19</td>
+</tr>
+<tr>
+<td>17</td>
+<td><strong>Design Patterns for Securing LLM Agents against Prompt Injections.</strong> L. Beurer-Kellner et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2506.08837">arXiv 2506.08837</a></td>
+<td>15</td>
+</tr>
+<tr>
+<td>18</td>
+<td><strong>Right Tool, Wrong Parameters: Defending LLM Agents Against Parameter Poisoning</strong> (AuthorityFlow). Y. Wang et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2611.04673">arXiv 2611.04673</a></td>
+<td>18</td>
+</tr>
+<tr>
+<td>19</td>
+<td><strong>Signed but Not Safe: Requirement Integrity in Multi-Agent LLM Handoffs.</strong> Chen et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2611.07483">arXiv 2611.07483</a></td>
+<td>18</td>
+</tr>
+<tr>
+<td>20</td>
+<td><strong>PIGuard: Prompt Injection Guardrail via Mitigating Overdefense for Free</strong> (arXiv title: <em>InjecGuard: Benchmarking and Mitigating Over-defense in Prompt Injection Guardrail Models</em>). H. Li et al.</td>
+<td>ACL 2025 (long) · Peer-reviewed</td>
+<td><a href="https://aclanthology.org/2025.acl-long.1468/">ACL Anthology</a> · <a href="https://arxiv.org/abs/2410.22770">arXiv 2410.22770</a></td>
+<td>16, 20</td>
+</tr>
+<tr>
+<td>21</td>
+<td><strong>Passing the Test You Trained On: Re-evaluating Prompt-Injection Detectors for LLM Agents.</strong> Liu et al. <em>(source of the PIGuard 95.1% vs 2.1% numbers; not on the reference slide yet)</em></td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2610.03448">arXiv 2610.03448</a></td>
+<td>20</td>
+</tr>
+<tr>
+<td>22</td>
+<td><strong>Llama Guard: LLM-based Input-Output Safeguard for Human-AI Conversations.</strong> H. Inan et al. (Meta)</td>
+<td>arXiv · Preprint (technical report)</td>
+<td><a href="https://arxiv.org/abs/2312.06674">arXiv 2312.06674</a></td>
+<td>20, 21</td>
+</tr>
+</tbody>
+</table>
+<h2>4. JEV (decision models)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Venue · status</th>
+<th>Link</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>23</td>
+<td><strong>TypeSafe AI documentation and blog</strong> (JEV launch, System One models, confidence, model jaggedness, changelog)</td>
+<td>Vendor documentation</td>
+<td><a href="https://typesafe.ai/blog/introducing-system-one-models-and-jev">Launch post</a> · <a href="https://docs.typesafe.ai/concepts/system-one">Docs: System One</a> · <a href="https://docs.typesafe.ai/models">Models</a> · <a href="https://docs.typesafe.ai/confidence">Confidence</a> · <a href="https://docs.typesafe.ai/model-jaggedness">Model jaggedness</a> · <a href="https://docs.typesafe.ai/changelog">Changelog</a></td>
+<td>22–25, 28</td>
+</tr>
+<tr>
+<td>24</td>
+<td><strong>JEV-as-a-Judge: Accept When Confident, Escalate When Unsure.</strong> Li et al. (CMU)</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2609.26550">arXiv 2609.26550</a></td>
+<td>26, 27, 28</td>
+</tr>
+<tr>
+<td>25</td>
+<td><strong>Decision Models vs. LLMs as Rubric Judges: Cheaper, Faster, and Wrong in the Same Places.</strong> Rao, Callison-Burch (UPenn)</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2609.29769">arXiv 2609.29769</a></td>
+<td>28</td>
+</tr>
+<tr>
+<td>26</td>
+<td><strong>Jev as a judge: How counterfeit policy steers Jev.</strong> N. Frichette, F. Al-Kassar (Datadog Security Labs), 15 Oct 2026</td>
+<td>Industry blog</td>
+<td><a href="https://securitylabs.datadoghq.com/articles/jev-as-a-judge-how-counterfeit-policy-steers-jev/">Datadog Security Labs</a></td>
+<td>9, 28</td>
+</tr>
+<tr>
+<td>27</td>
+<td><strong>Jev's Architecture Unmasked</strong> (independent test with about 10,000 requests). A. Hume</td>
+<td>Blog</td>
+<td><a href="https://archerhume.com/posts/jevs-architecture-unmasked">archerhume.com</a></td>
+<td>23, 24</td>
+</tr>
+<tr>
+<td>28</td>
+<td><strong>Open decision-model replicas:</strong> Kev; Perplexity Decider</td>
+<td>Model cards</td>
+<td><a href="https://huggingface.co/Terom/kev-0.5b">Kev (Hugging Face)</a> · <a href="https://huggingface.co/perplexity-ai/pplx-decider-v1.1-27b">Perplexity Decider v1.1</a></td>
+<td>23, 28</td>
+</tr>
+</tbody>
+</table>
+<h2>5. Newer work used to check the research gaps</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Source</th>
+<th>Venue · status</th>
+<th>Link</th>
+<th>Slides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>29</td>
+<td><strong>From Intent to Action: Benchmarking LLM Safety in Vehicle Voice Command Authorization.</strong> D. Afroze et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2609.19630">arXiv 2609.19630</a></td>
+<td>30</td>
+</tr>
+<tr>
+<td>30</td>
+<td><strong>Adaptive Adversaries: A Multi-Turn, Multi-LLM Benchmark for LLM Agent Security.</strong> D. Jain et al.</td>
+<td>NeurIPS 2026 Evaluations &amp; Datasets Track (also ICML 2026 AIWILD workshop) · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2607.18063">arXiv 2607.18063</a> · <a href="https://openreview.net/forum?id=TwAO2rViBV">OpenReview</a></td>
+<td>30</td>
+</tr>
+<tr>
+<td>31</td>
+<td><strong>CaMeLs Can Use Computers Too: System-level Security for Computer Use Agents</strong> (NOVA). Foerster et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2601.09923">arXiv 2601.09923</a></td>
+<td>30</td>
+</tr>
+<tr>
+<td>32</td>
+<td><strong>Can CaMeLs Talk? Securing Multi-Agent Systems Against Indirect Prompt Injection Attacks.</strong> J. Peters-Gill et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2610.05640">arXiv 2610.05640</a></td>
+<td>30</td>
+</tr>
+<tr>
+<td>33</td>
+<td><strong>JEV as a Judge for Agent Trace Security: An Empirical Comparison with Generative LLM Judges.</strong> Wang, Gao (USTC)</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2609.34862">arXiv 2609.34862</a></td>
+<td>9, 30</td>
+</tr>
+<tr>
+<td>34</td>
+<td><strong>Beyond Attack-Success Rate: Action-Graded Severity Scale for Tool-Using AI Agents.</strong> Owiredu-Ashley et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2607.07474">arXiv 2607.07474</a></td>
+<td>14, 30</td>
+</tr>
+<tr>
+<td>35</td>
+<td><strong>FuncPoison: Poisoning Function Library to Hijack Multi-agent Autonomous Driving Systems.</strong> Y. Long et al.</td>
+<td>arXiv · Preprint</td>
+<td><a href="https://arxiv.org/abs/2509.24408">arXiv 2509.24408</a></td>
+<td>2, 30</td>
+</tr>
+<tr>
+<td>36</td>
+<td><strong>CHAI: Command Hijacking against Embodied AI.</strong> L. Burbano et al.</td>
+<td>IEEE SaTML 2026 · Peer-reviewed</td>
+<td><a href="https://arxiv.org/abs/2510.00181">arXiv 2510.00181</a></td>
+<td>2, 30</td>
+</tr>
+</tbody>
+</table>
+<h2>6. Other</h2>
+<ul>
+<li><strong>Zhaokun's thesis</strong> (slide 20, Llama Guard result) — please add author, title, year and university.</li>
+<li><strong>Own re-analyses of public artefacts</strong> (slides 5, 7, 8, 14): attempt-budget analysis of AgentLAB's published task-injection results, clean-run noise of CAR-bench's published trajectories, and a replay of AgentDojo's stored clean runs against all attack checks. These are my own analyses of the authors' public code and data (AgentLAB, CAR-bench, AgentDojo; all MIT-licensed), not peer-reviewed results. Scripts and outputs available on request.</li>
+</ul>
+<h2>Notes on venue status</h2>
+<ul>
+<li>Peer-reviewed (main venues): 1–5, 7–16, 20, 30, 36. Workshop: 6. Preprints: 17–19, 21, 22, 24, 25, 29, 31–35. Vendor or blog: 23, 26–28.</li>
+<li><strong>Corrections compared with the slide version of the reference list:</strong></li>
+<li>
+<h1>14 The Attacker Moves Second is now <strong>USENIX Security 2026</strong>; it was rejected at ICLR 2026 (both shown on OpenReview and usenix.org).</h1>
+</li>
+<li>
+<h1>15 CaMeL is <strong>IEEE SaTML 2026</strong>; the slide lists only the arXiv number.</h1>
+</li>
+<li>
+<h1>30 Adaptive Adversaries is now <strong>NeurIPS 2026 E&amp;D</strong>.</h1>
+</li>
+<li>
+<h1>11 R-Judge is <strong>Findings of EMNLP 2024</strong>.</h1>
+</li>
+<li>
+<h1>21 is added; it is the source of the PIGuard numbers on slide 20.</h1>
+</li>
+<li>arXiv numbers were checked against the arXiv titles. The CaMeL page numbers come from Semantic Scholar/DBLP and two citing papers; the IEEE Xplore page itself could not be opened from my environment.</li>
+</ul></main></body></html>
